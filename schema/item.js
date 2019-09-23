@@ -17,7 +17,13 @@ let itemSchema = new mongoose.Schema({
  },
  date: {
      type: Date,
+ },
+    user_id: {
+     type: String,
+     required: true,
+
  }
+
 })
 
 module.exports = mongoose.model('Item', itemSchema)
