@@ -4,11 +4,10 @@ const express = require('express');
 const router = express.Router();
 
 
-router.post('/api/v1/auth/register',function(req,res){
+router.post('/api/v1/auth/register', function(req,res){
     let username = req.body.username;
     let email = req.body.email;
     let password = req.body.password;
-    console.log(req.body);
     let user = new UserModel({
         username: username,
         email: email,
@@ -16,8 +15,9 @@ router.post('/api/v1/auth/register',function(req,res){
     })
     user.save()
         .then(doc => {
-            console.log(doc);
-            res.json({"registered":true});
+            let jsonDoc = doc.toJSON();
+            delete jsonDoc.password;
+            res.json(jsonDoc);
         })
         .catch(err=>{
             console.log(err);
