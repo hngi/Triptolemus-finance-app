@@ -3,8 +3,7 @@ let validator = require('validator')
 let itemSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     description: {
         type: String,
