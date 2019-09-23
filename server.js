@@ -8,9 +8,9 @@ require('dotenv').config();
 app.use(cors());
 app.use(express.json({ extended: false }));
 
-// app.use(require('./routes/Auth/login'));
+app.use('/auth', require('./routes/Auth/login'));
 // app.use(require('./routes/Auth/register'));
-app.use(require('./routes/Item/item'));
+// app.use(require('./routes/Item/item'));
 
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
