@@ -35,10 +35,7 @@ router.post('/api/auth/login', async (req, res) => {
                         token = jwt.sign({username : user.username, email: user.email},'secret');
                         return res.status(200).json({respCode: '00', respMsg: 'SUCCESS', token: token, userDetails: user});
                     } else {
-                        respCode = '99';
-                        respMsg = 'FAILED';
-                        userDetails = null;
-                        return res.status(400).json({respCode: respCode, respMsg: respMsg, token: token, userDetails: userDetails});
+                        return res.status(400).json({respCode: '99', respMsg: 'FAILED', token: null, userDetails: null});
                     }
 
                 });
