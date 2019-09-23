@@ -1,17 +1,21 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-app.use(cors());
+const mongoose = require('mongoose');
+require('./database/database');
+require('dotenv').config();
 
+app.use(cors());
 app.use(express.json({ extended: false }));
-app.use(require('./routes/Auth/login'));
-app.use(require('./routes/Auth/register'));
+
+// app.use(require('./routes/Auth/login'));
+// app.use(require('./routes/Auth/register'));
 app.use(require('./routes/Item/item'));
 
-const PORT = 3500;
+mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
+const PORT = process.env.PORT || 3500;
 
-if (!module.parent) {
-  app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`);
-  });
-}
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
+});
