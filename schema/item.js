@@ -1,28 +1,28 @@
 let mongoose = require('mongoose')
 let validator = require('validator')
 let itemSchema = new mongoose.Schema({
-  name: {
-      type: String,
-      required: true,
-      unique: true
-  },
-  description: {
-    type: String,
-    required: true
-},
- amount: {
-     type: Number,
-     required: true,
+    name: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    amount: {
+        type: Number,
+        required: true,
 
- },
- date: {
-     type: Date,
- },
+    },
+    date: {
+        type: Date,
+    },
     user_id: {
-     type: String,
-     required: true,
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User'
 
- }
+    }
 
 })
 
