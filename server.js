@@ -4,6 +4,9 @@ const cors = require('cors');
 app.use(cors());
 
 app.use(express.json({ extended: false }));
+app.use(require('./routes/Auth/login'));
+app.use(require('./routes/Auth/register'));
+app.use(require('./routes/Item/item'));
 
 const PORT = 3500;
 
