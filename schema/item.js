@@ -15,9 +15,9 @@ let itemSchema = new mongoose.Schema({
      required: true,
 
  },
- lastModified: {
+ date: {
      type: Date,
  }
 })
 
-module.exports = mongoose.model('Item', userSchema)
+module.exports = mongoose.model('Item', itemSchema)
