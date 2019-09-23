@@ -29,12 +29,9 @@ router.post('/api/auth/register', async (req, res) => {
             res.json(userDocJson)
         } catch (error) {
             res.status(401)
-            console.log(error)
             if (error.errmsg.toString().includes("duplicate key error collection")) {
                 res.json({ error: "User already exist" })
-            } else {
-                console.log(error)
-                res.json({ error: error.errmsg.toString })
+            } else {res.json({ error: error.errmsg.toString })
 
             }
 
