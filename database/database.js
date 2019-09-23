@@ -1,8 +1,7 @@
 let mongoose = require('mongoose');
+require('dotenv').config();
 
-const server =
-  'mongodb://u07sepb3pas455utv75n:fCypzvGDwvNXY3eesjCm@bfowxun153bbeyl-mongodb.services.clever-cloud.com:27017/bfowxun153bbeyl'; // REPLACE WITH YOUR DB SERVER
-const database = 'bfowxun153bbeyl'; // REPLACE WITH YOUR DB NAME
+const server = process.env.DATABASEURL;
 
 class Database {
   constructor() {
