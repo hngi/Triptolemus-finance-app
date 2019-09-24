@@ -1,5 +1,5 @@
-let mongoose = require('mongoose')
-let validator = require('validator')
+let mongoose = require('mongoose');
+let validator = require('validator');
 var bcrypt = require('bcryptjs');
 
 var salt = bcrypt.genSaltSync(10);
@@ -11,7 +11,7 @@ let userSchema = new mongoose.Schema({
     required: true,
     unique: false,
     validate: (value) => {
-      return validator.isAlphanumeric(value)
+      return validator.isAlphanumeric(value);
     }
   },
   email: {

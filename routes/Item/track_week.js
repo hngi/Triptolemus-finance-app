@@ -1,8 +1,9 @@
-require('./database');
+require('../database/database');
 const express = require('express');
 const router = express.Router();
 let mongoose = require('mongoose')
-let itemModel = require('./items');
+let itemModel = require('../schema/item');
+let userModel = require('../schema/user');
 //let validator = require('validator')
 var app = express();
 
@@ -12,24 +13,14 @@ Date.prototype.addDays = function(days) {
     return date;
 }
 
-app.get('/itemName/:name/date/:startDate', function (req, res) {
+app.get('/users/:userId/calculate/week', function (req, res) {
 	//user_id = req.params.userId;
 	console.log(req.params);
-	start_date = req.params.startDate;
-	startDate = req.params.startDate;
-	itemName = req.params.name;
-	var start_msec = Date.parse(start_date);
-	start_date = new Date(start_msec);
-	end_date = start_date.addDays(8);
-	console.log(start_date);
-	//console.log(end_date);
-	console.log(itemName);
-	console.log(start_date);
-	//console.log(req.params);
+	userId = req.params.userId;
 	itemModel
 	 .find({
-	 	date: { $gte: startDate, $lte: (end_date) }
-	 })
+	 	user_id : userId
+	 }).sort({date: 1})
 	 .then(doc => {
 	 	console.log(doc)
 	 	if(doc.length > 0) {
@@ -49,4 +40,3 @@ app.get('/itemName/:name/date/:startDate', function (req, res) {
 	 	console.error(err)
 	 })
 });
-app.listen(3000);
