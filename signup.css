@@ -43,19 +43,12 @@ form{
     cursor: pointer;
     background: rgb(33, 82, 243);
 }
-.tab-pc{
-    display: none;
-}
 @media screen and (min-width: 47.5em){
     body{
         font-size: 100%;
     }
     .mobile{
         display: none;
-    }
-    .tab-pc{
-        display: block;
-        height: 100%;
     }
     h1{
         text-align: unset;
