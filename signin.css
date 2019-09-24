@@ -1,0 +1,83 @@
+/* css reset */
+* {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.login-container {
+  width: 100%;
+  height: 100vh;
+}
+
+.login-form-1 {
+  position: relative;
+  padding: 10% 0;
+  background: #022ec1;
+  background-image: url("https://res.cloudinary.com/elijjaaahhhh/image/upload/v1569283584/pattern_xx6sq7.png");
+}
+
+.login-form-1 img {
+  position: absolute;
+  top: 40%;
+  left: 20%;
+}
+
+.login-form-2 {
+  padding: 10% 0;
+  background-color: #ffffff;
+  position: relative;
+}
+
+.login-form-2 h3 {
+  text-align: center;
+  color: rgb(15, 14, 14);
+  position: absolute;
+  top: 10%;
+  left: 40%;
+}
+
+.login-container form {
+  padding: 0%;
+}
+
+.btnSubmit {
+  width: 100%;
+  padding: 1.5%;
+  border: none;
+  cursor: pointer;
+}
+
+.login-form-2 .btnSubmit {
+  font-weight: 600;
+  color: #fff;
+  background-color: #022ec1;
+  margin-top: 10px;
+}
+
+.login-form-2 .ForgetPwd {
+  color: #022ec1;
+  font-weight: 600;
+  text-decoration: none;
+  margin: 0 200px;
+}
+
+.login-form-2 .signup {
+  color: #022ec1;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.login-form-2 .sign {
+  margin: 0 150px;
+}
+
+.form-group {
+  padding: 0 10%;
+}
+
+.hover input:hover {
+  background-color: #3f76e6;
+  font-weight: 750;
+  text-decoration: none;
+}
