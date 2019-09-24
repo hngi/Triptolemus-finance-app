@@ -1,5 +1,29 @@
-let mongoose = require('mongoose')
-let validator = require('validator')
+/**
+ * @swagger 
+ * definitions:
+ *  Item:
+ *    type: Object
+ *    properties:
+ *    _id:
+ *      type: string
+ *    name:
+ *      type: string
+ *    description:
+ *      type: string
+ *    amount:
+ *      type: integer
+ *    user_id:
+ *      type: string
+ *    date:
+ *      type: date-time
+ *    required:
+ *      - name
+ *      - description
+ *      - amount
+ */
+
+let mongoose = require('mongoose');
+let validator = require('validator');
 let itemSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -20,7 +44,8 @@ let itemSchema = new mongoose.Schema({
     date: {
         type: Date,
         required: true,
-        unique: false
+        unique: false,
+        default: Date.now
     },
     user_id: {
         type: mongoose.Schema.Types.ObjectId, 
@@ -29,6 +54,6 @@ let itemSchema = new mongoose.Schema({
 
     }
 
-})
+});
 
-module.exports = mongoose.model('Item', itemSchema)
+module.exports = mongoose.model('Item', itemSchema);

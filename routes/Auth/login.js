@@ -14,7 +14,6 @@
 *       - name: body
 *         in: body
 *         schema:
-*           $ref: '#/definitions/User'
 *           type: object
 *           properties:
 *             email:
@@ -70,7 +69,7 @@ router.post('/api/auth/login', async (req, res) => {
                 });
             });
         }catch(error){
-            return res.status(400).json({error: error.errmsg.toString});
+            return res.status(400).json({error: error.errmsg});
         }
     }
 });

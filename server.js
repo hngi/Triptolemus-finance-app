@@ -48,7 +48,8 @@ app.use(cors());
 app.use(express.json({ extended: false }));
 app.use(require('./routes/Auth/login'));
 app.use(require('./routes/Auth/register'));
-app.use(require('./routes/Item/item'));
+app.use(require('./routes/Item/getItems'));
+app.use(require('./routes/Item/addItems'));
 
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);

@@ -14,7 +14,6 @@
 *       - name: body
 *         in: body
 *         schema:
-*           $ref: '#/definitions/User'
 *           type: object
 *           properties:
 *             username: 
@@ -80,7 +79,7 @@ router.post('/api/auth/register', async (req, res) => {
       });
     } else {
       res.status(400).json({
-        error: error.errmsg.toString
+        error: error.toString()
       });
     }
   }
