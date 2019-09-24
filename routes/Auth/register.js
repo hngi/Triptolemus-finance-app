@@ -34,7 +34,6 @@ router.post('/api/auth/register', async (req, res) => {
     }, process.env.JWT_KEY);
     res.status(200).json(userDocJson);
   } catch (error) {
-    console.log(error);
     if (error.errmsg.includes('E11000 duplicate key error collection')) {
       return res.status(401).json({
         error: 'User already exists'
