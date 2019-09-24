@@ -5,13 +5,13 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 
 router.post('/api/auth/login', async (req, res) => {
-    const username = req.body.username, password = req.body.password;
+    const email = req.body.email, password = req.body.password;
     let token = null, respCode = '', respMsg = '', userDetails = null;
 
-    if ( username == '' || username == undefined) {
+    if ( email == '' || email == undefined) {
             return res.status(401).json({ 
             respCode: '99',
-            respMsg: "username Field can't be empty",
+            respMsg: "email Field can't be empty",
             token: token,
             userDetails: userDetails });
         }else if(password == '' || password == undefined){
@@ -22,7 +22,7 @@ router.post('/api/auth/login', async (req, res) => {
             userDetails: userDetails });
         }else{
             try{
-            User.findOne({username: username}).then( user => {
+            User.findOne({email: email}).then( user => {
                 if(!user){
                     return res.status(401).json({
                         respCode: '99',
