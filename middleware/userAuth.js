@@ -21,20 +21,14 @@ class userAuth {
       });
     }
     try {
-      const {
-        id
-      } = await jwt.verify(token, process.env.JWT_KEY);
-      const user = User.findOne({
-        id
-      })
+      const data = jwt.verify(token, process.env.JWT_KEY);
+      const user = await User.findOne({_id: data._id}).exec()
       if (!user) {
         return res.status(400).send({
           'message': 'The token you provided is invalid'
         });
       }
-      req.user = {
-        id
-      }
+      req.user = user
       next();
     } catch (e) {
       // return res.status(400).send(e);
@@ -43,4 +37,4 @@ class userAuth {
   }
 }
 
-module.exports = userAuth;
+module.exports = new userAuth();
