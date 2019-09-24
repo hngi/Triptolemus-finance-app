@@ -32,7 +32,7 @@ router.get('/api/users/:userId/items',userAuth.verifyToken ,async (req, res) => 
 });
 
 //route for getting all items in date range
-router.get('/api/users/:userId/calculate/:startDate/:endDate', (req,res, next) => {
+router.get('/api/users/:userId/calculate/:startDate/:endDate', userAuth.verifyToken, (req,res, next) => {
   const { userId, startdate, enddate } = req.params;
   const newItem = Item.find({user_id: userId, date: {$gte: startDate, $lte: endDate}}).then(
     things => {
