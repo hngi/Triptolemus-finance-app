@@ -32,7 +32,7 @@ router.post('/api/auth/login', async (req, res) => {
                 }
                 bcrypt.compare(password, user.password).then(isMatch => {
                     if(isMatch){
-                        token = jwt.sign({username : user.username, email: user.email},'secret');
+                        token = jwt.sign({id: user.id, username : user.username, email: user.email},'secret');
                         return res.status(200).json({respCode: '00', respMsg: 'SUCCESS', token: token, userDetails: user});
                     } else {
                         return res.status(400).json({respCode: '99', respMsg: 'FAILED', token: null, userDetails: null});
