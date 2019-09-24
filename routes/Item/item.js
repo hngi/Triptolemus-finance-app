@@ -1,9 +1,10 @@
 let express = require('express');
 let router = express.Router();
+let userAuth = require('../../middleware/userAuth')
 let User = require('../../schema/user');
 let Item = require('../../schema/item');
 
-router.post('/api/users/:userId/items', async (req, res) => {
+router.post('/api/users/:userId/items',userAuth.verifyToken, async (req, res) => {
   try {
     const { userId } = req.params;
     const { name, description, amount } = req.body;
@@ -19,7 +20,7 @@ router.post('/api/users/:userId/items', async (req, res) => {
     console.log(error.message);
   }
 });
-router.get('/api/users/:userId/items', async (req, res) => {
+router.get('/api/users/:userId/items',userAuth.verifyToken ,async (req, res) => {
   try {
     const { userId } = req.params;
 
