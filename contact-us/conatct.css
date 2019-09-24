@@ -1,0 +1,123 @@
+/* CONTACT CSS START HERE */
+
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+.contact_title {
+    margin-top: 2rem;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 600;
+    font-family: 'Raleway', sans-serif;
+}
+
+.contact_form {
+    margin: 2.5rem 0rem 1.5rem 0rem;
+    background-color: #7d7d81;
+    border-radius: 10px;
+}
+
+.contact_input>input[type="text"],
+.contact_input>input[type="email"] {
+    width: 45%;
+    float: left;
+    padding: 7.5px;
+    line-height: 5px;
+    margin: 2.5%;
+    color: #000;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid #231ad6;
+    font-size: 1.2em;
+    outline: none;
+}
+
+.contact_input>textarea {
+    width: 95%;
+    margin: 2.5%;
+    padding: 7.5px;
+    height: 150px;
+    outline: none;
+    letter-spacing: 1.5px;
+    border-bottom: 1px solid #231ad6;
+    font-size: 1.2em;
+    resize: inherit;
+}
+
+input[type="submit"] {
+    margin: 1em auto 2em;
+    color: #fff;
+    background-color: #231ad6;
+    display: block;
+    border: thin;
+    border-radius: 5px;
+    font-family: 'Raleway', sans-serif;
+    padding: 0.8em 0.75em;
+}
+
+.contact_info {
+    background-color: #dfdfe8;
+    padding: 10px;
+    margin-top: 2em;
+    border-radius: 5px;
+}
+
+.contact_info>h3 {
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 650;
+}
+
+.mailing {
+    margin-top: 2rem;
+}
+
+.contact_text>h4,
+.mail_contact>h4,
+.contact_visit>h4 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.contact_icon {
+    float: left;
+    margin-top: -2px;
+    padding: 0;
+    font-size: 1.3em;
+}
+
+.mail_contact,
+.contact_text,
+.contact_visit {
+    float: left;
+    text-align: left;
+    margin-left: 1em;
+}
+
+.mail_contact>p>a,
+.contact_text>p>a {
+    color: #231ad6;
+}
+
+.mail_contact>p>a:hover,
+.contact_text>p>a:hover {
+    text-decoration: none;
+    color: #231ad6;
+}
+
+.map_text>h3 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 650;
+    text-align: center;
+    margin-top: 1.4em;
+    color: #000;
+}
+
+.map_text>iframe {
+    width: 100%;
+    min-height: 310px;
+    border: 5px solid #b9f277;
+    margin-top: 1em;
+    border-radius: 5px;
+}
+
+
+/* END CONTACT CSS HERE */
