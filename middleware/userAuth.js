@@ -22,10 +22,10 @@ class userAuth {
     }
     try {
       const {
-        id
+        _id
       } = await jwt.verify(token, process.env.JWT_KEY);
       const user = User.findOne({
-        id
+        _id
       })
       if (!user) {
         return res.status(400).send({
