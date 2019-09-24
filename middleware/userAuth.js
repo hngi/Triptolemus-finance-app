@@ -33,7 +33,7 @@ class userAuth {
         });
       }
       req.user = {
-        id
+        _id
       }
       next();
     } catch (e) {
