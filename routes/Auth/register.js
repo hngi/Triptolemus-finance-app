@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/api/auth/register', async (req, res) => {
+
   let { username, email, password } = req.body;
   try {
     if (
