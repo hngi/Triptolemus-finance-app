@@ -1,8 +1,8 @@
 import React, { useState, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { register } from '../../actions/auth'
-import './Register.css'
+import { register } from '../../actions/auth';
+import './Register.css';
 const Register = ({ isAuthenticated, register, history }) => {
   const [formData, setFormData] = useState({
     username: '',
@@ -11,7 +11,7 @@ const Register = ({ isAuthenticated, register, history }) => {
   });
   const { username, email, password } = formData;
   const onChange = e => {
-    setFormData({ ...formData, [e.target.username]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   if (isAuthenticated) {
     return <Redirect to='/dashboard' />;
@@ -36,10 +36,9 @@ const Register = ({ isAuthenticated, register, history }) => {
 
                 register(username, email, password, history);
               }}
-              className='form-horizontal'
-              role='form'>
+              className='form-horizontal'>
               <div className='form-group'>
-                <label className='control-label sm-1 ml-3' htmlFor='usr'>
+                <label className='control-label sm-1 ml-3' htmlFor='username'>
                   Username
                 </label>
                 <div className='col-sm-11'>
@@ -47,8 +46,9 @@ const Register = ({ isAuthenticated, register, history }) => {
                     onChange={e => onChange(e)}
                     type='text'
                     placeholder='JohnDoe'
-                    name='name'
+                    name='username'
                     value={username}
+                    id='username'
                     required
                     className='form-control'
                   />
@@ -60,18 +60,19 @@ const Register = ({ isAuthenticated, register, history }) => {
                 </label>
                 <div className='col-sm-11'>
                   <input
-                    onChange={e => onChange(e)}
                     type='email'
                     placeholder='jdoe@gmail.com'
-                    name='name'
+                    name='email'
+                    id='email'
                     value={email}
                     required
+                    onChange={e => onChange(e)}
                     className='form-control'
                   />
                 </div>
               </div>
               <div className='form-group'>
-                <label className='control-label sm-1 ml-3' htmlFor='pwd'>
+                <label className='control-label sm-1 ml-3' htmlFor='password'>
                   Password
                 </label>
                 <div className='col-sm-11'>
@@ -95,10 +96,10 @@ const Register = ({ isAuthenticated, register, history }) => {
                   </button>
                 </div>
               </div>
-              <p>
-                Already a member? <Link to='/login'>Sign In</Link>
-              </p>
             </form>
+            <p>
+              Already a member? <Link to='/login'>Sign In</Link>
+            </p>
           </div>
         </div>
       </div>
