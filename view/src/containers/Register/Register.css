@@ -43,6 +43,57 @@ form{
     cursor: pointer;
     background: rgb(33, 82, 243);
 }
+.signup-input-label{
+    margin-left: 1.5em;
+}
+.signup-container{
+    width: 100%;
+    height: 100%;
+    margin-left: 0px; 
+    margin-right: 0px;
+
+}
+
+.signup-row{
+    width: 100%;
+    height: 100%;
+}
+
+
+.signup-label{
+    margin: 0 auto;
+    text-align: center;
+}
+.signup-button{
+    border-radius: 0px;
+    height: 3.5em;
+
+}
+.signup-input-label{
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.signup-form-container{
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+@media only screen and (max-width: 570px) {
+    .signup-row{
+        width: 100%;
+        height: 100%;
+    }
+    .signup-form-container{
+        position: relative;
+        top: 50%;
+        margin-left: 18px;
+        transform: translateY(-50%);
+
+      }
+  }
 @media screen and (min-width: 47.5em){
     body{
         font-size: 100%;
