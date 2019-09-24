@@ -1,0 +1,45 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "triptolemus-finance-app",
+        "description": "A description of your project",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "servers" : [
+
+    ],
+    "tags" : [
+        {
+            "name" : "Auth",
+            "description" : "API for authenication"
+        }
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths" : {
+        "/api/auth" : {
+            "login" : {
+                "tags" : [
+                    "auth"
+                ],
+                "summary" : "Login to the application",
+                "responses" : {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Auth"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

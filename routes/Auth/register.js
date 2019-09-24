@@ -1,3 +1,42 @@
+/**
+* @swagger
+* /auth/register:
+*   post:
+*     tags:
+*       - Users
+*     name: Register
+*     summary: API to create user account
+*     produces:
+*       - application/json
+*     consumes:
+*       - application/json
+*     parameters:
+*       - name: body
+*         in: body
+*         schema:
+*           $ref: '#/definitions/User'
+*           type: object
+*           properties:
+*             username: 
+*               type: string
+*             email:
+*               type: string
+*             password:
+*               type: string
+*               format: password
+*         required:
+*           - username
+*           - email
+*           - password
+*     responses:
+*       200:
+*         description: User successfully added
+*       400:
+*         description: Unexceptated Error
+*       401:
+*         description: input parameter are required
+*/
+
 require('../../database/database');
 const jwt = require('jsonwebtoken');
 let UserModel = require('../../schema/user');

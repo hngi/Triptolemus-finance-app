@@ -1,3 +1,41 @@
+/**
+* @swagger
+* /auth/login:
+*   post:
+*     tags:
+*       - Users
+*     name: Login
+*     summary: User sigin endpoint
+*     produces:
+*       - application/json
+*     consumes:
+*       - application/json
+*     parameters:
+*       - name: body
+*         in: body
+*         schema:
+*           $ref: '#/definitions/User'
+*           type: object
+*           properties:
+*             email:
+*               type: string
+*             password:
+*               type: string
+*               format: password
+*         required:
+*           - email
+*           - password
+*     responses:
+*       200:
+*         description: User found and logged in successfully
+*       401:
+*         description: input parameter are required
+*       402:
+*         description: Bad username, not found
+*       403:
+*         description: Username and password don't match
+*/
+
 const express = require('express');
 const User = require('../../schema/user');
 const bcrypt = require('bcryptjs');
@@ -10,38 +48,29 @@ router.post('/api/auth/login', async (req, res) => {
 
     if ( email == '' || email == undefined) {
             return res.status(401).json({ 
-            respCode: '99',
-            respMsg: "email Field can't be empty",
-            token: token,
-            userDetails: userDetails });
+            error: "email Field can't be empty" });
         }else if(password == '' || password == undefined){
             return res.status(401).json({ 
-            respCode: '99',
-            respMsg: "password Field can't be empty",
-            token: token,
-            userDetails: userDetails });
+            error: "password Field can't be empty"});
         }else{
             try{
             User.findOne({email: email}).then( user => {
                 if(!user){
-                    return res.status(401).json({
-                        respCode: '99',
-                        respMsg: 'User does not exist',
-                        token: null,
-                        userDetails: null});
+                    return res.status(402).json({
+                        error: 'User does not exist'});
                 }
                 bcrypt.compare(password, user.password).then(isMatch => {
                     if(isMatch){
                         token = jwt.sign({_id: user._id},'secret');
-                        return res.status(200).json({respCode: '00', respMsg: 'SUCCESS', token: token, userDetails: user});
+                        return res.status(200).json({token: token, userDetails: user});
                     } else {
-                        return res.status(400).json({respCode: '99', respMsg: 'FAILED', token: null, userDetails: null});
+                        return res.status(403).json({error: 'Username or Password incorrect'});
                     }
 
                 });
             });
         }catch(error){
-            return res.status(400).json({respCode: respCode, respMsg: error.errmsg.toString, token: token, userDetails: userDetails});
+            return res.status(400).json({error: error.errmsg.toString});
         }
     }
 });

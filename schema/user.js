@@ -1,3 +1,24 @@
+/**
+ * @swagger 
+ * definitions:
+ *  User:
+ *    type: Object
+ *    properties:
+ *    _id:
+ *      type: string
+ *    username:
+ *      type: string
+ *    email:
+ *      type: string
+ *    password:
+ *      type: string
+ *      format: password
+ *    required:
+ *      - username
+ *      - email
+ *      - password
+ */
+
 let mongoose = require('mongoose');
 let validator = require('validator');
 var bcrypt = require('bcryptjs');
