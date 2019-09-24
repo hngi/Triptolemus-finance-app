@@ -70,10 +70,10 @@ export const login = (email, password, history) => async dispatch => {
     dispatch(setAlert('Login was successful', 'success'));
     history.push('/dashboard');
   } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
+    // const errors = error.response.data.errors;
+    // if (errors) {
+    //   errors.map(error => dispatch(setAlert(error.msg, 'danger')));
+    // }
     dispatch({
       type: LOGIN_FAIL
     });

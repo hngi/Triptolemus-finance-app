@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './Landing.css';
 import logo from '../../Logo - dark.png';
@@ -23,22 +23,22 @@ const Landing = ({ isAuthenticated }) => {
         <nav className='main-nav'>
           <ul className='main-nav__items'>
             <li className='main-nav__item'>
-              <a href='#'>Home</a>
+              <Link to='#'>Home</Link>
             </li>
             <li className='main-nav__item'>
-              <a href='#'>Features</a>
+              <Link to='#'>Features</Link>
             </li>
             <li className='main-nav__item'>
-              <a href='#'>Downloads</a>
+              <Link to='#'>Downloads</Link>
             </li>
             <li className='main-nav__item'>
-              <a href='#'>FAQs</a>
+              <Link to='#'>FAQs</Link>
             </li>
             <li className='main-nav__item'>
-              <a href='#'>Contact Us</a>
+              <Link to='#'>Contact Us</Link>
             </li>
             <li className='main-nav__item main-nav__item--cta'>
-              <a href='#'>Sign In</a>
+              <Link to='/login'>Sign In</Link>
             </li>
           </ul>
         </nav>
@@ -56,9 +56,9 @@ const Landing = ({ isAuthenticated }) => {
               <p>Manage Your Finances</p>
             </li>
           </ul>
-          <a href>
+          <Link to='/register' href>
             <button className='signUpButton'>SIGN UP FOR FREE</button>
-          </a>
+          </Link>
         </section>
         <section className='product-image'>
           <svg
