@@ -4,7 +4,6 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   AUTH_FAIL,
-  LOAD_USER,
   LOGOUT,
   CLEAR_PROFILE
 } from '../actions/types';
@@ -20,12 +19,17 @@ export default function(state = initialState, action) {
   switch (type) {
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
-      localStorage.setItem('token', payload);
+      localStorage.setItem('token', payload.token);
       return {
         ...state,
-        token: payload,
+        token: payload.token,
         isAuthenticated: true,
-        loading: false
+        loading: false,
+        user: {
+          id: payload._id,
+          username: payload.username,
+          email: payload.email
+        }
       };
     case REGISTER_FAIL:
     case LOGIN_FAIL:
@@ -40,13 +44,7 @@ export default function(state = initialState, action) {
         token: null,
         user: null
       };
-    case LOAD_USER:
-      return {
-        ...state,
-        isAuthenticated: true,
-        user: payload,
-        loading:false
-      };
+
     default:
       return state;
   }

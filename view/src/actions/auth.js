@@ -7,25 +7,9 @@ import {
   LOGOUT
 } from './types';
 import { setAlert } from './alert';
-// import setAuthToken from '../utils/setAuthToken';
+
 import axios from 'axios';
 
-// export const loadUser = () => async dispatch => {
-//   if (localStorage.token) {
-//     setAuthToken(localStorage.token);
-//   }
-//   try {
-//     const response = await axios.get('/user');
-//     dispatch({
-//       type: LOAD_USER,
-//       payload: response.data
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: AUTH_FAIL
-//     });
-//   }
-// };
 export const register = (
   username,
   email,
@@ -41,23 +25,24 @@ export const register = (
     headers: { 'Content-Type': 'application/json' }
   };
   try {
-    const response = await axios.post('http://localhost:3500/api/auth/register', body, config);
-    console.log(response);
-    if(response.data !== null){
+    const response = await axios.post(
+      'https://finance-tracker-server.herokuapp.com/api/auth/register',
+      body,
+      config
+    );
+    
       dispatch({
         type: REGISTER_SUCCESS,
         payload: response.data
       });
       dispatch(setAlert('Registration was successful', 'success'));
       history.push('/dashboard');
-      }
-      dispatch(setAlert('Invalid credentials'))
+      
   } catch (error) {
-    // console.log(error)
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
+    // const errors = error.response.data.errors;
+    // if (errors) {
+    //   errors.map(error => dispatch(setAlert(error.msg, 'danger')));
+    // }
     dispatch({
       type: REGISTER_FAIL,
       payload: error
@@ -74,7 +59,7 @@ export const login = (email, password, history) => async dispatch => {
   };
   try {
     const response = await axios.post(
-      'http://localhost:3500/api/auth/login',
+      'https://finance-tracker-server.herokuapp.com/api/auth/login',
       body,
       config
     );
