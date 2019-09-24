@@ -10,11 +10,22 @@
   height: 100vh;
 }
 
+.pattern {
+  width: 100%;
+}
+
+.row {
+  height: 100vh;
+}
+
 .login-form-1 {
   position: relative;
   padding: 10% 0;
   background: #022ec1;
   background-image: url("https://res.cloudinary.com/elijjaaahhhh/image/upload/v1569283584/pattern_xx6sq7.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .login-form-1 img {
@@ -32,13 +43,16 @@
 .login-form-2 h3 {
   text-align: center;
   color: rgb(15, 14, 14);
-  position: absolute;
-  top: 10%;
-  left: 40%;
+  padding-bottom: 3%;
+  font-weight: 200;
 }
 
 .login-container form {
   padding: 0%;
+}
+
+.form-group-sign p {
+  text-align: center;
 }
 
 .btnSubmit {
@@ -55,14 +69,16 @@
   margin-top: 10px;
 }
 
-.login-form-2 .ForgetPwd {
+.ForgetPwd {
   color: #022ec1;
   font-weight: 600;
   text-decoration: none;
-  margin: 0 200px;
+  display:block;
+  text-align: center;
+  width: auto;
 }
 
-.login-form-2 .signup {
+.signup {
   color: #022ec1;
   font-weight: 750;
   text-decoration: none;
@@ -80,4 +96,63 @@
   background-color: #3f76e6;
   font-weight: 750;
   text-decoration: none;
+}
+
+@media only screen and (min-device-width: 568px)
+and (max-device-width: 948px) {
+  .login-form-2 h3 {
+    text-align: center;
+    font-weight: 200;
+    font-size: 150%;
+  }
+
+  .ForgetPwd {
+    text-align: center;
+  }
+}
+
+@media only screen and (min-device-width: 100px)
+and (max-device-width: 639px) {
+  .login-form-2 h3 {
+    text-align: center;
+    font-weight: 200;
+    font-size: 150%;
+  }
+
+  .ForgetPwd {
+    text-align: center;
+  }
+}
+
+@media only screen and (max-device-width: 512px) {
+  .login-form-1 img {
+    position: absolute;
+    top: 40%;
+    left: 10%;
+  }
+}
+
+@media only screen and (max-device-width: 379px) {
+  .login-form-1 img {
+    position: absolute;
+    top: 40%;
+    left: 6%;
+  }
+
+}
+
+@media only screen and (min-device-width: 0em) {
+  .pattern{
+      background: url('https://res.cloudinary.com/taofeeq/image/upload/v1569272984/TriptoTracker/pattern_xfwn22.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 100%;
+  }
+}
+
+@media only screen and (max-device-width: 767px) {
+  .pattern {
+    height: 20%;
+  }
 }
