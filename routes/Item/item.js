@@ -1,39 +1,33 @@
 let express = require('express');
 let router = express.Router();
-let User = require('../../schema/user')
-let Item = require('../../schema/item')
+let User = require('../../schema/user');
+let Item = require('../../schema/item');
 
-
+router.post('/api/users/:userId/items', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { name, description, amount } = req.body;
+    const newItem = new Item({
+      name,
+      description,
+      amount,
+      user_id: userId
+    });
+    const item = await newItem.save();
+    res.json({ item: item });
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 router.get('/api/users/:userId/items', async (req, res) => {
   try {
-    const user = await User.find({})
-    console.log(user);
+    const { userId } = req.params;
+
+    const items = await Item.find({ user_id: userId });
+    res.json({ items: items });
   } catch (error) {
-
+    console.log(error.message);
   }
-})
-
-
-
-/**
- * calculate total spent in a year
- * @params {object} req
- * @params {object} res
- * @returns {object} With total spent in a year
- */
-router.get('/api.users/:userId/calculate/year', async (req, res) => {
-  const {
-    userId
-  } = req.params;
-  try {
-    const user = await User.findById({
-      id: userID
-    })
-  } catch (e) {
-    res.status(400).json({
-      message: 'An error occurred'
-    })
-  }
-})
+});
 
 module.exports = router;
