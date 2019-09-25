@@ -28,7 +28,7 @@ const Login = ({ login, history,isAuthenticated }) => {
                 alt='TriptoTracker logo'
               />
             </h1>
-        <h1 className='large signin-label'>Sign In</h1>
+        <h3 className='large signin-label'>Sign In</h3>
         <form
           className='form'
           onSubmit={e => {
