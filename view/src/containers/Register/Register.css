@@ -6,6 +6,7 @@ body{
     font-size: 70%;
 }
 h1 img{
+    display: none; /*will prevent  this image from displaying*/
     margin-top: 1em;
     width: 60%;
 }
@@ -42,6 +43,12 @@ form{
 .btn:hover, .btn:focus{
     cursor: pointer;
     background: rgb(33, 82, 243);
+}
+.pattern{ /*the side image should show now*/
+    background: url('https://res.cloudinary.com/taofeeq/image/upload/v1569272984/TriptoTracker/pattern_xfwn22.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .signup-input-label{
     margin-left: 1.5em;
