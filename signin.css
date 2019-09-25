@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  font-family: 'Raleway', sans-serif; /*added the font*/
+  font-family: 'Raleway', sans-serif;
 }
 
 .login-container {
@@ -41,7 +41,7 @@
   position: relative;
 }
 
-.login-form-2 h1 {
+.login-form-2 h3 {
   text-align: center;
   color: #373737;
   padding-bottom: 3%;
