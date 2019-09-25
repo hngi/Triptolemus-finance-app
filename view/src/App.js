@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import './App.css';
 import Landing from './components/Landing/Landing';
-import Routes from './routing/Routes';
+import Routes from './components/routing/Routes';
 // import { loadUser } from './actions/auth';
 // import setAuthToken from './utils/setAuthToken';
 
@@ -12,7 +12,6 @@ import Routes from './routing/Routes';
 //   setAuthToken(localStorage.token);
 // }
 const App = () => {
-  
   return (
     <Provider store={store}>
       <Router>
