@@ -9,6 +9,8 @@ import Downloads from '../Downloads/Downloads';
 import Faqs from '../Faqs/Faqs';
 import Contact from '../Contact/Contact';
 import Landing from '../Landing/Landing'
+import Forgot from '../Forgot/Forgot';
+import NotFound from '../../containers/NotFound';
 const Routes = () => {
   return (
     <>
@@ -22,6 +24,8 @@ const Routes = () => {
         <Route exact path='/downloads' component={Downloads} />
         <Route exact path='/faqs' component={Faqs} />
         <Route exact path='/contact' component={Contact} />
+        <Route exact path='/forgot' component={Forgot} />
+        <Route component={NotFound} />
       </Switch>
     </>
   );
