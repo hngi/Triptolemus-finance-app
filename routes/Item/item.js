@@ -55,6 +55,9 @@ router.post('/api/users/:userId/calculate/week', userAuth, async (req, res) => {
     const { userId } = req.params;
     const id = req.user;
     let {startDate, endDate} = req.body;
+    let end_msec = Date.parse(endDate);
+    end_date = new Date(end_msec);
+    endDate = end_date.addDays(1);
     if (userId !== id) {
       return res.status(401).json({ error: 'Unauthorized user' });
     }
