@@ -49,11 +49,11 @@ a#sign-in {
 header#header .bg-light {
     background: white !important;
 }
-
+/*
 #right-side img {
     float: right;
 }
-
+*/
 #main-body {
     margin-bottom: 50px;
 }
