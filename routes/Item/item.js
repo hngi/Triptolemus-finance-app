@@ -44,5 +44,22 @@ router.get('/api/users/:userId/items', userAuth, async (req, res) => {
     console.log(error.message);
   }
 });
+router.post('/api/users/:userId/calculate/week', userAuth, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const id = req.user;
+    let {startDate, endDate} = req.body;
+    if (userId !== id) {
+      return res.status(401).json({ error: 'Unauthorized user' });
+    }
+    const items = await Item.find({ user_id: id });
+    if (!items) {
+      res.status(200).json({ items: null });
+    }
+    res.status(200).json({ items: items });
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 
 module.exports = router;

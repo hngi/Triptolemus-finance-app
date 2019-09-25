@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 //let moment = require('moment')
 let mongoose = require('mongoose')
+let userAuth = require('../../middleware/userAuth');
 let itemModel = require('../schema/item');
 let userModel = require('../schema/user');
 let validator = require('validator')
@@ -13,8 +14,9 @@ Date.prototype.addDays = function(days) {
     return date;
 }
 
-router.post('/api/users/:userId/calculate/week', async (req, res) => {
-	let userId = req.userId, startDate = req.body.startDate, endDate = req.body.endDate;
+router.post('/api/users/:userId/calculate/week', userAuth, async (req, res) => {
+	let {userId, startDate, endDate} = req.body;
+	//let userId = req.body.userId, startDate = req.body.startDate, endDate = req.body.endDate;
 	var end_msec = Date.parse(endDate);
 	end_date = new Date(end_msec);
 	endDate = end_date.addDays(1);
