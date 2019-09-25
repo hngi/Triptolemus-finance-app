@@ -61,5 +61,5 @@ header#header .bg-light {
 button .navbar-toggler-icon {
     background-color: #022ec1 !important;
     color: #022ec1 !important;
-    background-image: data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000…p='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e
+    /* background-image: data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000…p='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e */
       }
