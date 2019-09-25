@@ -32,20 +32,19 @@
   transform: translateY(-50%);
 }
 
-@media only screen and (max-width: 570px) {
+@media only screen and (max-width: 580px) {
     .login-row{
         width: 100%;
         height: 100%;
     }
     .login-form-container{
         position: relative;
-        top: 20%;
-        margin-left: 18px;
-        transform: translateY(-50%);
+        margin: 18px;
+        transform: translateY(-70%);
 
       }
   }
-input {
+.signin-input {
     width: 100%;
     height: 3.5em;
     margin-left: 1.5%;
@@ -60,4 +59,30 @@ input {
       font-weight: bold
   }
 
+  @media screen and (min-width: 581px){
+   
+    .signin-pattern {
+        background: url(https://res.cloudinary.com/taofeeq/image/upload/v1569272984/TriptoTracker/pattern_xfwn22.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    }
+    @media screen and (max-width: 580px){ 
+        .login-row{
+        margin-left: 0px;
+        margin-right: 15px;
+    }
+        .signin-pattern {
+            background: url(https://res.cloudinary.com/taofeeq/image/upload/v1569272984/TriptoTracker/pattern_xfwn22.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            }
+        .signin-pattern-container{
+        margin-right: -15px
+    
+    
+        }
+        }
 
