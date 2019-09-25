@@ -13,22 +13,21 @@ const Login = ({ login, history, isAuthenticated }) => {
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
-  }
+  // if (isAuthenticated) {
+  //   return <Redirect to='/dashboard' />;
+  // }
   return (
     <section className='login-container'>
       <div className='row login-row'>
         <div className='col-sm-6 signin-pattern signin-pattern-container' />
         <div className='col-sm-6 side'>
           <div className='login-form-container'>
-            {/* <h1 className='mobile'>
+            <h1 className='mobile'>
               <img
                 src='https://res.cloudinary.com/taofeeq/image/upload/v1569272981/TriptoTracker/logo_uhmcpr.png'
                 alt='TriptoTracker logo'
               />
-<<<<<<< HEAD
-            </h1> */}
+            </h1>
             <h1 className='large signin-label'>Sign In</h1>
 
             <form

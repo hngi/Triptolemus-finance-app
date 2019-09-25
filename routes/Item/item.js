@@ -20,7 +20,6 @@ router.get('/api/users/:userId/calculate/year', userAuth, async (req, res) => {
         $gte: new Date(date) + 364
       }
     });
-    console.log(items);
     if (items.length < 0) {
       return res.status(200).json({
         message: 'No items recorded for the specified period'
