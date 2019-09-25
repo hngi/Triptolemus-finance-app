@@ -7,7 +7,7 @@ import Alert from '../Alert/Alert';
 
 const Routes = () => {
   return (
-    <section className='container'>
+    <>
       <Alert />
       <Switch>
         <Route exact path='/register' component={Register} />
@@ -15,7 +15,7 @@ const Routes = () => {
 
         <Route exact path='/dashboard' component={Dashboard} />
       </Switch>
-    </section>
+    </>
   );
 };
 

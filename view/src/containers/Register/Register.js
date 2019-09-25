@@ -1,8 +1,8 @@
 import React, { useState, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { register } from '../../actions/auth'
-import './Register.css'
+import { register } from '../../actions/auth';
+import './Register.css';
 const Register = ({ isAuthenticated, register, history }) => {
   const [formData, setFormData] = useState({
     username: '',
@@ -11,7 +11,7 @@ const Register = ({ isAuthenticated, register, history }) => {
   });
   const { username, email, password } = formData;
   const onChange = e => {
-    setFormData({ ...formData, [e.target.username]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   if (isAuthenticated) {
     return <Redirect to='/dashboard' />;
@@ -19,27 +19,27 @@ const Register = ({ isAuthenticated, register, history }) => {
 
   return (
     <Fragment>
-      <div className='container-fluid tab-pc mt-5'>
-        <div className='row'>
-          <div className='col-sm-6 pattern' />
-          <div className='col-sm-6 side'>
+      <section className='signup-container'>
+        <div className="row signup-row">
+          <div className="col-sm-6 pattern"/>
+          <div className="col-sm-6 side">
+            <div className="signup-form-container">
             <h1 className='mobile'>
               <img
                 src='https://res.cloudinary.com/taofeeq/image/upload/v1569272981/TriptoTracker/logo_uhmcpr.png'
                 alt='TriptoTracker logo'
               />
             </h1>
-            <h1>Sign Up</h1>
+            <h1 className='large signup-label'>Sign Up</h1>
             <form
               onSubmit={e => {
                 e.preventDefault();
 
                 register(username, email, password, history);
               }}
-              className='form-horizontal'
-              role='form'>
+              className='form-horizontal'>
               <div className='form-group'>
-                <label className='control-label sm-1 ml-3' htmlFor='usr'>
+                <label className='control-label sm-1 signup-input-label' htmlFor='username'>
                   Username
                 </label>
                 <div className='col-sm-11'>
@@ -47,31 +47,33 @@ const Register = ({ isAuthenticated, register, history }) => {
                     onChange={e => onChange(e)}
                     type='text'
                     placeholder='JohnDoe'
-                    name='name'
+                    name='username'
                     value={username}
+                    id='username'
                     required
                     className='form-control'
                   />
                 </div>
               </div>
               <div className='form-group'>
-                <label className='control-label sm-1 ml-3' htmlFor='email'>
+                <label className='control-label sm-1 signup-input-label' htmlFor='email'>
                   Email
                 </label>
                 <div className='col-sm-11'>
                   <input
-                    onChange={e => onChange(e)}
                     type='email'
                     placeholder='jdoe@gmail.com'
-                    name='name'
+                    name='email'
+                    id='email'
                     value={email}
                     required
+                    onChange={e => onChange(e)}
                     className='form-control'
                   />
                 </div>
               </div>
               <div className='form-group'>
-                <label className='control-label sm-1 ml-3' htmlFor='pwd'>
+                <label className='control-label sm-1 signup-input-label' htmlFor='password'>
                   Password
                 </label>
                 <div className='col-sm-11'>
@@ -95,13 +97,14 @@ const Register = ({ isAuthenticated, register, history }) => {
                   </button>
                 </div>
               </div>
-              <p>
-                Already a member? <Link to='/login'>Sign In</Link>
-              </p>
             </form>
+            <p>
+              Already a member? <Link to='/login'>Sign In</Link>
+            </p>
           </div>
         </div>
       </div>
+      </section>
     </Fragment>
   );
 };
