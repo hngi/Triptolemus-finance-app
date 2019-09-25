@@ -8,10 +8,11 @@ const Navbar = ({ logout, isAuthenticated }) => {
     <div>
       <header className='main-header'>
         <div id='logo'>
-          <img
+        <Link to='/'><img
             alt='logo'
             src='https://res.cloudinary.com/taofeeq/image/upload/v1569272981/TriptoTracker/logo_uhmcpr.png'
-          />
+          /></Link>
+          
         </div>
         <div>
           <button className='toggle-button'>
@@ -23,19 +24,19 @@ const Navbar = ({ logout, isAuthenticated }) => {
         <nav className='main-nav'>
           <ul className='main-nav__items'>
             <li className='main-nav__item'>
-              <Link to='#'>Home</Link>
+              <Link to='/'>Home</Link>
             </li>
             <li className='main-nav__item'>
-              <Link to='#'>Features</Link>
+              <Link to='/features'>Features</Link>
             </li>
             <li className='main-nav__item'>
-              <Link to='#'>Downloads</Link>
+              <Link to='/downloads'>Downloads</Link>
             </li>
             <li className='main-nav__item'>
-              <Link to='#'>FAQs</Link>
+              <Link to='/faqs'>FAQs</Link>
             </li>
             <li className='main-nav__item'>
-              <Link to='#'>Contact</Link>
+              <Link to='/contact'>Contact</Link>
             </li>
 
             {isAuthenticated ? (

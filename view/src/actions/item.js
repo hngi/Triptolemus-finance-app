@@ -2,9 +2,7 @@ import {
   ADD_ITEM_SUCCESS,
   ADD_ITEM_FAIL,
   GET_ITEMS_SUCCESS,
-  GET_ITEMS_FAIL,
-  DELETE_ACCOUNT,CLEAR_PROFILE,
-  EDIT_PROFILE_SUCCESS
+  GET_ITEMS_FAIL
 } from './types';
 import { setAlert } from './alert';
 import axios from 'axios';

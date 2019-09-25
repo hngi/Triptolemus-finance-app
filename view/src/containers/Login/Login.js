@@ -22,13 +22,12 @@ const Login = ({ login, history, isAuthenticated }) => {
         <div className='col-sm-6 signin-pattern signin-pattern-container' />
         <div className='col-sm-6 side'>
           <div className='login-form-container'>
-            {/* <h1 className='mobile'>
+            <h1 className='mobile'>
               <img
                 src='https://res.cloudinary.com/taofeeq/image/upload/v1569272981/TriptoTracker/logo_uhmcpr.png'
                 alt='TriptoTracker logo'
               />
-<<<<<<< HEAD
-            </h1> */}
+            </h1>
             <h1 className='large signin-label'>Sign In</h1>
 
             <form
