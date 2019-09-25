@@ -19,17 +19,18 @@ const Register = ({ isAuthenticated, register, history }) => {
 
   return (
     <Fragment>
-      <div className='container-fluid tab-pc mt-5'>
-        <div className='row'>
-          <div className='col-sm-6 pattern' />
-          <div className='col-sm-6 side'>
+      <section className='signup-container'>
+        <div className="row signup-row">
+          <div className="col-sm-6 pattern"/>
+          <div className="col-sm-6 side">
+            <div className="signup-form-container">
             <h1 className='mobile'>
               <img
                 src='https://res.cloudinary.com/taofeeq/image/upload/v1569272981/TriptoTracker/logo_uhmcpr.png'
                 alt='TriptoTracker logo'
               />
             </h1>
-            <h1>Sign Up</h1>
+            <h1 className='large signup-label'>Sign Up</h1>
             <form
               onSubmit={e => {
                 e.preventDefault();
@@ -38,7 +39,7 @@ const Register = ({ isAuthenticated, register, history }) => {
               }}
               className='form-horizontal'>
               <div className='form-group'>
-                <label className='control-label sm-1 ml-3' htmlFor='username'>
+                <label className='control-label sm-1 signup-input-label' htmlFor='username'>
                   Username
                 </label>
                 <div className='col-sm-11'>
@@ -55,7 +56,7 @@ const Register = ({ isAuthenticated, register, history }) => {
                 </div>
               </div>
               <div className='form-group'>
-                <label className='control-label sm-1 ml-3' htmlFor='email'>
+                <label className='control-label sm-1 signup-input-label' htmlFor='email'>
                   Email
                 </label>
                 <div className='col-sm-11'>
@@ -72,7 +73,7 @@ const Register = ({ isAuthenticated, register, history }) => {
                 </div>
               </div>
               <div className='form-group'>
-                <label className='control-label sm-1 ml-3' htmlFor='password'>
+                <label className='control-label sm-1 signup-input-label' htmlFor='password'>
                   Password
                 </label>
                 <div className='col-sm-11'>
@@ -103,6 +104,7 @@ const Register = ({ isAuthenticated, register, history }) => {
           </div>
         </div>
       </div>
+      </section>
     </Fragment>
   );
 };

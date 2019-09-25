@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link,Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
-
+import './Login.css';
 
 const Login = ({ login, history,isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -17,12 +17,18 @@ const Login = ({ login, history,isAuthenticated }) => {
     return <Redirect to='/dashboard' />
   }
   return (
-    <div>
-      <section className='container'>
-        <h1 className='large text-primary'>Sign In</h1>
-        <p className='lead'>
-          <i className='fas fa-user' /> Sign into Your Account
-        </p>
+      <section className='login-container'>
+        <div className="row login-row">
+          <div className="col-sm-6 pattern"/>
+          <div className="col-sm-6 side">
+            <div className="login-form-container">
+            <h1 className='mobile'>
+              <img
+                src='https://res.cloudinary.com/taofeeq/image/upload/v1569272981/TriptoTracker/logo_uhmcpr.png'
+                alt='TriptoTracker logo'
+              />
+            </h1>
+        <h1 className='large signin-label'>Sign In</h1>
         <form
           className='form'
           onSubmit={e => {
@@ -30,7 +36,9 @@ const Login = ({ login, history,isAuthenticated }) => {
             login(email, password, history);
           }}>
           <div className='form-group'>
+          <label className="signin-input-label" htmlFor="email">Email</label>
             <input
+              id="email"
               onChange={e => onChange(e)}
               value={email}
               type='email'
@@ -40,7 +48,9 @@ const Login = ({ login, history,isAuthenticated }) => {
             />
           </div>
           <div className='form-group'>
+          <label className="signin-input-label" htmlFor="password">Password</label>
             <input
+            id="password"
               onChange={e => onChange(e)}
               value={password}
               type='password'
@@ -48,17 +58,21 @@ const Login = ({ login, history,isAuthenticated }) => {
               name='password'
             />
           </div>
+          <p className="signin-forgot-password"> <a href="#">Forgot Password?</a></p>
           <input
             type='submit'
-            className='btn btn-primary'
-            defaultValue='Login'
+            className='btn btn-primary signin-button'
+            value="Sign In"
           />
         </form>
         <p className='my-1'>
           Don't have an account? <Link to='/register'>Sign Up</Link>
         </p>
+        </div>
+       
+        </div>
+        </div>
       </section>
-    </div>
   );
 };
 
