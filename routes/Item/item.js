@@ -43,6 +43,12 @@ router.get('/api/users/:userId/calculate/year', userAuth, async (req, res) => {
   }
 });
 
+Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+
 router.post('/api/users/:userId/items', userAuth, async (req, res) => {
   try {
     const {
@@ -102,6 +108,40 @@ router.get('/api/users/:userId/items', userAuth, async (req, res) => {
     res.status(200).json({
       items: items
     });
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+router.post('/api/users/:userId/calculate/week', userAuth, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const id = req.user;
+    let {startDate, endDate} = req.body;
+    let end_msec = Date.parse(endDate);
+    end_date = new Date(end_msec);
+    endDate = end_date.addDays(1);
+    if (userId !== id) {
+      return res.status(401).json({ error: 'Unauthorized user' });
+    }
+    Item.find({
+       user_id : userId,
+       date: { $gte: startDate, $lte: endDate }
+    }).sort({date: 1})
+    .then(doc => {
+      if(doc.length > 0) {
+        let docCount = doc.length;
+        weekCost = 0;
+        for(i=0; i<docCount; i++) {
+          weekCost = weekCost + doc[i].amount;
+        }
+        res.status(200).json({weeklyCost: weekCost, startdate: startDate, enddate: endDate});
+      } else {
+         res.status(400).json({ weeklyCost: null, startdate: startDate, enddate: endDate});
+      }
+     })
+     .catch(err => {
+        console.error(err)
+     })
   } catch (error) {
     console.log(error.message);
   }

@@ -21,15 +21,15 @@ const Register = ({ isAuthenticated, register, history }) => {
     <Fragment>
       <section className='signup-container'>
         <div className="row signup-row">
-          <div className="col-sm-6 pattern"/>
+          <div className="col-sm-6 pattern signup-pattern signup-pattern-container"/>
           <div className="col-sm-6 side">
             <div className="signup-form-container">
-            <h1 className='mobile'>
+            {/* <h1 className='mobile'>
               <img
                 src='https://res.cloudinary.com/taofeeq/image/upload/v1569272981/TriptoTracker/logo_uhmcpr.png'
                 alt='TriptoTracker logo'
               />
-            </h1>
+            </h1> */}
             <h1 className='large signup-label'>Sign Up</h1>
             <form
               onSubmit={e => {
@@ -50,6 +50,7 @@ const Register = ({ isAuthenticated, register, history }) => {
                     name='username'
                     value={username}
                     id='username'
+                    pattern="^[a-zA-Z0-9]*$"
                     required
                     className='form-control'
                   />

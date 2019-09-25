@@ -11,17 +11,25 @@
 </head>
 <body>
 	<header class="main-header">
-		<div id="logo">
-			<img src="./designs/Logo - dark.png" alt="LOGO">
-		</div>
-		<div>
-			 <button class="toggle-button">
-                <span class="toggle-button__bar"></span>
-                <span class="toggle-button__bar"></span>
-                <span class="toggle-button__bar"></span>
-            </button>
+		<div class="mobile-nav">
+			<div id="logo">
+				<img src="./designs/Logo - dark.png" class="logo-img" alt="LOGO">
+			</div>
+			<input class="menu-btn" type="checkbox" id="menu-btn" />
+			 <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+			<ul class="menu">
+			    <li><a href="index.html">Home</a></li>
+			    <li><a href="#">Features</a></li>
+			    <li><a href="download-page/download.html">Downloads</a></li>
+			    <li><a href="faq.html">FAQs</a></li>
+			    <li><a href="contact-us/contact.html">Contact Us</a></li>
+			    <li><a href="signin.html">Sign In</a></li>
+		  	</ul>
 		</div>
 		<nav class="main-nav">
+			<div class="main-nav__logo" id="logo" >
+				<img src="./designs/Logo - dark.png" alt="LOGO">
+			</div>
 				<ul class="main-nav__items">
 					<li class="main-nav__item"><a href="index.html">Home</a></li>
 					<li class="main-nav__item"><a href="#">Features</a></li>
@@ -134,5 +142,4 @@
 			</section>
 	</div>
 </body>
-
 </html>
