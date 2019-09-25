@@ -81,7 +81,7 @@ body {
 }
 .product-overview__section {
   padding: 2rem;
-  width: 60%;
+  width: 100%;
 }
 .product-overview__description {
   font-family: Raleway;
@@ -151,6 +151,7 @@ li p {
 	text-align: left;
 	font-size: 4.5em;
 	margin-bottom: 0.5em;
+	line-height: 6rem;
 }
 .landing-product-section{
 	margin-right: 4em;
@@ -171,7 +172,8 @@ li p {
 .landing-product-overview-list{
 	color:"grey";
 	font-weight:"bold";
-	font-size:"3em"
+	font-size:"3em";
+
 }
 
 .landing-product-overview-hide{
@@ -208,7 +210,8 @@ li p {
 	}
 	.landing-product-section{
 		margin-right: 3rem;
-		align-content: flex-end
+		align-content: flex-end;
+		padding-right: 0px;
 	}
 	.landing-signup-button{
 		width: 15rem;
