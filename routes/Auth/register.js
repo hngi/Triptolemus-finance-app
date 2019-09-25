@@ -10,7 +10,7 @@ router.post('/api/auth/register', async (req, res) => {
     username,
     email,
     password
-  } = req.body;
+  } = req.body; 
   try {
     if (
       username == '' ||
@@ -35,13 +35,12 @@ router.post('/api/auth/register', async (req, res) => {
     }, process.env.JWT_KEY);
     res.status(200).json(userDocJson);
   } catch (error) {
-    if (error.errmsg.includes('E11000 duplicate key error collection')) {
+    if (error.hasOwnProperty("errmsg") && error.errmsg.includes('E11000 duplicate key error collection')) {
       return res.status(401).json({
         error: 'User already exists'
       });
-    } else {
-      res.status(400).json({
-        error: error.errmsg.toString
+    } else {res.status(400).json({
+        error: error.toString()
       });
     }
   }

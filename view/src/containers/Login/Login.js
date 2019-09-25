@@ -19,16 +19,18 @@ const Login = ({ login, history,isAuthenticated }) => {
   return (
       <section className='login-container'>
         <div className="row login-row">
-          <div className="col-sm-6 pattern"/>
+          <div className="col-sm-6 signin-pattern signin-pattern-container"></div>
           <div className="col-sm-6 side">
             <div className="login-form-container">
-            <h1 className='mobile'>
+            {/* <h1 className='mobile'>
               <img
                 src='https://res.cloudinary.com/taofeeq/image/upload/v1569272981/TriptoTracker/logo_uhmcpr.png'
                 alt='TriptoTracker logo'
               />
-            </h1>
-        <h3 className='large signin-label'>Sign In</h3>
+<<<<<<< HEAD
+            </h1> */}
+        <h1 className='large signin-label'>Sign In</h1>
+
         <form
           className='form'
           onSubmit={e => {
@@ -39,6 +41,7 @@ const Login = ({ login, history,isAuthenticated }) => {
           <label className="signin-input-label" htmlFor="email">Email</label>
             <input
               id="email"
+              className="signin-input"
               onChange={e => onChange(e)}
               value={email}
               type='email'
@@ -51,6 +54,7 @@ const Login = ({ login, history,isAuthenticated }) => {
           <label className="signin-input-label" htmlFor="password">Password</label>
             <input
             id="password"
+            className="signin-input"
               onChange={e => onChange(e)}
               value={password}
               type='password'
@@ -61,7 +65,7 @@ const Login = ({ login, history,isAuthenticated }) => {
           <p className="signin-forgot-password"> <Link to="#">Forgot Password?</Link></p>
           <input
             type='submit'
-            className='btn btn-primary signin-button'
+            className='btn btn-primary signin-input signin-button'
             value="Sign In"
           />
         </form>

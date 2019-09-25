@@ -101,6 +101,33 @@ form{
 
       }
   }
+  
+  @media screen and (min-width: 581px){
+   
+    .signup-pattern {
+        background: url(https://res.cloudinary.com/taofeeq/image/upload/v1569272984/TriptoTracker/pattern_xfwn22.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    }
+    @media screen and (max-width: 580px){ 
+        .signup-row{
+        margin-left: 0px;
+        margin-right: 15px;
+    }
+        .signup-pattern {
+            background: url(https://res.cloudinary.com/taofeeq/image/upload/v1569272984/TriptoTracker/pattern_xfwn22.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            }
+        .signup-pattern-container{
+        margin-right: -15px
+    
+    
+        }
+        }
 @media screen and (min-width: 47.5em){
     body{
         font-size: 100%;
