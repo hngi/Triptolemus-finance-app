@@ -2,7 +2,7 @@ let mongoose = require('mongoose');
 require('dotenv').config();
 
 const server = process.env.DATABASEURL;
-
+// console.log(server);
 class Database {
   constructor() {
     this._connect();
