@@ -11,24 +11,32 @@
 </head>
 <body>
 	<header class="main-header">
-		<div id="logo">
-			<img src="" alt="LOGO">
-		</div>
-		<div>
-			 <button class="toggle-button">
-                <span class="toggle-button__bar"></span>
-                <span class="toggle-button__bar"></span>
-                <span class="toggle-button__bar"></span>
-            </button>
+		<div class="mobile-nav">
+			<div id="logo">
+				<img src="./designs/Logo - dark.png" class="logo-img" alt="LOGO">
+			</div>
+			<input class="menu-btn" type="checkbox" id="menu-btn" />
+			 <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+			<ul class="menu">
+			    <li><a href="index.html">Home</a></li>
+			    <li><a href="#">Features</a></li>
+			    <li><a href="download-page/download.html">Downloads</a></li>
+			    <li><a href="faq.html">FAQs</a></li>
+			    <li><a href="contact-us/contact.html">Contact Us</a></li>
+			    <li><a href="signin.html">Sign In</a></li>
+		  	</ul>
 		</div>
 		<nav class="main-nav">
+			<div class="main-nav__logo" id="logo" >
+				<img src="./designs/Logo - dark.png" alt="LOGO">
+			</div>
 				<ul class="main-nav__items">
-					<li class="main-nav__item"><a href="#">Home</a></li>
+					<li class="main-nav__item"><a href="index.html">Home</a></li>
 					<li class="main-nav__item"><a href="#">Features</a></li>
-					<li class="main-nav__item"><a href="#">Downloads</a></li>
-					<li class="main-nav__item"><a href="#">FAQs</a></li>
-					<li class="main-nav__item"><a href="#">Contact Us</a></li>
-					<li class="main-nav__item main-nav__item--cta"><a href="#">Sign In</a></li>
+					<li class="main-nav__item"><a href="download-page/download.html">Downloads</a></li>
+					<li class="main-nav__item"><a href="faq.html">FAQs</a></li>
+					<li class="main-nav__item"><a href="contact-us/contact.html">Contact Us</a></li>
+					<li class="main-nav__item main-nav__item--cta"><a href="signin.html">Sign In</a></li>
 				</ul>
 		</nav>
 	</header>
@@ -39,7 +47,7 @@
 						<li><p>Know How You Spend</p></li>
 						<li><p>Manage Your Finances</p></li>
 					</ul>
-					<a href=""><button class="signUpButton">SIGN UP FOR FREE</button></a>
+					<a href="signup.html"><button class="signUpButton">SIGN UP FOR FREE</button></a>
 			</section>
 			<section class="product-image">
 				<svg width="509" height="293" viewBox="0 0 509 293" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -134,4 +142,5 @@
 			</section>
 	</div>
 </body>
+
 </html>
