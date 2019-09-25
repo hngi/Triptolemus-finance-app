@@ -32,7 +32,23 @@ export default function(state = initialState, action) {
         }
       };
     case REGISTER_FAIL:
+      localStorage.removeItem('token');
+      return {
+        ...state,
+        isAuthenticated:false,
+        loading: false,
+        token: null,
+        user:null
+      }
     case LOGIN_FAIL:
+        localStorage.removeItem('token');
+        return {
+          ...state,
+          isAuthenticated:false,
+          loading: false,
+          token: null,
+          user:null
+        }
     case AUTH_FAIL:
     case LOGOUT:
     case CLEAR_PROFILE:
