@@ -135,10 +135,10 @@ li p {
     width: 100%;
     text-align: center;
   }
-  .product-overview__description{
-  	padding: 3rem;
-  	font-size: 50px;
-  	line-height: 55px;
+  .product-overview__description {
+    padding: 2rem;
+    font-size: 50px;
+    line-height: 55px;
   }
   .product-image {
     display: none;
@@ -146,119 +146,4 @@ li p {
   .signUpButton {
     width: 100%;
   }
-}
-.landing-product-overview{
-	text-align: left;
-	font-size: 4.5em;
-	margin-bottom: 0.5em;
-}
-.landing-product-section{
-	margin-right: 4em;
-	align-content: flex-end
-}
-.landing-signup-button{
-	width: 25em;
-	
-}
-.landing-product-image{
-	display: block;
-	margin: 0 auto;
-	transform: translateX(10%);
-	padding-right: 2em;
-	width: 1000;
-	height: 500
-}
-.landing-product-overview-list{
-	color:"grey";
-	font-weight:"bold";
-	font-size:"3em"
-}
-
-.landing-product-overview-hide{
-	display: none
-}
-
-
-@media screen and (max-width: 1246px){
-
-	.landing-product-overview{
-		text-align: left;
-		font-size: 4em;
-		margin-bottom: 0.5em;
-	}
-	.landing-product-section{
-		margin-right: 3rem;
-	}
-	.landing-signup-button{
-		width: 40%;
-		font-size: 0.8em
-		
-	}
-
-
-}
-@media screen and (max-width:1121px){
-	.landing-product-overview{
-		text-align: left;
-		font-size: 3em;
-		margin-bottom: 0.5em;
-	}
-	.landing-product-section{
-		margin-right: 3rem;
-		align-content: flex-end
-	}
-	.landing-signup-button{
-		width: 15rem;
-		font-size: 0.8em
-		
-	}
-}
-@media screen and (max-width:768){
-	.landing-product-overview{
-		text-align: left;
-		font-size: 2.5rem;
-		margin-bottom: 0.5em;
-		display: none;
-	}
-
-	.landing-product-overview-hide{
-		text-align: left;
-		font-size: 2.5rem;
-		margin-bottom: 0.5em;
-		display: block;
-	}
-	.landing-product-section{
-		margin-right: 3rem;
-		align-content: flex-end
-	}
-	.landing-signup-button{
-		width: 40%;
-		font-size: 0.8em
-		
-	}
-}
-@media screen and (max-width:40rem){
-	.landing-product-overview{
-		text-align: center;
-		font-size: 4rem;
-		margin-bottom: 0.5em;
-		display: none
-	}
-	.landing-product-overview-hide{
-		display: block;
-		text-align: center;
-		font-size: 2rem;
-		margin-bottom: 0.5em;
-		padding-bottom: 0px;
-	}
-	.landing-product-section{
-		margin-right: 0px;
-		align-content: flex-end;
-		
-	}
-	.landing-signup-button{
-		width: 40%;
-		font-size: 0.8em
-		
-	}
 }

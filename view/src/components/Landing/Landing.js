@@ -2,47 +2,12 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './Landing.css';
-import logo from '../../Logo - dark.png';
 const Landing = ({ isAuthenticated }) => {
   if (isAuthenticated) {
     return <Redirect to='/dashboard' />;
   }
   return (
     <div>
-      <header className='main-header'>
-        <div id='logo'>
-          <img src={logo} />
-        </div>
-        <div>
-          <button className='toggle-button'>
-            <span className='toggle-button__bar' />
-            <span className='toggle-button__bar' />
-            <span className='toggle-button__bar' />
-          </button>
-        </div>
-        <nav className='main-nav'>
-          <ul className='main-nav__items'>
-            <li className='main-nav__item'>
-              <Link to='#'>Home</Link>
-            </li>
-            <li className='main-nav__item'>
-              <Link to='#'>Features</Link>
-            </li>
-            <li className='main-nav__item'>
-              <Link to='#'>Downloads</Link>
-            </li>
-            <li className='main-nav__item'>
-              <Link to='#'>FAQs</Link>
-            </li>
-            <li className='main-nav__item'>
-              <Link to='#'>Contact Us</Link>
-            </li>
-            <li className='main-nav__item main-nav__item--cta'>
-              <Link to='/login'>Sign In</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
       <div className='product-overview'>
         <section className='product-overview__section landing-product-section'>
           <p className='product-overview__description landing-product-overview'>
