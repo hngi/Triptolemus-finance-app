@@ -10,13 +10,13 @@ const Landing = ({ isAuthenticated }) => {
     <div>
       <div className='product-overview'>
         <section className='product-overview__section landing-product-section'>
-          <p className='product-overview__description landing-product-overview'>
+          <p className='landing-product-overview'>
             A Whole New <br/>Way To Manage <br/>Your Spending
           </p>
-          <p className='product-overview__description landing-product-overview landing-product-overview-hide'>
+          <p className='landing-product-overview landing-product-overview-hide'>
             A Whole New Way To Manage Your Spending
           </p>
-          <ul>
+          <ul className="landing-product-overview-list-parent">
             <li>
               <span className="landing-product-overview-list">Know How You Spend</span>
             </li>

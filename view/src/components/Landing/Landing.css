@@ -138,8 +138,8 @@ li p {
   .product-overview__description{
   	padding: 3rem;
   	font-size: 50px;
-  	line-height: 55px;
-  }
+	  line-height: 55px;
+ }
   .product-image {
     display: none;
   }
@@ -175,7 +175,10 @@ li p {
 }
 
 .landing-product-overview-hide{
-	display: none
+	display: none;
+	padding: 3rem;
+	font-size: 50px;
+	line-height: 55px;
 }
 
 
@@ -261,4 +264,11 @@ li p {
 		font-size: 0.8em
 		
 	}
+	.landing-product-overview-list-parent{
+		text-align: center;
+		padding-left: 0;
+		margin-left: 0;
+		list-style: none;
+	}
+	
 }
