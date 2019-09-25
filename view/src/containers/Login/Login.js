@@ -67,7 +67,7 @@ const Login = ({ login, history, isAuthenticated }) => {
               </div>
               <p className='signin-forgot-password'>
                 {' '}
-                <Link to='/forgot'>Forgot Password?</Link>
+                <Link to='#'>Forgot Password?</Link>
               </p>
               <input
                 type='submit'
