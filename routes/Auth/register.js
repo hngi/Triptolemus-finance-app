@@ -11,7 +11,6 @@ router.post('/api/auth/register', async (req, res) => {
     email,
     password
   } = req.body; 
-  console.log(req.body)
   try {
     if (
       username == '' ||
@@ -40,9 +39,7 @@ router.post('/api/auth/register', async (req, res) => {
       return res.status(401).json({
         error: 'User already exists'
       });
-    } else {
-      console.log(error)
-      res.status(400).json({
+    } else {res.status(400).json({
         error: error.toString()
       });
     }

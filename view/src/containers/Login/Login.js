@@ -27,8 +27,10 @@ const Login = ({ login, history,isAuthenticated }) => {
                 src='https://res.cloudinary.com/taofeeq/image/upload/v1569272981/TriptoTracker/logo_uhmcpr.png'
                 alt='TriptoTracker logo'
               />
+<<<<<<< HEAD
             </h1> */}
         <h1 className='large signin-label'>Sign In</h1>
+
         <form
           className='form'
           onSubmit={e => {
@@ -60,7 +62,7 @@ const Login = ({ login, history,isAuthenticated }) => {
               name='password'
             />
           </div>
-          <p className="signin-forgot-password"> <a href="#">Forgot Password?</a></p>
+          <p className="signin-forgot-password"> <Link to="#">Forgot Password?</Link></p>
           <input
             type='submit'
             className='btn btn-primary signin-input signin-button'
