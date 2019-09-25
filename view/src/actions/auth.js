@@ -30,21 +30,19 @@ export const register = (
       body,
       config
     );
-    
-      dispatch({
-        type: REGISTER_SUCCESS,
-        payload: response.data
-      });
-      dispatch(setAlert('Registration was successful', 'success'));
-      history.push('/dashboard');
-      
+
+    dispatch({
+      type: REGISTER_SUCCESS,
+      payload: response.data
+    });
+    dispatch(setAlert('Registration was successful', 'success'));
+    history.push('/dashboard');
   } catch (error) {
-      dispatch({
-        type: REGISTER_FAIL,
-        payload: error.data
-      });
-      dispatch(setAlert(error.response.data.error, 'danger'));
-    
+    dispatch({
+      type: REGISTER_FAIL,
+      payload: error.response.data.error
+    });
+    dispatch(setAlert(error.response.data.error, 'danger'));
   }
 };
 export const login = (email, password, history) => async dispatch => {
@@ -68,12 +66,12 @@ export const login = (email, password, history) => async dispatch => {
     dispatch(setAlert('Login was successful', 'success'));
     history.push('/dashboard');
   } catch (error) {
-    const errors = []
-    errors.push(error.response.data.respMsg)
+    const errors = [];
+    errors.push(error.response.data.respMsg);
     if (errors) {
       errors.map(error => dispatch(setAlert(error, 'danger')));
     }
-
+    console.log(errors);
     dispatch({
       type: LOGIN_FAIL,
       payload: error.response.data.respMsg

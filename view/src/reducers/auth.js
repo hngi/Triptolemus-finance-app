@@ -3,9 +3,7 @@ import {
   REGISTER_SUCCESS,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
-  AUTH_FAIL,
-  LOGOUT,
-  CLEAR_PROFILE
+  LOGOUT
 } from '../actions/types';
 
 const initialState = {
@@ -32,26 +30,8 @@ export default function(state = initialState, action) {
         }
       };
     case REGISTER_FAIL:
-      localStorage.removeItem('token');
-      return {
-        ...state,
-        isAuthenticated:false,
-        loading: false,
-        token: null,
-        user:null
-      }
     case LOGIN_FAIL:
-        localStorage.removeItem('token');
-        return {
-          ...state,
-          isAuthenticated:false,
-          loading: false,
-          token: null,
-          user:null
-        }
-    case AUTH_FAIL:
     case LOGOUT:
-    case CLEAR_PROFILE:
       localStorage.removeItem('token');
       return {
         ...state,
