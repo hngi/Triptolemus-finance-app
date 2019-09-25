@@ -37,7 +37,7 @@ body {
 .tripttotracker_logo {
     display: inline-block;
     margin-top: 10px;
-    margin-left: 7rem;
+    margin-left: 0.5rem;
 }
 
 .navbar-toggle {
@@ -104,18 +104,22 @@ body {
         margin: 0;
     }
     .nav-links {
-        margin-left: 40px;
+        font-weight: 600;
+        font-size: 20px;
+        margin-left: 35px;
     }
     .tripttotracker_logo {
         margin-top: 0;
-        margin-left: 0;
+        margin-left: 2rem;
     }
     .navbar-toggle {
         display: none;
     }
-    .tripttotracker_logo:hover,
     .nav-links:hover {
-        color: rgba(255, 255, 255, 1);
+        color: #000;
+        text-decoration: none;
+        transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+        font-size: 24px;
     }
 }
 
