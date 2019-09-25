@@ -1,1 +1,0 @@
-# Triptolemus-finance-app
