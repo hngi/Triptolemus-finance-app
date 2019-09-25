@@ -45,7 +45,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
                   <Link to='/dashboard'>Dashboard</Link>
                 </li>
                 <li className='main-nav__item' onClick={() => logout()}>
-                  <Link to='/'>
+                  <Link to='/login'>
                     {' '}
                     <span className='hide-sm'>Logout</span>{' '}
                     <i className='fas fa-sign-out-alt'> </i>

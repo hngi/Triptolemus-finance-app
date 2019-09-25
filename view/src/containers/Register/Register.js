@@ -15,9 +15,9 @@ const Register = ({ isAuthenticated, register, history }) => {
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
-  }
+  // if (isAuthenticated) {
+  //   return <Redirect to='/dashboard' />;
+  // }
 
   return (
     <Fragment>
@@ -36,8 +36,7 @@ const Register = ({ isAuthenticated, register, history }) => {
               <form
                 onSubmit={e => {
                   e.preventDefault();
-addItem(username, email, password, history);
-                  // register(username, email, password, history);
+                  register(username, email, password, history);
                 }}
                 className='form-horizontal'>
                 <div className='form-group'>
@@ -91,7 +90,7 @@ addItem(username, email, password, history);
                       name='password'
                       id='password'
                       className='form-control'
-                      minLength={8}
+                      minLength={3}
                       onChange={e => onChange(e)}
                       placeholder='********'
                     />
@@ -122,5 +121,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { register ,addItem}
+  { register, addItem }
 )(Register);

@@ -38,11 +38,15 @@ export const register = (
     dispatch(setAlert('Registration was successful', 'success'));
     history.push('/dashboard');
   } catch (error) {
+    const errors = [];
+    errors.push(error.response.data.error);
+    if (errors) {
+      errors.map(error => dispatch(setAlert(error, 'danger')));
+    }
     dispatch({
       type: REGISTER_FAIL,
       payload: error.response.data.error
     });
-    dispatch(setAlert(error.response.data.error, 'danger'));
   }
 };
 export const login = (email, password, history) => async dispatch => {
@@ -67,14 +71,13 @@ export const login = (email, password, history) => async dispatch => {
     history.push('/dashboard');
   } catch (error) {
     const errors = [];
-    errors.push(error.response.data.respMsg);
+    errors.push(error.response.data.error);
     if (errors) {
       errors.map(error => dispatch(setAlert(error, 'danger')));
     }
-    console.log(errors);
     dispatch({
       type: LOGIN_FAIL,
-      payload: error.response.data.respMsg
+      payload: error.response.data.error
     });
   }
 };
