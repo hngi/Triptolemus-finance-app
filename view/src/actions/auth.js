@@ -26,7 +26,7 @@ export const register = (
   };
   try {
     const response = await axios.post(
-      'http://127.0.0.1:3500/api/auth/register',
+      'https://finance-tracker-server.herokuapp.com/api/auth/register',
       body,
       config
     );
