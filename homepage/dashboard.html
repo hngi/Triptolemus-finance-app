@@ -21,9 +21,6 @@
                     <a href="#home" class="navbar-brand">
                         <img src="image/icon-white.png" width="210" height="30" alt="">
                     </a>
-                    ,<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
 
                     <ul class="navbar-nav ml-auto">
                             <li class="nav-item dropdown mr-3">
@@ -48,10 +45,75 @@
                         <div class="row">
                             <div class="col-md-5 align-self-center">
                                 <p  class="msg">How Have You Spent Your Money So Far</p>
-                                <a href="#twobutton">
-                                        <button class="expenses">Record your expenses</button>
+                                <span>
+                                        <button class="expenses" data-toggle="modal" data-target="#addExpense">Record your expenses</button>
+                                        <div id="addExpense" class="modal fade" role="dialog">
+                                          <div class="modal-dialog">
+                                            <div class="modal-content">
+                                              <div class="modal-body">
+                                                <h1 style="color: #022EC1;">Add Expense</h1>
+                                                <form action="" method="" class="form-horizontal" role="form">
+                                                  <div class="form-group">
+                                                    <label class="control-label sm-1 ml-3" for="">Item Description</label>
+                                                    <div class="col-sm-11">
+                                                      <input type="text" name="" id="expenseDescription" class="form-control" placeholder="Enter Item Description">
+                                                    </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label for="expenseSel" class="control-label sm-1 ml-3">Category</label>
+                                                    <div class="col-sm-11">
+                                                      <select name="" id="expenseSel" class="form-control">
+                                                        <option value="">Select Category</option>
+                                                        <option value="" class="expenseCat">Airtime & Data</option>
+                                                        <option value="" class="expenseCat">Beauty</option>
+                                                        <option value="" class="expenseCat">Cable TV</option>
+                                                        <option value="" class="expenseCat">Celebrations</option>
+                                                        <option value="" class="expenseCat">Chilling</option>
+                                                        <option value="" class="expenseCat">Clothing</option>
+                                                        <option value="" class="expenseCat">Debt Payment</option>
+                                                        <option value="" class="expenseCat">Electronic Appliances</option>
+                                                        <option value="" class="expenseCat">Emergencies</option>
+                                                        <option value="" class="expenseCat">Fees</option>
+                                                        <option value="" class="expenseCat">Food</option>
+                                                        <option value="" class="expenseCat">Fuel</option>
+                                                        <option value="" class="expenseCat">Gifts</option>
+                                                        <option value="" class="expenseCat">Groceries</option>
+                                                        <option value="" class="expenseCat">Health & Finances</option>
+                                                        <option value="" class="expenseCat">Insurance</option>
+                                                        <option value="" class="expenseCat">Laundry</option>
+                                                        <option value="" class="expenseCat">Loans</option>
+                                                        <option value="" class="expenseCat">Medicals</option>
+                                                        <option value="" class="expenseCat">Offerings & Tithe</option>
+                                                        <option value="" class="expenseCat">Others</option>
+                                                        <option value="" class="expenseCat">Rent/Mortgage</option>
+                                                        <option value="" class="expenseCat">Repairs & Maintenance</option>
+                                                        <option value="" class="expenseCat">Savings</option>
+                                                        <option value="" class="expenseCat">Subscriptions</option>
+                                                        <option value="" class="expenseCat">Transport</option>
+                                                        <option value="" class="expenseCat">Travel</option>
+                                                        <option value="" class="expenseCat">Utility Bills</option>
+                                                      </select>
+                                                    </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label class="control-label sm-1 ml-3" for="">Amount</label>
+                                                    <div class="col-sm-11">
+                                                      <input type="number" name="" id="expenseAmount" class="form-control" placeholder="Enter Amount">
+                                                    </div>
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <div class="sm-1"></div>
+                                                    <div class="col-sm-11">
+                                                      <button type="submit" class="btn form-control expenseBtn">Record Expense</button>
+                                                    </div>
+                                                  </div>
+                                                </form>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
                                         <button class="budget">Set Budget</button>
-                                </a>
+                                </span>
                                 </div>
                                 <div class="col-md-7" style="background-color: #022EC1">
                                     <p class="total">Total Expenses</p>
