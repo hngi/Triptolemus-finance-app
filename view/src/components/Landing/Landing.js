@@ -1,32 +1,32 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './Landing.css';
-const Landing = ({ isAuthenticated }) => {
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
-  }
+const Landing = () => {
   return (
     <div>
       <div className='product-overview'>
-        <section className='product-overview__section'>
-          <p className='product-overview__description'>
+        <section className='product-overview__section landing-product-section'>
+          <p className='landing-product-overview'>
+            A Whole New <br/>Way To Manage <br/>Your Spending
+          </p>
+          <p className='landing-product-overview landing-product-overview-hide'>
             A Whole New Way To Manage Your Spending
           </p>
-          <ul>
+          <ul className="landing-product-overview-list-parent">
             <li>
-              <p>Know How You Spend</p>
+              <span className="landing-product-overview-list">Know How You Spend</span>
             </li>
             <li>
-              <p>Manage Your Finances</p>
+              <span className="landing-product-overview-list">Manage Your Finances</span>
             </li>
           </ul>
           <Link to='/register' href>
-            <button className='signUpButton'>SIGN UP FOR FREE</button>
+            <button className='signUpButton landing-signup-button'>SIGN UP FOR FREE</button>
           </Link>
         </section>
-        <section className='product-image'>
+        <section className='product-image landing-product-section'>
           <svg
+            className="landing-product-image"
             width={509}
             height={293}
             viewBox='0 0 509 293'
@@ -408,7 +408,4 @@ const Landing = ({ isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
-export default connect(mapStateToProps)(Landing);
+export default Landing;

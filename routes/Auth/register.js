@@ -1,4 +1,3 @@
-require('../../database/database');
 const jwt = require('jsonwebtoken');
 let UserModel = require('../../schema/user');
 const express = require('express');

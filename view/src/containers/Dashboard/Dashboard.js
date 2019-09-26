@@ -1,11 +1,10 @@
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
+const Dashboard = isAuthenticated => {
+  return <div>Dashboard</div>;
+};
 
-const Dashboard = () => {
-  return (
-    <div>
-      Dashboard
-    </div>
-  )
-}
-
-export default Dashboard
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+export default connect(mapStateToProps)(Dashboard);

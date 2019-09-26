@@ -120,9 +120,74 @@ router.post('/api/users/:userId/calculate/week', userAuth, async (req, res) => {
     })
       .sort({ date: 1 })
       .then(doc => {
+        //if (doc.length > 0) {
+          let docCount = doc.length;
+          weeklies = [];
+          //week_index = 0;
+          totalCost = 0;
+          weekCost = 0;
+          prev_week = 0;
+          for (i = 0; i < docCount; i++) {
+            if (i>0) { prev_week = item_week; }
+            item_week = moment(doc[i].date).week()
+            if (item_week == prev_week) {
+              totalCost = totalCost + doc[i].amount;
+              weekCost = weekCost + doc[i].amount;
+              if ((i+1) == docCount) { 
+                //weeklies[week_index] = { weeklyCost: weekCost, weekNumber: item_week } 
+                weeklies.push({ weeklyCost: weekCost, weekNumber: "Week "+item_week }); 
+              }
+            } else {
+                //weeklies[week_index] = { weeklyCost: weekCost, weekNumber: prev_week }
+                weeklies.push({ weeklyCost: weekCost, weekNumber: "Week "+prev_week });
+                if (i > 0) { 
+                  //week_index++; 
+                  weekCost = 0;
+                }
+                totalCost = totalCost + doc[i].amount;
+                weekCost = weekCost + doc[i].amount;
+                if ((i+1) == docCount) { 
+                  //weeklies[week_index] = { weeklyCost: weekCost, weekNumber: item_week } 
+                  weeklies.push({ weeklyCost: weekCost, weekNumber: "Week "+item_week });  
+                }
+            }
+          }
+          weekly_track = { totalExpenses: totalCost, expensePerWeek : weeklies}
+          res.status(200).json(weekly_track);
+        // } else {
+        //   res
+        //     .status(400)
+        //     .json({ weeklyCost: 0, startdate: startDate, enddate: endDate });
+        // }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+router.post('/api/users/:userId/calculate/daily', userAuth, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const id = req.user;
+    let { startDate, endDate } = req.body;
+    let end_msec = Date.parse(endDate);
+    end_date = new Date(end_msec);
+    endDate = end_date.addDays(1);
+    if (userId !== id) {
+      return res.status(401).json({ error: 'Unauthorized user' });
+    }
+    Item.find({
+      user_id: userId,
+      date: { $gte: startDate, $lte: endDate }
+    })
+      .sort({ date: 1 })
+      .then(doc => {
         if (doc.length > 0) {
           let docCount = doc.length;
-          weekCost = 0;
+          dailyCost = 0;
           for (i = 0; i < docCount; i++) {
             weekCost = weekCost + doc[i].amount;
           }

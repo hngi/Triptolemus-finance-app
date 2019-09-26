@@ -5,7 +5,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 
 router.post('/api/auth/login', async (req, res) => {
-  const email = req.body.email,
+    const email = req.body.email,
     password = req.body.password;
 
   if (email == '' || password == '') {
@@ -23,9 +23,11 @@ router.post('/api/auth/login', async (req, res) => {
       bcrypt.compare(password, user.password).then(isMatch => {
         if (isMatch) {
           token = jwt.sign({ _id: user._id }, 'secret');
+          userJSON = user.toJSON()
+          delete userJSON.password
           return res.status(200).json({
             token,
-            user
+            userJSON
           });
         } else {
           return res.status(401).json({

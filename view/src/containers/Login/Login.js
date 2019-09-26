@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import './Login.css';
@@ -13,9 +13,7 @@ const Login = ({ login, history, isAuthenticated }) => {
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  if (isAuthenticated) {
-    return <Redirect to='/dashboard' />;
-  }
+
   return (
     <section className='login-container'>
       <div className='row login-row'>
@@ -67,7 +65,7 @@ const Login = ({ login, history, isAuthenticated }) => {
               </div>
               <p className='signin-forgot-password'>
                 {' '}
-                <Link to='#'>Forgot Password?</Link>
+                <Link to='/forgot'>Forgot Password?</Link>
               </p>
               <input
                 type='submit'
@@ -77,6 +75,8 @@ const Login = ({ login, history, isAuthenticated }) => {
             </form>
             <p className='my-1'>
               Don't have an account? <Link to='/register'>Sign Up</Link>
+
+              <Link className='ml-2' to='/'>Go home</Link>
             </p>
           </div>
         </div>
