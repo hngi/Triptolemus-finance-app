@@ -12,6 +12,7 @@ import Navbar from '../Navbar/Navbar';
 import NotFound from '../NotFound/NotFound';
 import ResetPassword from '../ResetPassword/ResetPassword';
 import Forgot from '../Forgot/Forgot';
+import AddExpense from '../../containers/AddExpense';
 const Routes = () => {
   return (
     <>
@@ -25,8 +26,8 @@ const Routes = () => {
         <Route exact path='/contact' component={Contact} />
         <Route exact path='/forgot' component={Forgot} />
         <Route exact path='/reset-password' component={ResetPassword} />
+        <Route exact path='/add-expense' component={AddExpense} />
         <Route component={NotFound} />
-        {/* <Route component={NotFound} /> */}
       </Switch>
     </>
   );
