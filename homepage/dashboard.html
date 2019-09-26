@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
     crossorigin="anonymous">
   <link rel="stylesheet" href="dashboard.css">
+  <link rel="shortcut icon" href="https://res.cloudinary.com/taofeeq/image/upload/v1569271378/TriptoTracker/WhatsApp_Image_2019-09-23_at_9.41.16_PM_v3k0k9.jpg" type="image/x-icon">
   <title>Dashboard</title>
 </head>
 
@@ -18,16 +19,16 @@
 
         <nav class="navbar navbar-expand-md navbar-light fixed-top py-4" id="main-nav">
                 <div class="container">
-                    <a href="#home" class="navbar-brand">
-                        <img src="image/icon-white.png" width="210" height="30" alt="">
+                    <a href="#home" class="navbar-brand logo">
+                        <img src="https://res.cloudinary.com/taofeeq/image/upload/v1569508859/TriptoTracker/icon-white_l40nxz.png" width="210" height="30" alt="TriptoTracker logo">
                     </a>
 
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto sideNav">
                             <li class="nav-item dropdown mr-3">
                               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                                 <i class="fas fa-user" style="color: white"></i> <span class="list"> miz- kas </span> 
                               </a>
-                              <div class="dropdown-menu">
+                              <div class="dropdown-menu dropNav">
                                 <a href="#" class="dropdown-item">
                                   <i class="fas fa-user-circle"></i> Profile
                                 </a>
@@ -44,9 +45,9 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-5 align-self-center">
-                                <p  class="msg">How Have You Spent Your Money So Far</p>
+                                <h1  class="msg">How Have You Spent Your Money So Far</h1>
                                 <span>
-                                        <button class="expenses" data-toggle="modal" data-target="#addExpense">Record your expenses</button>
+                                        <button class="expenses mr-3" data-toggle="modal" data-target="#addExpense">Record your expenses</button>
                                         <div id="addExpense" class="modal fade" role="dialog">
                                           <div class="modal-dialog">
                                             <div class="modal-content">
@@ -112,7 +113,7 @@
                                             </div>
                                           </div>
                                         </div>
-                                        <button class="budget" data-toggle="modal" data-target="#setBudget">Set Budget</button>
+                                        <button class="budget mt-2" data-toggle="modal" data-target="#setBudget">Set Budget</button>
                                         <div class="modal fade" role="dialog" id="setBudget">
                                           <div class="modal-dialog">
                                             <div class="modal-content">
@@ -145,18 +146,115 @@
                                         </div>
                                 </span>
                                 </div>
-                                <div class="col-md-7" style="background-color: #022EC1">
-                                    <p class="total">Total Expenses</p>
-                                        <div class="number">
-                                            <span class="price1">&#8358;25,000</span> 
-                                            <span class="price">&#8358;99,419</span>
-                                            <span class="price">&#8358;997,000</span>
-                                        </div>
-                                        <div class="annual">
-                                            <span class="week1">per week <button class="btn"> <img src="image/Arrow 2.png" alt=""> 500 </button></span>
-                                            <span class="week">per month <button class="btn"> <img src="image/Arrow.png" alt=""> 500 </button></span>
-                                            <span class="week3">per year <button class="btn"> <img src="image/Arrow 2.png" alt=""> 1000 </button></span>
-                                        </div>
+                                <div class="col-md-7 totalExp mt-2" style="background-color: #022EC1">
+                                    <h2>Total Expenses</h2>
+                                    <div class="total">
+                                      <div class="week">
+                                        <p>&#8358; <span class="big">25,000</span></p>
+                                        <p class="small">Week <span class="bg-success expTotal"> <i class="fa fa-arrow-up"></i> 500 </span></p>
+                                      </div> 
+                                      <div class="month">
+                                          <p>&#8358; <span class="big">99,419</span></p>
+                                        <p class="small">Month <span class="bg-danger expTotal"> <i class="fa fa-arrow-up"></i> 500 </span></p>
+                                      </div>
+                                      <div class="year">
+                                          <p>&#8358; <span class="big">997,000</span></p>
+                                        <p class="small">Year <span class="bg-success expTotal"> <i class="fa fa-arrow-down"></i> 1000 </span></p>
+                                      </div>
+                                    </div>
+                                </div>      
+                            </div>
+                            <div class="row mt-4 track ml-1">
+                                <h2>Expense Tracking</h2>
+                            </div>
+                            <div class="row ml-1 period">
+                                <p>Specify Period</p>
+                            </div>
+                            <div class="row ml-1">
+                              <form action="" method="" role="form" class="form-inline">
+                                <div class="form-group">
+                                  <label for=""class="mr-2">Start Date</label>
+                                  <input type="date" name="date" id="" class="form-control mr-1 specify">
+                                  <i class="fa fa-calendar-alt mr-3"></i>
+                                </div>
+                                <div class="form-group">
+                                  <label for=""class="mr-2">End Date</label>
+                                  <input type="date" name="date" id="" class="form-control mr-1 specify">
+                                  <i class="fa fa-calendar-alt mr-3"></i>
+                                </div>
+                                <div class="form-group">
+                                  <button type="submit" class="btn form-control specifyBtn pl-5 pr-5 specify">Generate</button>
+                                </div>
+                              </form>
+                            </div>
+                            <div class="row ml-1 mt-3">
+                              <table class="table transTable col-sm-12">
+                                <thead>
+                                  <tr>
+                                    <th>Transaction Date</th>
+                                    <th>Items</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>02-Sep-2019</td>
+                                    <td>Toilet Paper</td>
+                                    <td>Toiletries</td>
+                                    <td>&#8358;250</td>
+                                  </tr>
+                                  <tr>
+                                    <td>02-Sep-2019</td>
+                                    <td>Toilet Paper</td>
+                                    <td>Toiletries</td>
+                                    <td>&#8358;250</td>
+                                  </tr>
+                                  <tr>
+                                    <td>02-Sep-2019</td>
+                                    <td>Toilet Paper</td>
+                                    <td>Toiletries</td>
+                                    <td>&#8358;250</td>
+                                  </tr>
+                                  <tr>
+                                    <td>02-Sep-2019</td>
+                                    <td>Toilet Paper</td>
+                                    <td>Toiletries</td>
+                                    <td>&#8358;250</td>
+                                  </tr>
+                                  <tr>
+                                    <td>02-Sep-2019</td>
+                                    <td>Toilet Paper</td>
+                                    <td>Toiletries</td>
+                                    <td>&#8358;250</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-10"></div>
+                              <div class="col-sm-2 pages">
+                                <a href="#"><i class="fa fa-angle-left first"></i></a>
+                                <a href="#" class="current pl-2 pr-2">1</a>
+                                <a href="#" class="pl-2 pr-2">2</a>
+                                <a href="#" class="pl-2 pr-2">3</a>
+                                <p class="">.</p>
+                                <p class="">.</p>
+                                <p class="">.</p>
+                                <a href="#" class="pl-2 pr-2">15</a>
+                                <a href="#"><i class="fa fa-angle-right"></i></a>
+                              </div>
+                            </div>
+                            <div class="row ml-1 mt-3 mb-3">
+                              <form action="" method="" role="form" class="form-inline">
+                                <div class="form-group">
+                                    <label for=""class="mr-4">Download Format:</label>
+                                    <button type="" class="btn form-control pl-5 pr-5 mr-5 excelBtn dlFormat" value="excel">Excel</button>
+                                  </div>
+                                  <div class="form-group">
+                                    <button type="submit" class="btn form-control pl-5 pr-5 exportBtn dlFormat">Export</button>
+                                  </div>
+                              </form>
                             </div>
                         </div>
                 </section>
