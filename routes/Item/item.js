@@ -4,7 +4,7 @@ let userAuth = require('../../middleware/userAuth');
 let Item = require('../../schema/item');
 const mongoose = require('mongoose');
 
-router.get('/api/users/:userId/calculate/year', userAuth, async (req, res) => {
+router.post('/api/users/:userId/calculate/year', userAuth, async (req, res) => {
   try {
     const { userId } = req.params;
     const { date } = req.body;
@@ -212,7 +212,7 @@ router.post('/api/users/:userId/calculate/daily', userAuth, async (req, res) => 
 });
 
 // route for getting all items for month(s)
-router.get('/api/users/:userId/calculate/month', userAuth, async (req, res, next) => {
+router.post('/api/users/:userId/calculate/month', userAuth, async (req, res, next) => {
   try {
     const { userId } = req.params;
     let { startDate, endDate } = req.body;
