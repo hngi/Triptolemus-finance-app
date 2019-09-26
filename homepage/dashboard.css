@@ -31,6 +31,16 @@
     font-size: 17px;
     border-radius: 5px;
 }
+.expenses, .budget:hover{
+    cursor: pointer;
+}
+.expenseBtn{
+    background: #022EC1;
+    color: #ffff;
+}
+.expenseCat{
+    font-size: 80%;
+}
 .budget{
     background-color: white;
     border: 1.5px solid #4BC102;
