@@ -25,7 +25,7 @@ const Routes = () => {
         <Route exact path='/faqs' component={Faqs} />
         <Route exact path='/contact' component={Contact} />
         <Route exact path='/forgot' component={Forgot} />
-        <Route exact path='/reset-password' component={ResetPassword} />
+        <Route exact path='/reset-password/*' component={ResetPassword} />
         <Route exact path='/add-expense' component={AddExpense} />
         <Route component={NotFound} />
       </Switch>

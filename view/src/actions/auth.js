@@ -5,7 +5,11 @@ import {
   LOGIN_SUCCESS,
   CLEAR_PROFILE,
   LOGOUT,
-  LOGIN_REQUIRED
+  LOGIN_REQUIRED,
+  REQUEST_PASSWORD_RESET_SUCCESS,
+  REQUEST_PASSWORD_RESET_FAIL,
+  RESET_PASSWORD_FAIL,
+  RESET_PASSWORD_SUCCESS
 } from './types';
 import { setAlert } from './alert';
 
@@ -99,3 +103,64 @@ export const goToLogin = () => dispatch => {
   });
   dispatch(setAlert('You need to be logged in to do that','danger'));
 }
+
+export const requestResetPassword = (email,history) => async dispatch => {
+  const body = JSON.stringify({
+    email
+  });
+  const config = {
+    headers: { 'Content-Type': 'application/json' }
+  };
+
+  try{
+    const response = await axios.post(
+      'https://finance-tracker-server.herokuapp.com/api/auth/forgot',
+      body,
+      config
+    );
+    dispatch({
+      type: REQUEST_PASSWORD_RESET_SUCCESS,
+      payload: response.data
+    });
+
+
+  } catch(error){
+    dispatch({
+      type: REQUEST_PASSWORD_RESET_FAIL,
+      payload: error.response.data
+    });
+
+  }
+
+} 
+
+export const resetPassword = (token,password,history) => async dispatch => {
+  const body = JSON.stringify({
+    token,
+    password
+  });
+  const config = {
+    headers: { 'Content-Type': 'application/json' }
+  };
+
+  try{
+    const response = await axios.post(
+      'https://finance-tracker-server.herokuapp.com/api/auth/reset',
+      body,
+      config
+    );
+    dispatch({
+      type: RESET_PASSWORD_SUCCESS,
+      payload: response.data
+    });
+
+
+  } catch(error){
+    dispatch({
+      type: RESET_PASSWORD_FAIL,
+      payload: error.response.data
+    });
+
+  }
+
+} 

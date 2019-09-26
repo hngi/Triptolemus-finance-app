@@ -6,7 +6,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 
-router.post('/api/auth/forgot/:header/:payload/:signature', async (req, res) => {
+router.post('/api/auth/reset', async (req, res) => {
     console.log(req.email)
     const { password } = req.body
     User.find({email:req.email})
@@ -23,7 +23,7 @@ router.post('/api/auth/forgot',emailAuth, async (req, res) => {
     const { email } = req.body
     token = jwt.sign({email: email},process.env.JWT_KEY,{expiresIn: ""})
     const {header, payload, signature} = token.split(".")
-    password_reset_link = "http://127.0.0.1:3000/forgot_password/" + header + "/" + payload + "/" + signature
+    password_reset_link = "http://127.0.0.1:3000/reset-password/" + header + "/" + payload + "/" + signature
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
