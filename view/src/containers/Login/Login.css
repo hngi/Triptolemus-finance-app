@@ -3,10 +3,12 @@ h1 img{
 }
 
 .login-container{
-    width: 100%;
-    height: 100%;
-    margin-left: 0px; 
-    margin-right: 0px;
+    width: 85%;
+    height: 85%;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 
 }
 
@@ -81,16 +83,26 @@ h1 img{
         margin-top: 0;
         margin-right: 15px;
     }
-        /* .signin-pattern {
+        .signin-pattern {
             background: url(https://res.cloudinary.com/taofeeq/image/upload/v1569272984/TriptoTracker/pattern_xfwn22.jpg);
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-            } */
+            margin: 0px auto;
+            }
         .signin-pattern-container{
-        margin-right: -15px
+            position: relative;
     
     
+        }
+        .login-container{
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        
         }
         }
 
