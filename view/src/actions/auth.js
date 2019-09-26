@@ -4,7 +4,8 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   CLEAR_PROFILE,
-  LOGOUT
+  LOGOUT,
+  LOGIN_REQUIRED
 } from './types';
 import { setAlert } from './alert';
 
@@ -91,3 +92,10 @@ export const logout = () => dispatch => {
   });
   dispatch(setAlert('Logout was successful', 'success'));
 };
+
+export const goToLogin = () => dispatch => {
+  dispatch({
+    type: LOGIN_REQUIRED
+  });
+  dispatch(setAlert('You need to be logged in to do that','danger'));
+}

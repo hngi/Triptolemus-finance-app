@@ -3,7 +3,8 @@ import {
   REGISTER_SUCCESS,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
-  LOGOUT
+  LOGOUT,
+  LOGIN_REQUIRED
 } from '../actions/types';
 
 const initialState = {
@@ -29,6 +30,7 @@ export default function(state = initialState, action) {
           email: payload.email
         }
       };
+    case LOGIN_REQUIRED:
     case REGISTER_FAIL:
     case LOGIN_FAIL:
     case LOGOUT:
@@ -40,6 +42,8 @@ export default function(state = initialState, action) {
         token: null,
         user: null
       };
+    
+      
 
     default:
       return state;
