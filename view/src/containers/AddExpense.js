@@ -1,7 +1,20 @@
 import React from 'react';
-
-const AddExpense = () => {
-  return <div>Add Expense</div>;
+import { Redirect } from "react-router";
+import { goToLogin } from '../actions/auth'
+import { connect } from 'react-redux';
+const AddExpense = ({isAuthenticated,goToLogin}) => {
+  if (isAuthenticated == null || !isAuthenticated) {
+    goToLogin();
+  }
+  console.log(isAuthenticated)
+  return isAuthenticated == null || !isAuthenticated ? (
+    <Redirect
+      to="/login"
+    />
+  ) : <div>Add Expense</div>
 };
 
-export default AddExpense;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+export default connect(mapStateToProps, { goToLogin })(AddExpense);

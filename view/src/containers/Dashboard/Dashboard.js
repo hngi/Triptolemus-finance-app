@@ -9,7 +9,6 @@ const Dashboard = ({ isAuthenticated, goToLogin }) => {
   console.log(isAuthenticated)
   return isAuthenticated == null || !isAuthenticated ? (
     <Redirect
-      push
       to="/login"
     />
   ) : <div>Dashboard</div>

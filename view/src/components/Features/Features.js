@@ -53,7 +53,7 @@ const Features = ({ isAuthenticated }) => {
                 TriptoTracker helps you manage your finances using the "set
                 budget" feature
               </p>
-              <Link to='/add-expenses'>
+              <Link to='/add-expense'>
                 <button id='button' className='btn btn-sm rounded'>
                   Add expenses
                 </button>
