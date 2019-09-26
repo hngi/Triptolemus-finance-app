@@ -51,7 +51,7 @@
                                           <div class="modal-dialog">
                                             <div class="modal-content">
                                               <div class="modal-body">
-                                                <h1 style="color: #022EC1;">Add Expense</h1>
+                                                <h1 style="color: #022EC1;" class="ml-3">Add Expense</h1>
                                                 <form action="" method="" class="form-horizontal" role="form">
                                                   <div class="form-group">
                                                     <label class="control-label sm-1 ml-3" for="">Item Description</label>
@@ -112,15 +112,45 @@
                                             </div>
                                           </div>
                                         </div>
-                                        <button class="budget">Set Budget</button>
+                                        <button class="budget" data-toggle="modal" data-target="#setBudget">Set Budget</button>
+                                        <div class="modal fade" role="dialog" id="setBudget">
+                                          <div class="modal-dialog">
+                                            <div class="modal-content">
+                                              <div class="modal-body">
+                                                  <h1 style="color: #022EC1;" class="ml-3">Set Budget</h1>
+                                                  <p class="budgetScheme ml-3">Setup Budget Scheme</p>
+                                                  <form action="" method="" class="form-horizontal" role="form">
+                                                    <div class="form-group">
+                                                      <label class="control-label sm-1 ml-3" for="">Duration</label>
+                                                      <div class="col-sm-11">
+                                                        <input type="text" name="" id="budgetDuration" class="form-control" placeholder="Weekly, Monthly, Yearly">
+                                                      </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <label class="control-label sm-1 ml-3" for="">Amount</label>
+                                                      <div class="col-sm-11">
+                                                        <input type="number" name="" id="budgetDuration" class="form-control" placeholder="Enter Amount">
+                                                      </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                      <div class="sm-1"></div>
+                                                      <div class="col-sm-11">
+                                                        <button type="submit" class="btn form-control budgetBtn">Set Budget</button>
+                                                      </div>
+                                                    </div>
+                                                  </form>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
                                 </span>
                                 </div>
                                 <div class="col-md-7" style="background-color: #022EC1">
                                     <p class="total">Total Expenses</p>
                                         <div class="number">
-                                            <span class="price1">N25,000</span> 
-                                            <span class="price">N99,419</span>
-                                            <span class="price">N997,000</span>
+                                            <span class="price1">&#8358;25,000</span> 
+                                            <span class="price">&#8358;99,419</span>
+                                            <span class="price">&#8358;997,000</span>
                                         </div>
                                         <div class="annual">
                                             <span class="week1">per week <button class="btn"> <img src="image/Arrow 2.png" alt=""> 500 </button></span>
