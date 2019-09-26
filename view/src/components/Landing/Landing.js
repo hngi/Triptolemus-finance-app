@@ -7,7 +7,7 @@ const Landing = () => {
       <div className='container'>
         <div className='row'>
           <div className='col-md-6 align-self-center'>
-            <p className='msg ml-5 mt-0'>
+            <p className='msg ml-5'>
               A whole new way to manage your spending
             </p>
             <ul>
@@ -19,7 +19,11 @@ const Landing = () => {
             </Link>
           </div>
           <div className='col-md-6'>
-            <img src='image/Group.png' alt='logo' className='img-fluid' />
+            <img
+              src='https://res.cloudinary.com/busola/image/upload/v1569521208/charts.jpg'
+              alt='logo'
+              className='img-fluid'
+            />
           </div>
         </div>
       </div>
