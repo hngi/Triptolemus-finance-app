@@ -4,7 +4,7 @@ import './NotFound.css'
 const NotFound = () => {
   return (
     <div className='page-wrap d-flex flex-row align-items-center'>
-      <div className='container'>
+      <div className='container trip-container'>
         <div className='row justify-content-center'>
           <div className='col-sm-12 text-center'>
             <span className='display-2 d-block heading'>Oops!</span>

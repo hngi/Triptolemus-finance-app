@@ -4,7 +4,7 @@ import './Landing.css';
 const Landing = () => {
   return (
     <section id='info' className='py-'>
-      <div className='container'>
+      <div className='container trip-container'>
         <div className='row'>
           <div className='col-md-6 align-self-center'>
             <p className='msg ml-5'>

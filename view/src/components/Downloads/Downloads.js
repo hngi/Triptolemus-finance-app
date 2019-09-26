@@ -4,7 +4,7 @@ const Downloads = () => {
   return (
     <div>
       <section id='info' className='py-5'>
-        <div className='container'>
+        <div className='container trip-container'>
           <div className='row'>
             <div className='col-md-6 align-self-center'>
               <h2 className='download'>Download TriptoTracker App</h2>

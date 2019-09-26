@@ -4,7 +4,7 @@ const Faqs = () => {
   return (
     <div>
       <section id='info' className='py-1'>
-        <div className='container'>
+        <div className='container trip-container'>
           <h2 className='text-center' id='questions'>
             Frequently Asked Questions
           </h2>
