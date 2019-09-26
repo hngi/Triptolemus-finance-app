@@ -1,6 +1,10 @@
 import React from 'react';
 import './Contact.css';
 const Contact = () => {
+  const onFormSubmit=(e)=>{
+    // e.preventDefault();
+
+  }
   return (
     <div>
       <section id='info' className='py-0'>
@@ -26,7 +30,7 @@ const Contact = () => {
               </div>
             </div>
             <div className='col-md-6 col-sm-6' style={{ marginTop: '95px' }}>
-              <form>
+              <form onSubmit={onFormSubmit()}>
                 <div className='form-group'>
                   <label htmlFor='exampleInputEmail1'>Full Name</label>
                   <input

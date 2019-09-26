@@ -1,8 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-// import Register from '../../containers/Register/Register';
-// import Login from '../../containers/Login/Login';
-import Dashboard from '../../containers/Dashboard/Dashboard';
+
 import Features from '../Features/Features';
 import Downloads from '../Downloads/Downloads';
 import Faqs from '../Faqs/Faqs';
@@ -19,7 +17,6 @@ const Routes = () => {
       <Navbar />
       <Switch>
         <Route exact path='/' component={Landing} />
-        <Route exact path='/dashboard' component={Dashboard} />
         <Route exact path='/features' component={Features} />
         <Route exact path='/downloads' component={Downloads} />
         <Route exact path='/faqs' component={Faqs} />
