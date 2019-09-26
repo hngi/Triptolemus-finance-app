@@ -14,15 +14,14 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <Fragment>
           {/* <Navbar /> */}
-          <Switch>
-            <Route exact path='/register' component={Register} />
-            <Route exact path='/login' component={Login} />
-            <Route component={Routes} />
-            <Route component={NotFound} />
+          <Switch> 
+            <Route path='/register' component={Register} />
+            <Route path='/login' component={Login} /> 
+            
+            <Routes/>
+           
           </Switch>
-        </Fragment>
       </Router>
     </Provider>
   );

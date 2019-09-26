@@ -10,10 +10,10 @@ import Faqs from '../Faqs/Faqs';
 import Contact from '../Contact/Contact';
 import Landing from '../Landing/Landing';
 import Navbar from '../Navbar/Navbar';
-// import NotFound from '../NotFound/NotFound';
+import NotFound from '../NotFound/NotFound';
 const Routes = () => {
   return (
-    <Router>
+    <>
       <Navbar />
       <Alert />
       <Switch>
@@ -23,9 +23,10 @@ const Routes = () => {
         <Route exact path='/downloads' component={Downloads} />
         <Route exact path='/faqs' component={Faqs} />
         <Route exact path='/contact' component={Contact} />
+        <Route component={NotFound} />
         {/* <Route component={NotFound} /> */}
-      </Switch>
-    </Router>
+        </Switch>
+      </>
   );
 };
 
