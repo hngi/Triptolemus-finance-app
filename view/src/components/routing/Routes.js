@@ -11,6 +11,8 @@ import Contact from '../Contact/Contact';
 import Landing from '../Landing/Landing';
 import Navbar from '../Navbar/Navbar';
 import NotFound from '../NotFound/NotFound';
+import ResetPassword from '../ResetPassword/ResetPassword';
+import Forgot from '../Forgot/Forgot';
 const Routes = () => {
   return (
     <>
@@ -23,10 +25,12 @@ const Routes = () => {
         <Route exact path='/downloads' component={Downloads} />
         <Route exact path='/faqs' component={Faqs} />
         <Route exact path='/contact' component={Contact} />
+        <Route exact path='/forgot' component={Forgot} />
+        <Route exact path='/reset-password' component={ResetPassword} />
         <Route component={NotFound} />
         {/* <Route component={NotFound} /> */}
-        </Switch>
-      </>
+      </Switch>
+    </>
   );
 };
 
