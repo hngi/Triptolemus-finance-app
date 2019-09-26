@@ -8,11 +8,14 @@ const Navbar = ({ logout, isAuthenticated }) => {
     <div>
       <header className='main-header'>
         <div id='logo'>
-        <Link to='/'><img
-            alt='logo'
-            src='https://res.cloudinary.com/taofeeq/image/upload/v1569272981/TriptoTracker/logo_uhmcpr.png'
-          /></Link>
-          
+          <Link to='/'>
+            <img
+              style={{ width: '175px', height: '35px' }}
+              alt='logo'
+              src='
+https://res.cloudinary.com/busola/image/upload/c_scale,h_35,w_175/v1569398282/Logo_-_dark.png'
+            />
+          </Link>
         </div>
         <div>
           <button className='toggle-button'>
@@ -45,7 +48,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
                   <Link to='/dashboard'>Dashboard</Link>
                 </li>
                 <li className='main-nav__item' onClick={() => logout()}>
-                  <Link to='/'>
+                  <Link to='/login'>
                     {' '}
                     <span className='hide-sm'>Logout</span>{' '}
                     <i className='fas fa-sign-out-alt'> </i>
