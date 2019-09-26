@@ -3,7 +3,7 @@ import './Contact.css';
 const Contact = () => {
   return (
     <div>
-      <section id='info' className='py-5'>
+      <section id='info' className='py-0'>
         <div className='container'>
           <div className='row'>
             <div
@@ -11,21 +11,18 @@ const Contact = () => {
               style={{ backgroundColor: '#022EC1', height: '530px' }}
               id='contain'>
               <img
-                src='image/shutterstock-446608831-removebg-preview.png'
+                src='https://res.cloudinary.com/busola/image/upload/v1569523574/phone.png'
                 alt='phone call'
-                style={{ float: 'left' }}
+                style={{width:'auto',height:'auto', float: 'left' }}
                 className='image'
               />
               <div className='content'>
-                <p className='touch0'>get in touch</p>
-                <p className='touch1'>contact@recit.ng</p>
+                <p className='touch0 mt-4'>Get in touch</p>
+                <p className='touch1'>contact@triptolemus.ng</p>
                 <p className='touch2' style={{ marginTop: '20px' }}>
-                  +234 811 343 8223
+                  +234 811 111 1111
                 </p>
-                <p className='touch3' style={{ marginTop: '20px' }}>
-                  20 Prince Hakerem Lekki Phase 1, Lagos.
-                </p>
-                {/* <button class="circle"> <img src="image/Vector.png" alt=""> </button> */}
+                
               </div>
             </div>
             <div className='col-md-6 col-sm-6' style={{ marginTop: '95px' }}>
@@ -61,24 +58,6 @@ const Contact = () => {
                   />
                 </div>
               </form>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section id='home-icons' className='icons'>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-md-4 mb-4 text-center'>
-              <img src='image/call.png' alt='call' />
-              <span className='three'>+234 811 343 8223</span>
-            </div>
-            <div className='col-md-4 mb-4 text-center'>
-              <img src='image/envelop.png' alt='message' />
-              <span className='three'>contact@recit.ng</span>
-            </div>
-            <div className='col-md-4 mb-4 text-center'>
-              <img src='image/icon.png' alt='icon' />
-              <span className='three'>recit.ng</span>
             </div>
           </div>
         </div>
