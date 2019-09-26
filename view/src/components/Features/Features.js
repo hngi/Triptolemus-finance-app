@@ -6,62 +6,50 @@ import './Features.css';
 const Features = ({ isAuthenticated }) => {
   return (
     <div>
-      <section id='main-body'>
-        {/*-----------------------------------------------------------*/}
-        <h2 className='container text-center' id='features-tag'>
-          <strong>Features</strong>
-        </h2>
-        {/*-----------------------------------------------------------*/}
-        <div className='container' id='partition1'>
+      <section id='info' className='py-5'>
+        <div className='container'>
+          <h2 className='text-center' id='feature'>
+            FEATURES
+          </h2>
           <div className='row'>
-            <div id='left-side' className='col-md-6'>
-              <h2 className='text-muted'>Know how you spend</h2>
-              <p className='text-muted'>
-                With TriptoTracker, you're able to see the statistics of your
-                spending on a weekly, monthly, and yearly basis.
+            <div className='col-md-6 align-self-center'>
+              <h2 className='know'>Know How You Spend</h2>
+              <p className='with'>
+                With TriptoTracker, you’re able to see the statistics of your
+                spending on a weekly, monthly and yearly basis
               </p>
-              <Link to='/dashboard'>
-                <button id='button' className='btn btn-sm rounded'>
-                  View Dashboard
-                </button>
+              <Link to='/dashboard' className='nav-link'>
+                <button className='dashboard'>View dashboard</button>
               </Link>
-            </div>
-            <div id='right-side' className='col-md-6 text-center'>
               <img
                 style={{ width: '241px', height: '195px' }}
-                src='https://res.cloudinary.com/veecee/image/upload/v1569412683/image1_zhscjq.jpg
-'
-                alt='image1'
+                src='https://res.cloudinary.com/veecee/image/upload/v1569412683/image1_zhscjq.jpg'
+                alt='sitting-man'
+                className='sittingman'
               />
             </div>
-          </div>
-        </div>
-        {/*-----------------------------------------------------------*/}
-        <div className='container' id='partition2'>
-          <div className='row'>
-            <div id='left-side2' className='col-md-6'>
+            <div className='col-md-6'>
               <img
                 style={{ width: '241px', height: '195px' }}
-                src='https://res.cloudinary.com/veecee/image/upload/v1569412639/image2_sm9qwp.jpg
-'
-                alt='image2'
+                src='https://res.cloudinary.com/veecee/image/upload/v1569412639/image2_sm9qwp.jpg'
+                alt='images'
+                className='standingman'
               />
-            </div>
-            <div id='right-side2' className='col-md-6'>
-              <h2 className='display-6 text-muted'>Manage your finances</h2>
-              <p className='text-muted'>
-                TriptoTracker helps you manage your finances using the "set
-                budget" feature
+              <h2 className='know' style={{ marginLeft: '60px' }}>
+                Manage Your Finances
+              </h2>
+              <p className='with' style={{ marginLeft: '60px' }}>
+                TriptoTracker helps you Manage your finances using the “set
+                budget” feature
               </p>
-              <Link to='/add-expense'>
-                <button id='button' className='btn btn-sm rounded'>
+              <Link to='/add-expense' className='nav-link'>
+                <button className='expenses' style={{ marginLeft: '50px' }}>
                   Add expenses
                 </button>
               </Link>
             </div>
           </div>
         </div>
-        {/*-----------------------------------------------------------*/}
       </section>
     </div>
   );

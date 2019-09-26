@@ -106,7 +106,7 @@ const Register = ({ isAuthenticated, register, history }) => {
               <p>
                 Already a member? <Link to='/login'>Sign In</Link>
                 <Link className='ml-2' to='/'>
-                  Go home
+                  Home
                 </Link>
               </p>
             </div>

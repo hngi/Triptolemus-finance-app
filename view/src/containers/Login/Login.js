@@ -40,7 +40,7 @@ const Login = ({ login, history, isAuthenticated }) => {
                 </label>
                 <input
                   id='email'
-                  className='signin-input'
+                  className='form-control'
                   onChange={e => onChange(e)}
                   value={email}
                   type='email'
@@ -54,8 +54,8 @@ const Login = ({ login, history, isAuthenticated }) => {
                   Password
                 </label>
                 <input
+                  className='form-control'
                   id='password'
-                  className='signin-input'
                   onChange={e => onChange(e)}
                   value={password}
                   type='password'
@@ -67,16 +67,17 @@ const Login = ({ login, history, isAuthenticated }) => {
                 {' '}
                 <Link to='/forgot'>Forgot Password?</Link>
               </p>
-              <input
-                type='submit'
-                className='btn btn-primary signin-input signin-button'
-                value='Sign In'
-              />
+              <div className='col-sm-11'>
+                <button type='submit' className='btn form-control'>
+                  Sign in
+                </button>
+              </div>
             </form>
             <p className='my-1'>
               Don't have an account? <Link to='/register'>Sign Up</Link>
-
-              <Link className='ml-2' to='/'>Go home</Link>
+              <Link className='ml-2' to='/'>
+                Home
+              </Link>
             </p>
           </div>
         </div>

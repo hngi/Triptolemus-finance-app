@@ -1,65 +1,129 @@
-:root, body {
-    font-family: 'Raleway', sans-serif !important;
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
+.btn-login{
+    background-color: #fff;
+    border: 1px solid #022EC1;
+    border-radius: 8px;
+    width: 135px;
+    height: 35px;
+    
 }
+.navbar {
+    margin-left: 0px;
+    opacity: 1.5;
+    background: #fff; 
+}
+.navbar .nav-item {
+    font-size: 17px;
+    padding-right: 1.9rem; 
+    font-family: 'Raleway';
+    color: black;
+    
+}
+.py-{
+    padding-top: 140px;
+}
+.msg{
+    font-size: 64px;
+    font-family: 'Raleway';
+    line-height: 75px;
+    display: flex;
+    color: #000000;
+    text-align: left;
+    letter-spacing: 2px;
+    font-weight: 600px;
+}
+ul {
+    list-style: none;
+}  
 
-#partition1 {
-    margin-bottom: 50px;
+.list::before {
+    content: "\2022";
+    color: #022EC1;
+    font-weight: bold;
+    display: inline-block; 
+    width: 1em;
+    font-size: 170%;
 }
-
-#features-tag {
-    color: #022ec1;
-    padding-top: 30px;
-    padding-bottom: 50px;
+.list{
+    font-size: 18px;
+    font-weight: 600px;
+    width: 230px;
+    height: 35px;
+    left: 60px;
+    margin-left: -35px;
 }
-
-#button {
-    background: #022ec1 !important;
-    color: white !important;
-    text-align: center;
-    width: 200px;
+.btn-signup{
+    background-color: #022EC1;
+    border: 5px solid #022EC1;
+    color: #fff;
+    border-radius: 8px;
+    width: 295px;
+    height: 50px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.05);
+    margin-left: -10px;
+    font-size: 17px;
 }
-
-#sign-in {
-    color: #022ec1;
-    outline-color: #022ec1 !important;
-    width: 150px;
+.img-fluid{
+    margin-top: 90px;
 }
-#sign-in:hover {
-    background: #022ec1;
-    color: white;
+#feature, #questions {
+    color: #022EC1;
+    font-family: 'Raleway';
+    font-weight: bold;
+    padding-bottom: 40px;
 }
-
-a.text-dark.nav-link:focus, a.text-dark.nav-link:hover {
-    color: #022ec1 !important;
+.dashboard, .expenses{
+    background-color: #022EC1;
+    border: 5px solid #022EC1;
+    color: #fff;
+    border-radius: 8px;
+    width: 218px;
+    height: 50px;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.05);
+    margin-left: -10px;
+    font-size: 17px;
 }
-
-a#sign-in {
-    border-color: #022ec1 !important;
+.with{
+    width: 485px;
+    font-size: 20px;
+    font-family: 'Raleway';
 }
-
-.nav-link {
-    margin-left: 20px;
+.know{
+    font-size: 40px;
+    font-family: 'Raleway';
 }
-
-#navbarNav {
-    margin-right: 20px;
+.standingman{
+    margin-left: 280px;
 }
-
-
-header#header .bg-light {
-    background: white !important;
+.download{
+    color: #022EC1;
+    font-size: 35px;
+    font-family: 'Raleway';
+    font-weight: bold;
 }
-/*
-#right-side img {
-    float: right;
+.panel-title > a:before {
+    float: right !important;
+    font-family: FontAwesome;
+    content:"\f068";
+    padding-right: 5px;
 }
-*/
-#main-body {
-    margin-bottom: 50px;
+.panel-title > a.collapsed:before {
+    float: right !important;
+    content:"\f067";
 }
-
-button .navbar-toggler-icon {
-    background-color: #022ec1 !important;
-    color: #022ec1 !important;
-    /* background-image: data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000…p='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e */
-      }
+.panel-title > a:hover, 
+.panel-title > a:active, 
+.panel-title > a:focus  {
+    text-decoration:none;
+}
+.three{
+    font-size: 18px;
+    padding-left: 10px;
+    font-weight: normal;
+}
+.dashboard:hover{
+    cursor:pointer;
+}
+.expenses:hover{
+    cursor:pointer;
+}
