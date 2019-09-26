@@ -9,14 +9,15 @@ import Downloads from '../Downloads/Downloads';
 import Faqs from '../Faqs/Faqs';
 import Contact from '../Contact/Contact';
 import Landing from '../Landing/Landing'
+import Navbar from '../Navbar/Navbar';
 const Routes = () => {
   return (
     <>
+    <Navbar/>
       <Alert />
       <Switch>
         <Route exact path='/' component={Landing} />
-        <Route exact path='/register' component={Register} />
-        <Route exact path='/login' component={Login} />
+        
         <Route exact path='/dashboard' component={Dashboard} />
         <Route exact path='/features' component={Features} />
         <Route exact path='/downloads' component={Downloads} />

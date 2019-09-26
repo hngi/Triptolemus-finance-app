@@ -13,9 +13,7 @@ const Login = ({ login, history, isAuthenticated }) => {
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  // if (isAuthenticated) {
-  //   return <Redirect to='/dashboard' />;
-  // }
+
   return (
     <section className='login-container'>
       <div className='row login-row'>

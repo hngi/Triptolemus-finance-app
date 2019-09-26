@@ -6,15 +6,18 @@ import './App.css';
 // import Landing from './components/Landing/Landing';
 import Routes from './components/routing/Routes';
 import Navbar from './components/Navbar/Navbar';
+import Register from './containers/Register/Register';
+import Login from './containers/Login/Login';
 
 const App = () => {
   return (
     <Provider store={store}>
       <Router>
         <Fragment>
-          <Navbar />
+          {/* <Navbar /> */}
           <Switch>
-            
+            <Route exact path='/register' component={Register} />
+            <Route exact path='/login' component={Login} />
             <Route component={Routes} />
           </Switch>
         </Fragment>

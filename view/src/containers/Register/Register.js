@@ -15,9 +15,6 @@ const Register = ({ isAuthenticated, register, history }) => {
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  // if (isAuthenticated) {
-  //   return <Redirect to='/dashboard' />;
-  // }
 
   return (
     <Fragment>
