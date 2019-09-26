@@ -9,7 +9,7 @@
 }
 .navbar {
     margin-left: 0px;
-    opacity: 0.9;
+    opacity: 1.5;
     background: #fff; 
 }
 .navbar .nav-item {
@@ -66,7 +66,7 @@ ul {
 .img-fluid{
     margin-top: 90px;
 }
-#feature {
+#feature, #questions {
     color: #022EC1;
     font-family: 'Raleway';
     font-weight: bold;

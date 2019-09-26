@@ -1,0 +1,82 @@
+.navbar {
+    margin-left: 0px;
+    opacity: 1.5;
+    background-color: #022EC1; 
+}
+.list{
+    color: white;
+
+}
+.nav-link{
+    color: white;
+}
+.py-{
+    padding-top: 140px;
+}
+.msg{
+    font-size: 30px;
+    font-family: 'Raleway';
+    display: flex;
+    color: #000000;
+    text-align: left;
+    font-weight: bold;
+}
+.expenses, .budget{
+    background-color: white;
+    border: 1.5px solid #022EC1;
+    color: #022EC1;
+    width: 187px;
+    height: 50px;
+    margin-left: -10px;
+    font-size: 17px;
+    border-radius: 5px;
+}
+.budget{
+    background-color: white;
+    border: 1.5px solid #4BC102;
+    color: #4BC102;
+    border-radius: 5px;
+    width: 187px;
+    height: 50px;
+    margin-left: 10px;
+    font-size: 17px;
+}
+.col-md-7{
+    border-radius: 8px;
+}
+.total{
+    color: white;
+    margin-top: 10px;
+    font-family: 'Raleway';
+    font-weight: bold;
+    font-size: 18px;
+}
+.number{
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: -15px;
+    width: 100%;
+    letter-spacing: 3px;
+}
+.price1{
+    margin-left: 20px;
+}
+.price{
+    margin-left: 92px;
+}
+.week{
+    color: white;
+    margin-left: 78px;
+}
+.week1{
+    margin-left: 20px;
+    color: white;
+}
+.week3{
+    margin-left: 70px;
+    color: white;
+}
+.annuel{
+    margin-top: 5px;
+}
