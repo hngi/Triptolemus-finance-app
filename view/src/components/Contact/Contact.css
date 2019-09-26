@@ -9,6 +9,9 @@
   height: 470px;
   margin-left: 70px;
 }
+#info{
+  margin-top:0
+}
 .touch0 {
   color: white;
   font-size: 40px;

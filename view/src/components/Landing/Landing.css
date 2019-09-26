@@ -52,6 +52,7 @@ ul {
   margin-left: -35px;
 }
 .btn-signup {
+  cursor:pointer;
   background-color: #022ec1;
   border: 5px solid #022ec1;
   color: #fff;

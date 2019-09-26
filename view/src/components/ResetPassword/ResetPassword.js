@@ -35,13 +35,11 @@ const ResetPassword = () => {
                 defaultValue
               />
             </div>
-            <div className='form-group hover button text-white'>
-              <input
-                type='submit'
-                className='btnSubmit'
-                defaultValue='Submit'
-              />
-            </div>
+            {/* <div className='col-sm-11'> */}
+              <button type='submit' className='btn form-control'>
+                Submit
+              </button>
+            {/* </div> */}
           </form>
         </div>
       </div>
