@@ -5,11 +5,12 @@ import store from './store';
 import Routes from './components/routing/Routes';
 import Register from './containers/Register/Register';
 import Login from './containers/Login/Login';
-
+import Alert from './components/Alert/Alert';
 const App = () => {
   return (
     <Provider store={store}>
       <Router>
+      <Alert />
           <Switch> 
             <Route path='/register' component={Register} />
             <Route path='/login' component={Login} />          
