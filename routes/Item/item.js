@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let userAuth = require('../../middleware/userAuth');
 let Item = require('../../schema/item');
+const mongoose = require('mongoose');
 
 router.get('/api/users/:userId/calculate/year', userAuth, async (req, res) => {
   try {
@@ -207,6 +208,62 @@ router.post('/api/users/:userId/calculate/daily', userAuth, async (req, res) => 
       });
   } catch (error) {
     console.log(error.message);
+  }
+});
+
+// route for getting all items for month(s)
+router.get('/api/users/:userId/calculate/month', userAuth, async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    let { startDate, endDate } = req.body;
+    
+    const id = req.user;
+    if (userId !== id) {
+      return res.status(401).json({ error: 'Unauthorized user' });
+    }
+    
+    if (startDate > endDate) {
+      return res.status(400).json({error: 'Invalid Request. Start Date is in the future'});
+    }
+
+    startDate = new Date(startDate)
+    endDate = new Date(endDate).addDays(1)
+    const filteredItems = await Item.aggregate([
+      {
+        $match: {
+          user_id: mongoose.Types.ObjectId(userId),
+          date: { $gte: startDate, $lte: endDate}
+        }
+      },
+      {
+        "$project": {
+          month: {"$month": "$date"},
+          user_id: 1,
+          amount: 1,
+        }
+      },
+      
+      {
+        $group: {
+          _id: "$month",
+          "total": {$sum: "$amount"}
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          month: "$_id",
+          total: 1
+        }
+      }
+    ]);
+
+    if (!filteredItems) {
+      res.status(200).json({ items: null });
+    }
+    res.status(200).json({ items: filteredItems });
+  } catch (error) {
+    res.status(401).json({error: error})
   }
 });
 
