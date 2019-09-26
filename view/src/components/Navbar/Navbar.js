@@ -52,6 +52,11 @@ https://res.cloudinary.com/busola/image/upload/c_scale,h_35,w_175/v1569398282/Lo
           </li>
           {isAuthenticated ? (
             <Fragment>
+              <li className='nav-item'>
+                <Link className='nav-link' to='/dashboard'>
+                  <span className='hide-sm'>Dashboard</span>{' '}
+                </Link>{' '}
+              </li>
               <li onClick={logout} className='nav-item'>
                 <Link className='nav-link' to='/login'>
                   <span className='hide-sm'>Logout</span>{' '}
