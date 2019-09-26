@@ -48,3 +48,65 @@ form{
     margin-left: 50px;
     
 } */
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    /* Styles */
+    #contain {
+        width: 360px;
+        margin-left: 5px;
+        margin-right: 0px;
+    }
+    div.col-md-6{
+        width: 360px;
+    }
+    .image{
+        height: 400px;
+        margin-left: 20px;
+    }
+    .content{
+        margin-left: 150px;
+        margin-top: 70px;
+    }
+    }
+
+    @media only screen and (max-device-width : 425px) {
+        /* Styles */
+        #contain {
+            width: 410px;
+            margin-left: 7px;
+            margin-right: 0px;
+        }
+        div.col-md-6{
+            width: 410px;
+        }
+        .image{
+            height: 400px;
+            margin-left: 20px;
+        }
+        .content{
+            margin-left: 150px;
+            margin-top: 70px;
+        }
+        }
+
+        @media only screen and (max-device-width : 768px) {
+            /* Styles */
+            #contain {
+                width: 410px;
+                margin-left: 7px;
+                margin-right: 0px;
+            }
+            div.col-md-6{
+                max-width: 47%;
+            }
+            .image{
+                height: 400px;
+                margin-left: 10px;
+            }
+            .content{
+                margin-left: 50px;
+                margin-top: 70px;
+            }
+
+            }
+    
