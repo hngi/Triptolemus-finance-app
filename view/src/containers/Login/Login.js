@@ -75,6 +75,8 @@ const Login = ({ login, history, isAuthenticated }) => {
             </form>
             <p className='my-1'>
               Don't have an account? <Link to='/register'>Sign Up</Link>
+
+              <Link className='ml-2' to='/'>Go home</Link>
             </p>
           </div>
         </div>

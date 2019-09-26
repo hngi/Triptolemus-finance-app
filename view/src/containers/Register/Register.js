@@ -105,6 +105,9 @@ const Register = ({ isAuthenticated, register, history }) => {
               </form>
               <p>
                 Already a member? <Link to='/login'>Sign In</Link>
+                <Link className='ml-2' to='/'>
+                  Go home
+                </Link>
               </p>
             </div>
           </div>
