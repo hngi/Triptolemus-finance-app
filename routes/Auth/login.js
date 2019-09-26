@@ -5,8 +5,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 
 router.post('/api/auth/login', async (req, res) => {
-  console.log(req.body)
-  const email = req.body.email,
+    const email = req.body.email,
     password = req.body.password;
 
   if (email == '' || password == '') {
