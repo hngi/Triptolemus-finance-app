@@ -1,7 +1,6 @@
 let express = require('express');
 let router = express.Router();
 let userAuth = require('../../middleware/userAuth');
-let moment = require('moment');
 let Item = require('../../schema/item');
 
 router.get('/api/users/:userId/calculate/year', userAuth, async (req, res) => {
@@ -42,6 +41,12 @@ router.get('/api/users/:userId/calculate/year', userAuth, async (req, res) => {
     console.log(error.message);
   }
 });
+
+Date.prototype.addDays = function(days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+};
 
 router.post('/api/users/:userId/items', userAuth, async (req, res) => {
   try {
@@ -98,13 +103,6 @@ router.get('/api/users/:userId/items', userAuth, async (req, res) => {
     console.log(error.message);
   }
 });
-
-Date.prototype.addDays = function(days) {
-  var date = new Date(this.valueOf());
-  date.setDate(date.getDate() + days);
-  return date;
-};
-
 router.post('/api/users/:userId/calculate/week', userAuth, async (req, res) => {
   try {
     const { userId } = req.params;
@@ -191,17 +189,17 @@ router.post('/api/users/:userId/calculate/daily', userAuth, async (req, res) => 
           let docCount = doc.length;
           dailyCost = 0;
           for (i = 0; i < docCount; i++) {
-            dailyCost = dailyCost + doc[i].amount;
+            weekCost = weekCost + doc[i].amount;
           }
           res.status(200).json({
-            dailyCost: weekCost,
+            weeklyCost: weekCost,
             startdate: startDate,
             enddate: endDate
           });
         } else {
           res
             .status(400)
-            .json({ dailyCost: 0, startdate: startDate, enddate: endDate });
+            .json({ weeklyCost: null, startdate: startDate, enddate: endDate });
         }
       })
       .catch(err => {

@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { register } from '../../actions/auth';
 import { addItem } from '../../actions/item';
@@ -15,9 +15,6 @@ const Register = ({ isAuthenticated, register, history }) => {
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  // if (isAuthenticated) {
-  //   return <Redirect to='/dashboard' />;
-  // }
 
   return (
     <Fragment>
