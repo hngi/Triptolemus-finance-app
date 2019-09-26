@@ -34,11 +34,11 @@
 .expenses, .budget:hover{
     cursor: pointer;
 }
-.expenseBtn{
+.expenseBtn, .budgetBtn{
     background: #022EC1;
     color: #ffff;
 }
-.expenseCat{
+.expenseCat, .budgetScheme{
     font-size: 80%;
 }
 .budget{
