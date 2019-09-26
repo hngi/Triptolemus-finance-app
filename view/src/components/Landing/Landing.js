@@ -14,7 +14,7 @@ const Landing = () => {
               <li className='ml-5 list'>know how you spend</li>
               <li className='ml-5 list'>Manage your finances</li>
             </ul>
-            <Link to='.register' className='nav-link'>
+            <Link to='/register' className='nav-link'>
               <button className='btn-signup ml-3'>Sign up for free</button>
             </Link>
           </div>
