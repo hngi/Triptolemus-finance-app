@@ -28,6 +28,7 @@ const Features = ({ isAuthenticated }) => {
             </div>
             <div id='right-side' className='col-md-6 text-center'>
               <img
+                style={{ width: '241px', height: '195px' }}
                 src='https://res.cloudinary.com/veecee/image/upload/v1569412683/image1_zhscjq.jpg
 '
                 alt='image1'
@@ -40,6 +41,7 @@ const Features = ({ isAuthenticated }) => {
           <div className='row'>
             <div id='left-side2' className='col-md-6'>
               <img
+                style={{ width: '241px', height: '195px' }}
                 src='https://res.cloudinary.com/veecee/image/upload/v1569412639/image2_sm9qwp.jpg
 '
                 alt='image2'
