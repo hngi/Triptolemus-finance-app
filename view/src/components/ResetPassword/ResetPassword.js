@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import {resetPassword} from '../../actions/auth';
@@ -7,7 +7,7 @@ const ResetPassword = ({resetPassword,history}) => {
     token:'',
     password:''
   });
-  const { username, email, password } = formData;
+  const { token, password } = formData;
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
