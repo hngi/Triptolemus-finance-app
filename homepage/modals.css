@@ -1,0 +1,62 @@
+:root, body {
+    font-family: 'Raleway', sans-serif !important;
+}
+
+.display {
+    display: block !important;
+    z-index: 1;
+}
+
+#add-expenses {
+    display: inline;
+    color: #022EC1;
+}
+
+#modal-container {
+    margin: 100px auto;
+    width: 50%;
+    padding: 5px;
+    display: none;
+  }
+
+#delete {
+    float: right;
+    color: #022EC1;
+}
+
+.form-group, #modal-top {
+    width: 90%;
+}
+
+#modal-body {
+   margin: 30px;
+}
+
+#modal-form {
+    margin-top: 10px;
+}
+
+button {
+    width: 90%;
+    background: #022EC1 !important;
+    text-align: center;
+    color: white !important;
+}
+
+#main-body, body {
+    margin: 30px 0px 30px 0px;
+}
+
+input.form-control:focus, select.form-control:focus {
+    box-shadow: 0px 0px 0px white;
+    border-color: #022EC1 !important;
+   }
+
+#showbutton {
+    width: 10%;
+}
+
+option {
+    background: #F9F9F9;
+    width: 60%;
+}
