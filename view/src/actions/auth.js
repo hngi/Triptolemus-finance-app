@@ -60,7 +60,10 @@ export const login = (email, password, history) => async dispatch => {
     password
   });
   const config = {
-    headers: { 'Content-Type': 'application/json' }
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
   };
   try {
     const response = await axios.post(

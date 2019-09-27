@@ -9,6 +9,7 @@ const API = process.env.API_KEY;
 const triptolemusEmail = process.env.TRIP_EMAIL
 const mailgun = require('mailgun-js')({ apiKey: API, domain: DOMAIN });
 
+
 router.post('/api/auth/reset',emailAuth, async (req, res) => {
     console.log(req.email)
     const { password } = req.body
@@ -34,30 +35,28 @@ router.post('/api/auth/forgot', async (req, res) => {
       };
 
     let mailOptions = {
-        from: hostEmail,
-        to: email,
-        subject: 'TripToTracker - Password reset link',
-        text: 'Please follow the link to reset your password ' + password_reset_link
-    }
-
-    transporter.sendMail(mailOptions, (error,info)=>{
-        if (error){
-            console.log(error)
-            throw error
-        } else {
-            console.log(info.response)
-            Response.status(200).json({message:"Email with password reset link sent",success:true})
-        }
-    })
-
-    } catch(error){
-
-        res.status(401).json({message:error})
+      from: triptolemusEmail,
+      to: email,
+      subject: 'TripToTracker - Password reset link',
+      text:
+        'Please follow the link to reset your password ' + password_reset_link
     };
-    
 
-
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+        throw error;
+      } else {
+        console.log(info.response);
+        Response.status(200).json({
+          message: 'Email with password reset link sent',
+          success: true
+        });
+      }
+    });
+  } catch (error) {
+    res.status(401).json({ message: error });
+  }
 });
-
 
 module.exports = router;

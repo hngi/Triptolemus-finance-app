@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from "react-router";
-import { goToLogin } from '../actions/auth'
+import { goToLogin } from '../../actions/auth'
 import { connect } from 'react-redux';
 const AddExpense = ({isAuthenticated,goToLogin}) => {
   if (isAuthenticated == null || !isAuthenticated) {
