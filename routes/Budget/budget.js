@@ -1,7 +1,13 @@
 let express = require('express');
 let router = express.Router();
+<<<<<<< HEAD
+let User = require('../../schema/user');
+const mongoose = require('mongoose');
+let userAuth = require('../../middleware/userAuth');
+=======
 let userAuth = require('../../middleware/userAuth');
 let User=require('../../schema/user')
+>>>>>>> ba8e5f4d9fa31a8795b2e7f85ee31505095a08a3
 
 router.put('/api/users/:userId/update_budget',userAuth,async(req,res)=>{
   try {
