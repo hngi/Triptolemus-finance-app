@@ -20,6 +20,7 @@ router.post('/api/users/:userId/calculate/year', userAuth, async (req, res) => {
         $gte: new Date(date) + 364
       }
     });
+    
     if (items.length < 0) {
       return res.status(200).json({
         message: 'No items recorded for the specified period'
@@ -238,7 +239,7 @@ router.post(
 );
 
 // route for getting all items for month(s)
-router.post(
+router.get(
   '/api/users/:userId/calculate/month',
   userAuth,
   async (req, res, next) => {
@@ -294,7 +295,7 @@ router.post(
       }
       res.status(200).json({ items: filteredItems });
     } catch (error) {
-      res.status(401).json({ error: error });
+      res.status(400).json({ error: error });
     }
   }
 );
