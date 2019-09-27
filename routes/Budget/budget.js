@@ -49,7 +49,7 @@ router.post('/api/users/:userId/setYearlyBudget', userAuth, async (req, res) => 
 router.put('/api/users/:userId/setMonthlyBudget', userAuth, async (req, res, next) => {
     try {
         const { userId } = req.params;
-        const { duration, amount } = req.body;
+        const { budget } = req.body;
         const id = req.user;
         
         if (userId !== id) {
@@ -57,11 +57,11 @@ router.put('/api/users/:userId/setMonthlyBudget', userAuth, async (req, res, nex
                 error: 'Unauthorized user'
             });
         }
-        const newBudget = new User({ _id: userId })
-        await User.updateOne({_id: userId},{ $set: {monthly_budget: amount}}).then(
+        
+        await User.updateOne({_id: userId},{ $set: {monthly_budget: budget}}).then(
             () => {
                 res.status(201).json({
-                    message: "Budget set successfully"
+                    message: "Budget set successfully",
                 });
             }
         ).catch(
