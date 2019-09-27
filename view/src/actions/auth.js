@@ -14,7 +14,7 @@ import {
 import { setAlert } from './alert';
 
 import axios from 'axios';
-
+const base_url = 'http://127.0.0.1:3500'
 export const register = (
   username,
   email,
@@ -31,7 +31,7 @@ export const register = (
   };
   try {
     const response = await axios.post(
-      'https://finance-tracker-server.herokuapp.com/api/auth/register',
+      base_url + '/api/auth/register',
       body,
       config
     );
@@ -64,7 +64,7 @@ export const login = (email, password, history) => async dispatch => {
   };
   try {
     const response = await axios.post(
-      'https://finance-tracker-server.herokuapp.com/api/auth/login',
+      base_url + '/api/auth/login',//finance-tracker-server.herokuapp.com
       body,
       config
     );
@@ -104,7 +104,7 @@ export const goToLogin = () => dispatch => {
   dispatch(setAlert('You need to be logged in to do that','danger'));
 }
 
-export const requestResetPassword = (email,history) => async dispatch => {
+export const requestResetPassword = (email) => async dispatch => {
   const body = JSON.stringify({
     email
   });
@@ -114,7 +114,7 @@ export const requestResetPassword = (email,history) => async dispatch => {
 
   try{
     const response = await axios.post(
-      'https://finance-tracker-server.herokuapp.com/api/auth/forgot',
+      base_url + '/api/auth/forgot',
       body,
       config
     );
@@ -122,12 +122,14 @@ export const requestResetPassword = (email,history) => async dispatch => {
       type: REQUEST_PASSWORD_RESET_SUCCESS,
       payload: response.data
     });
+    console.log(response.data)
 
 
   } catch(error){
+    console.log(error)
     dispatch({
       type: REQUEST_PASSWORD_RESET_FAIL,
-      payload: error.response.data
+      payload: error.response
     });
 
   }

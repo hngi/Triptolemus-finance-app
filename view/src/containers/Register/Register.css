@@ -15,12 +15,12 @@ h1{
     text-align: center;
     font-weight: 500;
 }
-p{
+.register p{
     text-align: center;
     font-size: 1em;
     font-weight: 500;
 }
-a{
+.register a{
     text-transform: capitalize;
     color: #022EC1;
 }

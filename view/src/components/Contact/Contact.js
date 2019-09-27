@@ -7,29 +7,29 @@ const Contact = () => {
   }
   return (
     <div>
-      <section id='info' className='py-0'>
-        <div className='container trip-container'>
+      <section id='info' className='py-0' style={{marginTop:"40px"}}>
+        <div className='contact-container'>
           <div className='row'>
             <div
-              className='col-md-6 col-sm-6 align-self-center'
+              className='col-md-6 col-sm-6 align-self-center contact-col-md-6 '
               style={{ backgroundColor: '#022EC1', height: '530px' }}
-              id='contain'>
+              id='contact-contain'>
               <img
                 src='https://res.cloudinary.com/busola/image/upload/v1569523574/phone.png'
                 alt='phone call'
                 style={{width:'auto',height:'auto', float: 'left' }}
-                className='image'
+                className='contact-image'
               />
-              <div className='content'>
-                <p className='touch0 mt-4'>Get in touch</p>
-                <p className='touch1'>contact@triptolemus.ng</p>
-                <p className='touch2' style={{ marginTop: '20px' }}>
+              <div className='contact-content'>
+                <p className='contact-touch0 mt-4'>Get in touch</p>
+                <p className='contact-touch1'>contact@triptolemus.ng</p>
+                <p className='contact-touch2' style={{ marginTop: '20px' }}>
                   +234 811 111 1111
                 </p>
                 
               </div>
             </div>
-            <div className='col-md-6 col-sm-6' style={{ marginTop: '95px' }}>
+            <div className='col-md-6 col-sm-6 contact-col-md-6' style={{ marginTop: '95px' }}>
               <form onSubmit={onFormSubmit()}>
                 <div className='form-group'>
                   <label htmlFor='exampleInputEmail1'>Full Name</label>

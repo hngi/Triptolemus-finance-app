@@ -1,8 +1,8 @@
-* {
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+} */
 
 .heading {
     font-weight: 400;
@@ -13,10 +13,6 @@
     font-weight: 600;
 }
 
-img {
-    height: 200px;
-    width: 400px;
-}
 
 .button {
     background-color: #022EC1;

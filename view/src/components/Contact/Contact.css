@@ -1,18 +1,16 @@
-.container {
-  box-shadow: 0 14px 20px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+.contact-container{
+  box-shadow: 0 14px 20px rgba(0,0,0,0.25),
+              0 10px 10px rgba(0,0,0,0.22);
 }
-.content {
-  margin-left: 350px;
+.contact-content{
+  margin-left: 250px;
   margin-top: 100px;
 }
-.image {
+.contact-image{
   height: 470px;
   margin-left: 70px;
 }
-#info{
-  margin-top:0
-}
-.touch0 {
+.contact-touch0{
   color: white;
   font-size: 40px;
   font-family: Raleway;
@@ -21,93 +19,92 @@
   width: 109px;
   height: 94px;
 }
-.touch1,
-.touch2,
-.touch3 {
-  color: #ffffff;
+.contact-touch1, .contact-touch2, .contact-touch3{
+  color: #FFFFFF;
   font-family: Raleway;
   font-weight: 500;
   display: flex;
   margin-top: 50px;
   font-size: 14px;
 }
-label {
+.contact-label{
   font-size: 14px;
   font-family: Raleway;
   font-weight: 500;
 }
-textarea {
+.contact-textarea{
   resize: none;
   height: 200px;
 }
-form {
+.contact-form{
   margin-left: 15px;
   padding-right: 10px;
 }
-/* .circle{
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    margin-top: -30px;
-    margin-left: 50px;
-    
+/* .contact-circle{
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin-top: -30px;
+  margin-left: 50px;
+  
 } */
 
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
   /* Styles */
-  #contain {
-    width: 360px;
-    margin-left: 5px;
-    margin-right: 0px;
+  #contact-contain {
+      width: 360px;
+      margin-left: 5px;
+      margin-right: 0px;
   }
-  div.col-md-6 {
-    width: 300px;
+  div.contact-col-md-6{
+      width: 360px;
   }
-  .image {
-    height: 400px;
-    margin-left: 20px;
+  .contact-image{
+      height: 400px;
+      margin-left: 20px;
   }
-  .content {
-    margin-left: 150px;
-    margin-top: 70px;
+  .contact-content{
+      margin-left: 150px;
+      margin-top: 70px;
   }
-}
+  }
 
-@media only screen and (max-device-width: 425px) {
-  /* Styles */
-  #contain {
-    width: 410px;
-    margin-left: 7px;
-    margin-right: 0px;
-  }
-  div.col-md-6 {
-    width: 410px;
-  }
-  .image {
-    height: 400px;
-    margin-left: 20px;
-  }
-  .content {
-    margin-left: 150px;
-    margin-top: 70px;
-  }
-}
+  @media only screen and (max-device-width : 425px) {
+      /* Styles */
+      #contact-contain {
+          width: 410px;
+          margin-left: 7px;
+          margin-right: 0px;
+      }
+      .contact-col-md-6{
+          width: 410px;
+      }
+      .contact-image{
+          height: 400px;
+          margin-left: 20px;
+      }
+      .contact-content{
+          margin-left: 150px;
+          margin-top: 70px;
+      }
+      }
 
-@media only screen and (max-device-width: 768px) {
-  #contain {
-    width: 410px;
-    margin-left: 7px;
-    margin-right: 0px;
-  }
-  div.col-md-6 {
-    max-width: 47%;
-  }
-  .image {
-    height: 400px;
-    margin-left: 10px;
-  }
-  .content {
-    margin-left: 50px;
-    margin-top: 70px;
-  }
-}
+      @media only screen and (max-device-width : 768px) {
+          #contain {
+              width: 410px;
+              margin-left: 7px;
+              margin-right: 0px;
+          }
+          .contact-col-md-6{
+              max-width: 47%;
+          }
+          .contact-image{
+              height: 400px;
+              margin-left: 10px;
+          }
+          .contact-content{
+              margin-left: 50px;
+              margin-top: 70px;
+          }
+          }
+  
