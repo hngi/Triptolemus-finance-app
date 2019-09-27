@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let User = require('../../schema/user');
 const mongoose = require('mongoose');
+let userAuth = require('../../middleware/userAuth');
 
 router.post('/api/users/:userId/setWeeklyBudget', userAuth, async (req, res) => {
   try {
