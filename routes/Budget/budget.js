@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let User = require('../../schema/user');
 const mongoose = require('mongoose');
+const userAuth = require('../../middleware/userAuth');
 
 router.post('/api/users/:userId/setWeeklyBudget', userAuth, async (req, res) => {
   try {
@@ -44,5 +45,36 @@ router.post('/api/users/:userId/setYearlyBudget', userAuth, async (req, res) => 
         console.log(error.message);
   }
 });
+
+router.put('/api/users/:userId/setMonthlyBudget', userAuth, async (req, res, next) => {
+    try {
+        const { userId } = req.params;
+        const { budget } = req.body;
+        const id = req.user;
+        
+        if (userId !== id) {
+            return res.status(401).json({
+                error: 'Unauthorized user'
+            });
+        }
+        
+        await User.updateOne({_id: userId},{ $set: {monthly_budget: budget}}).then(
+            () => {
+                res.status(201).json({
+                    message: "Budget set successfully",
+                });
+            }
+        ).catch(
+            error => {
+                res.status(400).json({
+                    error: error
+                })
+            }
+        );
+
+    } catch (error) {
+        console.log(error.message);
+    }
+})
 
 module.exports = router;
