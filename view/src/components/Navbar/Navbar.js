@@ -5,7 +5,7 @@ import { logout } from '../../actions/auth';
 import './Navbar.css';
 const Navbar = ({ logout, isAuthenticated }) => {
   return (
-    <nav className='navbar navbar-expand-md bg-light navbar-light'>
+    <nav className='navbar navbar-expand-md bg-light navbar-light fixed-top'>
       <Link to='/' className='navbar-brand'>
         <img
           alt='logo'
