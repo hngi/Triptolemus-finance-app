@@ -25,18 +25,7 @@ body{
     text-align: left;
     font-weight: bold;
 }
-.expenses{
-    background-color: white;
-    border: 1.5px solid #022EC1;
-    color: #022EC1;
-    width: 187px;
-    height: 50px;
-    /* margin-left: -10px; */
-    font-size: 0.8em;
-    font-weight: 700;
-    border-radius: 5px;
-    
-}
+
 .dropNav{
     box-shadow: 0 0 5px 0.5px rgb(39, 38, 38);
 }

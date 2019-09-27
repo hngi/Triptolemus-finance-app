@@ -21,8 +21,8 @@ const Register = ({ isAuthenticated, register, history }) => {
       <section className='signup-container'>
         <div className='row signup-row'>
           <div className='col-sm-6 pattern signup-pattern signup-pattern-container' />
-          <div className='col-sm-6 side'>
-            <div className='signup-form-container'>
+          <div className='col-sm-6 signup-side'>
+            <div className='signup-form-container' style={{margin:"0px auto"}}>
               <h1 className='mobile'>
                 <img
                   src='https://res.cloudinary.com/taofeeq/image/upload/v1569272981/TriptoTracker/logo_uhmcpr.png'
@@ -90,6 +90,7 @@ const Register = ({ isAuthenticated, register, history }) => {
                       minLength={3}
                       onChange={e => onChange(e)}
                       placeholder='********'
+                      required
                     />
                   </div>
                 </div>
@@ -103,7 +104,7 @@ const Register = ({ isAuthenticated, register, history }) => {
                   </div>
                 </div>
               </form>
-              <p>
+              <p style={{margin:"0px auto",textAlign:"center"}}>
                 Already a member? <Link to='/login'>Sign In</Link>
                 <Link className='ml-2' to='/'>
                   Home

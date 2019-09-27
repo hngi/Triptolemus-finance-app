@@ -5,12 +5,16 @@ import {
   LOGIN_SUCCESS,
   CLEAR_PROFILE,
   LOGOUT,
-  LOGIN_REQUIRED
+  LOGIN_REQUIRED,
+  REQUEST_PASSWORD_RESET_SUCCESS,
+  REQUEST_PASSWORD_RESET_FAIL,
+  RESET_PASSWORD_FAIL,
+  RESET_PASSWORD_SUCCESS
 } from './types';
 import { setAlert } from './alert';
 
 import axios from 'axios';
-
+const base_url = 'http://127.0.0.1:3500'
 export const register = (
   username,
   email,
@@ -27,7 +31,7 @@ export const register = (
   };
   try {
     const response = await axios.post(
-      'https://finance-tracker-server.herokuapp.com/api/auth/register',
+      base_url + '/api/auth/register',
       body,
       config
     );
@@ -56,11 +60,14 @@ export const login = (email, password, history) => async dispatch => {
     password
   });
   const config = {
-    headers: { 'Content-Type': 'application/json' }
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
   };
   try {
     const response = await axios.post(
-      'https://finance-tracker-server.herokuapp.com/api/auth/login',
+      base_url + '/api/auth/login',//finance-tracker-server.herokuapp.com
       body,
       config
     );
@@ -99,3 +106,66 @@ export const goToLogin = () => dispatch => {
   });
   dispatch(setAlert('You need to be logged in to do that','danger'));
 }
+
+export const requestResetPassword = (email) => async dispatch => {
+  const body = JSON.stringify({
+    email
+  });
+  const config = {
+    headers: { 'Content-Type': 'application/json' }
+  };
+
+  try{
+    const response = await axios.post(
+      base_url + '/api/auth/forgot',
+      body,
+      config
+    );
+    dispatch({
+      type: REQUEST_PASSWORD_RESET_SUCCESS,
+      payload: response.data
+    });
+    console.log(response.data)
+
+
+  } catch(error){
+    console.log(error)
+    dispatch({
+      type: REQUEST_PASSWORD_RESET_FAIL,
+      payload: error.response
+    });
+
+  }
+
+} 
+
+export const resetPassword = (token,password,history) => async dispatch => {
+  const body = JSON.stringify({
+    token,
+    password
+  });
+  const config = {
+    headers: { 'Content-Type': 'application/json' }
+  };
+
+  try{
+    const response = await axios.post(
+      'https://finance-tracker-server.herokuapp.com/api/auth/reset',
+      body,
+      config
+    );
+    dispatch({
+      type: RESET_PASSWORD_SUCCESS,
+      payload: response.data
+    });
+
+
+  } catch(error){
+    dispatch({
+      type: RESET_PASSWORD_FAIL,
+      payload: error.response.data
+    });
+
+  }
+
+} 

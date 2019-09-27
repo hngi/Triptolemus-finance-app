@@ -22,7 +22,7 @@ export const contact = (
   };
   try {
     const response = await axios.post(
-      'https://finance-tracker-server.herokuapp.com/contact',
+      'https://3qllt.sse.codesandbox.io/contact',
       body,
       config
     );

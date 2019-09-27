@@ -61,9 +61,16 @@ router.post('/api/users/:userId/items', userAuth, async (req, res) => {
     }
 
     const { name, description, amount } = req.body;
-    if (name === '' || description === '' || amount === '') {
+    if (
+      name == '' ||
+      name == null ||
+      description == '' ||
+      description == null ||
+      amount == '' ||
+      amount == null
+    ) {
       res.status(400).json({
-        error: 'Input field cannot be empty'
+        error: 'All input fields are required'
       });
     }
     const newItem = new Item({
@@ -123,6 +130,7 @@ router.post('/api/users/:userId/calculate/week', userAuth, async (req, res) => {
       .sort({ date: 1 })
       .then(doc => {
         //if (doc.length > 0) {
+<<<<<<< HEAD
           let docCount = doc.length;
           weeklies = [];
           //week_index = 0;
@@ -150,8 +158,9 @@ router.post('/api/users/:userId/calculate/week', userAuth, async (req, res) => {
                 }
             }
           }
-          weekly_track = { totalExpenses: totalCost, expensePerWeek : weeklies}
-          res.status(200).json(weekly_track);
+        }
+        weekly_track = { totalExpenses: totalCost, expensePerWeek: weeklies };
+        res.status(200).json(weekly_track);
         // } else {
         //   res
         //     .status(400)
@@ -166,102 +175,116 @@ router.post('/api/users/:userId/calculate/week', userAuth, async (req, res) => {
   }
 });
 
-router.post('/api/users/:userId/calculate/daily', userAuth, async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const id = req.user;
-    let { startDate, endDate } = req.body;
-    let end_msec = Date.parse(endDate);
-    end_date = new Date(end_msec);
-    endDate = end_date.addDays(1);
-    if (userId !== id) {
-      return res.status(401).json({ error: 'Unauthorized user' });
-    }
-    Item.find({
-      user_id: userId,
-      date: { $gte: startDate, $lte: endDate }
-    })
-      .sort({ date: 1 })
-      .then(doc => {
-        if (doc.length > 0) {
-          let docCount = doc.length;
-          dailyCost = 0;
-          for (i = 0; i < docCount; i++) {
-            weekCost = weekCost + doc[i].amount;
-          }
-          res.status(200).json({
-            weeklyCost: weekCost,
-            startdate: startDate,
-            enddate: endDate
-          });
-        } else {
-          res
-            .status(400)
-            .json({ weeklyCost: null, startdate: startDate, enddate: endDate });
-        }
+router.post(
+  '/api/users/:userId/calculate/daily',
+  userAuth,
+  async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const id = req.user;
+      let { startDate, endDate } = req.body;
+      let end_msec = Date.parse(endDate);
+      end_date = new Date(end_msec);
+      endDate = end_date.addDays(1);
+      if (userId !== id) {
+        return res.status(401).json({ error: 'Unauthorized user' });
+      }
+      Item.find({
+        user_id: userId,
+        date: { $gte: startDate, $lte: endDate }
       })
-      .catch(err => {
-        console.error(err);
-      });
-  } catch (error) {
-    console.log(error.message);
+        .sort({ date: 1 })
+        .then(doc => {
+          if (doc.length > 0) {
+            let docCount = doc.length;
+            dailyCost = 0;
+            for (i = 0; i < docCount; i++) {
+              weekCost = weekCost + doc[i].amount;
+            }
+            res.status(200).json({
+              weeklyCost: weekCost,
+              startdate: startDate,
+              enddate: endDate
+            });
+          } else {
+            res
+              .status(400)
+              .json({
+                weeklyCost: null,
+                startdate: startDate,
+                enddate: endDate
+              });
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    } catch (error) {
+      console.log(error.message);
+    }
   }
-});
+);
 
 // route for getting all items for month(s)
-router.post('/api/users/:userId/calculate/month', userAuth, async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    let { startDate, endDate } = req.body;
-    
-    const id = req.user;
-    if (userId !== id) {
-      return res.status(401).json({ error: 'Unauthorized user' });
-    }
-    
-    if (startDate > endDate) {
-      return res.status(400).json({error: 'Invalid Request. Start Date is in the future'});
-    }
+router.post(
+  '/api/users/:userId/calculate/month',
+  userAuth,
+  async (req, res, next) => {
+    try {
+      const { userId } = req.params;
+      let { startDate, endDate } = req.body;
 
-    startDate = new Date(startDate)
-    endDate = new Date(endDate).addDays(1)
-    const filteredItems = await Item.aggregate([
-      {
-        $match: {
-          user_id: mongoose.Types.ObjectId(userId),
-          date: { $gte: startDate, $lte: endDate}
-        }
-      },
-      {
-        "$project": {
-          month: {"$month": "$date"},
-          user_id: 1,
-          amount: 1,
-        }
-      },
-      
-      {
-        $group: {
-          _id: "$month",
-          "total": {$sum: "$amount"}
-        }
-      },
-      {
-        $project: {
-          _id: 0,
-          month: "$_id",
-          total: 1
-        }
+      const id = req.user;
+      if (userId !== id) {
+        return res.status(401).json({ error: 'Unauthorized user' });
       }
-    ]);
 
-    if (!filteredItems) {
-      res.status(200).json({ items: null });
+      if (startDate > endDate) {
+        return res
+          .status(400)
+          .json({ error: 'Invalid Request. Start Date is in the future' });
+      }
+
+      startDate = new Date(startDate);
+      endDate = new Date(endDate).addDays(1);
+      const filteredItems = await Item.aggregate([
+        {
+          $match: {
+            user_id: mongoose.Types.ObjectId(userId),
+            date: { $gte: startDate, $lte: endDate }
+          }
+        },
+        {
+          $project: {
+            month: { $month: '$date' },
+            user_id: 1,
+            amount: 1
+          }
+        },
+
+        {
+          $group: {
+            _id: '$month',
+            total: { $sum: '$amount' }
+          }
+        },
+        {
+          $project: {
+            _id: 0,
+            month: '$_id',
+            total: 1
+          }
+        }
+      ]);
+
+      if (!filteredItems) {
+        res.status(200).json({ items: null });
+      }
+      res.status(200).json({ items: filteredItems });
+    } catch (error) {
+      res.status(401).json({ error: error });
     }
-    res.status(200).json({ items: filteredItems });
-  } catch (error) {
-    res.status(401).json({error: error})
   }
-});
+);
 
 module.exports = router;
