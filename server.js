@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 require('./database/database');
 require('dotenv').config();
 
-app.use(cors({origin:'*'}));
+app.use(cors({ origin: '*' }));
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
@@ -28,6 +28,7 @@ app.use(require('./routes/Auth/register'));
 app.use(require('./routes/Auth/forgot_password'));
 app.use(require('./routes/Contact/contact'));
 app.use(require('./routes/Item/item'));
+app.use(require('./routes/Budget/budget'));
 
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
