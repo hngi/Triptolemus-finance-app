@@ -23,7 +23,7 @@ const Dashboard = ({ goToLogin, auth,addItem,history }) => {
 
   }
   const userId=user.id
-  console.log(userId);
+  // console.log(userId);
   if (isAuthenticated == null || !isAuthenticated) {
     goToLogin();
   }
@@ -94,7 +94,7 @@ const Dashboard = ({ goToLogin, auth,addItem,history }) => {
                         <form
                           onSubmit={e => {
                             e.preventDefault();
-                            addItem(name,description,amount,userId,history)
+                            addItem(name,description,amount,history,userId)
                           }}
                           className='form-horizontal'>
                           <div className='form-group'>

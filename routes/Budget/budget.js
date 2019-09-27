@@ -6,6 +6,7 @@ let User=require('../../schema/user')
 =======
 let User = require('../../schema/user');
 const mongoose = require('mongoose');
+const userAuth = require('../../middleware/userAuth');
 
 router.post('/api/users/:userId/setWeeklyBudget', userAuth, async (req, res) => {
   try {
@@ -50,6 +51,7 @@ router.post('/api/users/:userId/setYearlyBudget', userAuth, async (req, res) => 
 });
 >>>>>>> ed5568a39e5734433c252265595de13ecb88adef
 
+<<<<<<< HEAD
 router.put('/api/users/:userId/update_budget',userAuth,async(req,res)=>{
   try {
     const { userId } = req.params;
@@ -92,4 +94,37 @@ router.put('/api/users/:userId/update_budget',userAuth,async(req,res)=>{
     });
   }
 })
+=======
+router.put('/api/users/:userId/setMonthlyBudget', userAuth, async (req, res, next) => {
+    try {
+        const { userId } = req.params;
+        const { budget } = req.body;
+        const id = req.user;
+        
+        if (userId !== id) {
+            return res.status(401).json({
+                error: 'Unauthorized user'
+            });
+        }
+        
+        await User.updateOne({_id: userId},{ $set: {monthly_budget: budget}}).then(
+            () => {
+                res.status(201).json({
+                    message: "Budget set successfully",
+                });
+            }
+        ).catch(
+            error => {
+                res.status(400).json({
+                    error: error
+                })
+            }
+        );
+
+    } catch (error) {
+        console.log(error.message);
+    }
+})
+
+>>>>>>> c3b11b483f193a45e1e5f7f7fbf5034714016ba1
 module.exports = router;
