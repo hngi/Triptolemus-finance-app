@@ -130,7 +130,6 @@ router.post('/api/users/:userId/calculate/week', userAuth, async (req, res) => {
       .sort({ date: 1 })
       .then(doc => {
         //if (doc.length > 0) {
-<<<<<<< HEAD
           let docCount = doc.length;
           weeklies = [];
           //week_index = 0;

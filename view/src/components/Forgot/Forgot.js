@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import './Forgot.css'
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { requestResetPassword } from '../../actions/auth';
 const Forgot = ({requestResetPassword}) => {
