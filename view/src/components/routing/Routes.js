@@ -10,7 +10,7 @@ import Navbar from '../Navbar/Navbar';
 import NotFound from '../NotFound/NotFound';
 import ResetPassword from '../ResetPassword/ResetPassword';
 import Forgot from '../Forgot/Forgot';
-import AddExpense from '../../containers/AddExpense';
+import AddExpense from '../../containers/Dashboard/AddExpense';
 const Routes = () => {
   return (
     <>
