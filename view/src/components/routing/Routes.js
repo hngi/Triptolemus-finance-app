@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Features from '../Features/Features';
 import Downloads from '../Downloads/Downloads';
 import Faqs from '../Faqs/Faqs';
-import Contact from '../Contact/Contact';
+import Contact from '../../containers/Contact/Contact';
 import Landing from '../Landing/Landing';
 import Navbar from '../Navbar/Navbar';
 import NotFound from '../NotFound/NotFound';

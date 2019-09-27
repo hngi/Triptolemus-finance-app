@@ -6,7 +6,7 @@ const DOMAIN = process.env.DOMAIN;
 const API = process.env.API_KEY;
 
 const mailgun = require('mailgun-js')({ apiKey: API, domain: DOMAIN });
-router.post('/contact', (req, res) => {
+router.post('/contact', (req, res) => {z
   const { fullname, email, message } = req.body;
 
   let msg = {

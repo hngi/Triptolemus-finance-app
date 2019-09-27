@@ -5,10 +5,23 @@ const mongoose = require('mongoose');
 require('./database/database');
 require('dotenv').config();
 
-app.use(cors());
-const DOMAIN = process.env.DOMAIN;
-const API = process.env.API_KEY;
+app.use(cors({origin:'*'}));
+app.use(function(req, res, next) {
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
+  // Request methods you wish to allow
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+  );
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-Requested-With,content-type'
+  );
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
 app.options('*', cors());
 app.use(express.json({ extended: false }));
 
