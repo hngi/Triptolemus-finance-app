@@ -18,7 +18,7 @@ const Login = ({ login, history, isAuthenticated }) => {
     <section className='login-container'>
       <div className='row login-row'>
         <div className='col-sm-6 signin-pattern signin-pattern-container' />
-        <div className='col-sm-6 side'>
+        <div className='col-sm-6 login-column-side'>
           <div className='login-form-container'>
             <h1 className='mobile'>
               <img
@@ -26,10 +26,10 @@ const Login = ({ login, history, isAuthenticated }) => {
                 alt='TriptoTracker logo'
               />
             </h1>
-            <h1 className='large signin-label'>Sign In</h1>
+            <h1 className='large signin-label' style={{margin:"0px auto"}}>Sign In</h1>
 
             <form
-              className='form'
+              className='form login-form'
               onSubmit={e => {
                 e.preventDefault();
                 login(email, password, history);
@@ -64,17 +64,17 @@ const Login = ({ login, history, isAuthenticated }) => {
                   required
                 />
               </div>
-              <p className='signin-forgot-password'>
+              <p className='signin-forgot-password' style={{margin:"0px auto",textAlign:"center"}}>
                 {' '}
                 <Link to='/forgot'>Forgot Password?</Link>
               </p>
-              <div className='col-sm-11'>
+              <div className='col-sm-11' style={{margin:"0px auto"}}>
                 <button type='submit' className='btn form-control'>
                   Sign in
                 </button>
               </div>
             </form>
-            <p className='my-1'>
+            <p className='my-1' style={{margin:"0 auto",textAlign:"center"}}>
               Don't have an account? <Link to='/register'>Sign Up</Link>
               <Link className='ml-2' to='/'>
                 Home

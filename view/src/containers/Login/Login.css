@@ -3,8 +3,8 @@ h1 img{
 }
 
 .login-container{
-    width: 85%;
-    height: 85%;
+    width: 80%;
+    height: 80%;
     margin: 0 auto;
     position: relative;
     top: 50%;
@@ -36,6 +36,14 @@ h1 img{
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+  margin: 0 auto;
+}
+.login-column-side{
+    margin-left: 0px;
+}
+
+.login-form{
+    margin: 0px auto;
 }
 
 @media only screen and (max-width: 580px) {
@@ -47,6 +55,7 @@ h1 img{
         position: relative;
         margin: 18px;
         transform: translateY(-70%);
+        margin: 0 auto;
 
       }
   }

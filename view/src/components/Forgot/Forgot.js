@@ -1,7 +1,16 @@
-import React from 'react';
-import {Link} from 'react-router-dom'
+import React,{useState} from 'react';
 import './Forgot.css'
-const Forgot = () => {
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { requestResetPassword } from '../../actions/auth';
+const Forgot = ({requestResetPassword}) => {
+  const [formData, setFormData] = useState({
+    email: ''
+  });
+  const { email } = formData;
+  const onChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
   return (
     <div className='mt-5 container-fluid login-container '>
       <div className='row form-group justify-content-center'>
@@ -18,7 +27,11 @@ const Forgot = () => {
             It is okay, we are humans afterall. Let's help you get back your login
             details
           </p>
-          <form action method className='form-horizontal'>
+          <form action method className='form-horizontal'
+          onSubmit={e => {
+            e.preventDefault();
+            requestResetPassword(email)}}
+            >
         <div className='form-group'>
           <label className='control-label sm-1 ml-3' htmlFor='email'>
             Enter your email address
@@ -27,6 +40,7 @@ const Forgot = () => {
             <input
               type='email'
               name='email'
+              onChange={e => onChange(e)}
               id='email'
               className='form-control'
               placeholder='johndoe@gmail.com'
@@ -48,4 +62,10 @@ const Forgot = () => {
   );
 }
 
-export default Forgot
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+export default connect(
+  mapStateToProps,
+  { requestResetPassword }
+)(Forgot);

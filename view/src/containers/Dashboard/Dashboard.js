@@ -2,8 +2,10 @@ import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { goToLogin } from '../../actions/auth';
 import { connect } from 'react-redux';
-import './Dashboard.css'
-const Dashboard = ({ isAuthenticated, goToLogin }) => {
+import './Dashboard.css';
+const Dashboard = ({ goToLogin, auth }) => {
+  const { isAuthenticated, user } = auth;
+  console.log(auth);
   if (isAuthenticated == null || !isAuthenticated) {
     goToLogin();
   }
@@ -15,7 +17,7 @@ const Dashboard = ({ isAuthenticated, goToLogin }) => {
         className='navbar navbar-expand-md navbar-light fixed-top py-4'
         id='main-nav'>
         <div className='container'>
-          <Link to='/home' className='navbar-brand logo'>
+          <Link to='/' className='navbar-brand logo'>
             <img
               src='https://res.cloudinary.com/taofeeq/image/upload/v1569508859/TriptoTracker/icon-white_l40nxz.png'
               width={210}
@@ -30,7 +32,7 @@ const Dashboard = ({ isAuthenticated, goToLogin }) => {
                 className='nav-link dropdown-toggle'
                 data-toggle='dropdown'>
                 <i className='fas fa-user' style={{ color: 'white' }} />
-                <span className='list'> miz- kas </span>
+                <span className='list'> {user ? user.username : null} </span>
               </Link>
               <div className='dropdown-menu dropNav'>
                 <Link to='/' className='dropdown-item'>
@@ -78,7 +80,7 @@ const Dashboard = ({ isAuthenticated, goToLogin }) => {
                               />
                             </div>
                           </div>
-                          <div className='form-group'>
+                          {/* <div className='form-group'>
                             <label
                               htmlFor='expenseSel'
                               className='control-label sm-1 ml-3'>
@@ -176,7 +178,7 @@ const Dashboard = ({ isAuthenticated, goToLogin }) => {
                                 </option>
                               </select>
                             </div>
-                          </div>
+                          </div> */}
                           <div className='form-group'>
                             <label className='control-label sm-1 ml-3' htmlFor>
                               Amount
@@ -447,7 +449,7 @@ const Dashboard = ({ isAuthenticated, goToLogin }) => {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  auth: state.auth
 });
 export default connect(
   mapStateToProps,

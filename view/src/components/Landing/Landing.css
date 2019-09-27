@@ -1,3 +1,35 @@
+html {
+  scroll-behavior: smooth;
+}
+.landing-list::before {
+  content: '\2022';
+  color: #022ec1;
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  font-size: 170%;
+}
+.landing-list {
+  font-size: 18px;
+  font-weight: 600px;
+  width: 230px;
+  height: 35px;
+  left: 60px;
+  margin-left: -35px;
+}
+.landing-msg {
+  font-size: 64px;
+  font-family: 'Raleway';
+  line-height: 75px;
+  display: flex;
+  color: #000000;
+  text-align: left;
+  letter-spacing: 2px;
+  font-weight: 600px;
+}
+.landing-py- {
+  padding-top: 140px;
+}
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
 .btn-login {
   background-color: #fff;
@@ -18,8 +50,7 @@
   color: black;
 }
 .py- {
-  padding-top: 0px;
-  border: none;
+  padding-top: 140px;
 }
 .msg {
   font-size: 64px;
@@ -52,7 +83,7 @@ ul {
   margin-left: -35px;
 }
 .btn-signup {
-  cursor:pointer;
+  cursor: pointer;
   background-color: #022ec1;
   border: 5px solid #022ec1;
   color: #fff;
@@ -122,4 +153,6 @@ ul {
   font-size: 18px;
   padding-left: 10px;
   font-weight: normal;
+}
+.landing-btn-signup {
 }
