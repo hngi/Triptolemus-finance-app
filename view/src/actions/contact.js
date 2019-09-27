@@ -5,7 +5,7 @@ import {
 import { setAlert } from './alert';
 
 import axios from 'axios';
-
+const base_url = 'https://finance-tracker-server.herokuapp.com';
 export const contact = (
   fullname,
   email,
@@ -21,11 +21,7 @@ export const contact = (
     headers: { 'Content-Type': 'application/json' }
   };
   try {
-    const response = await axios.post(
-      'https://3qllt.sse.codesandbox.io/contact',
-      body,
-      config
-    );
+    const response = await axios.post(base_url + '/contact', body, config);
 
     dispatch({
       type: SEND_MESSAGE_SUCCESS,

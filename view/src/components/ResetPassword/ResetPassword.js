@@ -2,12 +2,12 @@ import React, {useState} from 'react'
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import {resetPassword} from '../../actions/auth';
-const ResetPassword = ({resetPassword,history}) => {
+const ResetPassword = ({match,resetPassword,history}) => {
   const [formData, setFormData] = useState({
-    token:'',
     password:''
   });
-  const { token, password } = formData;
+  const { password } = formData;
+  const{token}=match.params.id;
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -24,34 +24,30 @@ const ResetPassword = ({resetPassword,history}) => {
             <h2 className='text-center'>Reset Password</h2>
           </div>
           <p className='text-center'>Set a new password for your log in</p>
-          <form>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              resetPassword(token,password,history)
+            }}>
             <div className='new_password'>
               <label htmlFor='password'>Enter new password</label>
               <input
-                type='text'
-                name='password'
-                className='form-control input1'
-                placeholder='************'
-                defaultValue
-              />
-            </div>
-            <div className='confirm_pass'>
-              <label htmlFor='password'>Confirm new password</label>
-              <input
                 type='password'
-                name='confirm_password'
+                name='password'
+                value={password}
+                onChange={e => onChange(e)}
                 className='form-control input1'
                 placeholder='************'
                 defaultValue
               />
             </div>
             {/* <div className='col-sm-11'> */}
-              <button type='submit' onClick={(e)=>{
-                    e.preventDefault();
-                    resetPassword(token,history)
-              }} className='btn form-control'>
-                Submit
-              </button>
+            <button
+              type='submit'
+              
+              className='btn form-control'>
+              Submit
+            </button>
             {/* </div> */}
           </form>
         </div>

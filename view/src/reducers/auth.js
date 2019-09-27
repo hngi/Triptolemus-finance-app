@@ -25,9 +25,9 @@ export default function(state = initialState, action) {
         isAuthenticated: true,
         loading: false,
         user: {
-          id: payload.user.id,
-          username: payload.user.username,
-          email: payload.user.email
+          id: payload.userJSON._id,
+          username: payload.userJSON.username,
+          email: payload.userJSON.email
         }
       };
     case LOGIN_REQUIRED:
