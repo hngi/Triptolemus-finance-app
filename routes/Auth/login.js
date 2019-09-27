@@ -5,10 +5,8 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 
 router.post('/api/auth/login', async (req, res) => {
-    const email = req.body.email,
-    password = req.body.password;
-
-  if (email == '' || password == '') {
+    const{email,password}=req.body;
+  if (email == '' || password == '' || email == null || password == null) {
     return res.status(401).json({
       error: 'Input field is required'
     });

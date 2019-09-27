@@ -90,6 +90,7 @@ const Register = ({ isAuthenticated, register, history }) => {
                       minLength={3}
                       onChange={e => onChange(e)}
                       placeholder='********'
+                      required
                     />
                   </div>
                 </div>

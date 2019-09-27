@@ -61,6 +61,7 @@ const Login = ({ login, history, isAuthenticated }) => {
                   type='password'
                   placeholder='Password'
                   name='password'
+                  required
                 />
               </div>
               <p className='signin-forgot-password'>

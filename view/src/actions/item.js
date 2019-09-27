@@ -10,7 +10,7 @@ import axios from 'axios';
 export const getItems = (userId,history) => async dispatch => {
   try {
     const response = await axios.get(
-      `https://finance-tracker-server.herokuapp.com/api/users/${userId}/items`
+      `https://3qllt.sse.codesandbox.io/api/users/${userId}/items`
     );
     console.log(response)
     dispatch({
@@ -45,7 +45,7 @@ export const addItem = (userId,
   });
   try {
     const response = await axios.post(
-      `https://finance-tracker-server.herokuapp.com/api/users/${userId}/items`,
+      `https://3qllt.sse.codesandbox.io/api/users/${userId}/items`,
       body,
       config
     );

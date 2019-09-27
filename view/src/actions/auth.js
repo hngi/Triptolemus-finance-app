@@ -27,7 +27,7 @@ export const register = (
   };
   try {
     const response = await axios.post(
-      'https://finance-tracker-server.herokuapp.com/api/auth/register',
+      'https://3qllt.sse.codesandbox.io/api/auth/register',
       body,
       config
     );
@@ -56,11 +56,14 @@ export const login = (email, password, history) => async dispatch => {
     password
   });
   const config = {
-    headers: { 'Content-Type': 'application/json' }
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    }
   };
   try {
     const response = await axios.post(
-      'https://finance-tracker-server.herokuapp.com/api/auth/login',
+      'https://3qllt.sse.codesandbox.io/api/auth/login',
       body,
       config
     );
@@ -97,5 +100,5 @@ export const goToLogin = () => dispatch => {
   dispatch({
     type: LOGIN_REQUIRED
   });
-  dispatch(setAlert('You need to be logged in to do that','danger'));
-}
+  dispatch(setAlert('You need to be logged in to do that', 'danger'));
+};
