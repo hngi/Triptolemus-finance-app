@@ -48,7 +48,7 @@ const ResetPassword = ({resetPassword,history}) => {
             {/* <div className='col-sm-11'> */}
               <button type='submit' onClick={(e)=>{
                     e.preventDefault();
-                    resetPassword(token,)
+                    resetPassword(token,history)
               }} className='btn form-control'>
                 Submit
               </button>
