@@ -5,45 +5,6 @@ let userAuth = require('../../middleware/userAuth');
 let Item = require('../../schema/item');
 const mongoose = require('mongoose');
 
-router.post('/api/users/:userId/calculate/year', userAuth, async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const { date } = req.body;
-    const id = req.user;
-    if (userId !== id) {
-      return res.status(401).json({
-        error: 'Unauthorized user'
-      });
-    }
-    const items = await Item.find({
-      user_id: id,
-      date: {
-        $gte: new Date(date) + 364
-      }
-    });
-    if (items.length < 0) {
-      return res.status(200).json({
-        message: 'No items recorded for the specified period'
-      });
-    }
-    let amounts = items.map(item => {
-      return item.amount;
-    });
-    if (amounts === []) {
-      return res.status(200).json({
-        message: 'No items recorded for the specified period'
-      });
-    }
-    const totalExpenses = amounts.reduce((total, amount) => total + amount);
-
-    return res.status(200).json({
-      totalExpenses
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
-});
-
 Date.prototype.addDays = function(days) {
   var date = new Date(this.valueOf());
   date.setDate(date.getDate() + days);
@@ -169,6 +130,67 @@ router.post('/api/users/:userId/calculate/week', userAuth, async (req, res) => {
           }
           weekly_track = { totalExpenses: totalCost, expensePerWeek : weeklies}
           res.status(200).json(weekly_track);
+        // } else {
+        //   res
+        //     .status(400)
+        //     .json({ weeklyCost: 0, startdate: startDate, enddate: endDate });
+        // }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+router.post('/api/users/:userId/calculate/year', userAuth, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const id = req.user;
+    let { startDate, endDate } = req.body;
+    let end_msec = Date.parse(endDate);
+    end_date = new Date(end_msec);
+    endDate = end_date.addDays(1);
+    if (userId !== id) {
+      return res.status(401).json({ error: 'Unauthorized user' });
+    }
+    Item.find({
+      user_id: userId,
+      date: { $gte: startDate, $lte: endDate }
+    })
+      .sort({ date: 1 })
+      .then(doc => {
+        //if (doc.length > 0) {
+          let docCount = doc.length;
+          yearlies = [];
+          //week_index = 0;
+          totalCost = 0;
+          yearCost = 0;
+          prev_year = 0;
+          for (i = 0; i < docCount; i++) {
+            if (i>0) { prev_year = item_year; }
+            item_year = moment(doc[i].date).year()
+            if ((item_year == prev_year) || ( i == 0)) {
+              totalCost = totalCost + doc[i].amount;
+              yearCost = yearCost + doc[i].amount;
+              if ((i+1) == docCount) { 
+                yearlies.push({ yearlyCost: yearCost, weekNumber: "Year "+item_year }); 
+              }
+            } else {
+                totalCost = totalCost + doc[i].amount;
+                if ((i+1) == docCount) {
+                  yearlies.push({ yearlyCost: yearCost, weekNumber: "Year "+prev_year }); 
+                  yearlies.push({ yearlyCost: doc[i].amount, weekNumber: "Year "+item_year });  
+                } else {
+                  yearlies.push({ yearlyCost: yearCost, weekNumber: "Year "+prev_year });
+                  yearCost = 0;
+                  yearCost = yearCost + doc[i].amount;
+                }
+            }
+          }
+          yearly_track = { totalExpenses: totalCost, expensePerYear : yearlies}
+          res.status(200).json(yearly_track);
         // } else {
         //   res
         //     .status(400)
