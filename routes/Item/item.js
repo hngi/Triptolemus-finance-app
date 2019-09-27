@@ -78,6 +78,16 @@ router.post('/api/users/:userId/calculate/week', userAuth, async (req, res) => {
     const { userId } = req.params;
     const id = req.user;
     let { startDate, endDate } = req.body;
+      if (
+        startDate == '' ||
+        startDate == null ||
+        endDate == '' ||
+        endDate == null 
+      ) {
+        return res.status(400).json({
+          error: 'All input fields are required'
+        });
+      }
     let end_msec = Date.parse(endDate);
     end_date = new Date(end_msec);
     endDate = end_date.addDays(1);

@@ -14,7 +14,7 @@ import {
 import { setAlert } from './alert';
 
 import axios from 'axios';
-const base_url = 'https://3qllt.sse.codesandbox.io';
+const base_url = 'https://finance-tracker-server.herokuapp.com';
 export const register = (
   username,
   email,
@@ -78,15 +78,14 @@ export const login = (email, password, history) => async dispatch => {
     dispatch(setAlert('Login was successful', 'success'));
     history.push('/dashboard');
   } catch (error) {
-    console.log(error);
     const errors = [];
-    errors.push(error.response);
+    errors.push(error.response.data.error);
     if (errors) {
       errors.map(error => dispatch(setAlert(error, 'danger')));
     }
     dispatch({
       type: LOGIN_FAIL,
-      payload: error.response
+      payload: error.response.data.error
     });
   }
 };
@@ -147,7 +146,7 @@ export const resetPassword = (token, password, history) => async dispatch => {
 
   try {
     const response = await axios.post(
-      'https://finance-tracker-server.herokuapp.com/api/auth/reset',
+      base_url + '/api/auth/reset',
       body,
       config
     );
