@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link ,Redirect} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import './Login.css';
@@ -30,7 +30,9 @@ const Login = ({ login, history, auth }) => {
                 alt='TriptoTracker logo'
               />
             </h1>
-            <h1 className='large signin-label' style={{margin:"0px auto"}}>Sign In</h1>
+            <h1 className='large signin-label' style={{ margin: '0px auto' }}>
+              Sign In
+            </h1>
 
             <form
               className='form login-form'
@@ -68,18 +70,24 @@ const Login = ({ login, history, auth }) => {
                   required
                 />
               </div>
-              <p className='signin-forgot-password' style={{margin:"0px auto",textAlign:"center"}}>
+              <p
+                className='signin-forgot-password'
+                style={{ margin: '0px auto', textAlign: 'center' }}>
                 {' '}
                 <Link to='/forgot'>Forgot Password?</Link>
               </p>
-              <div className='col-sm-11' style={{margin:"0px auto"}}>
+              <div className='col-sm-11' style={{ margin: '0px auto' }}>
                 <button type='submit' className='btn custom-form-control'>
-                {auth.loading?<i className="fa fa-circle-o-notch text-white spin-loader"></i>:null}
+                  {auth.loading ? (
+                    <i className='fa fa-circle-o-notch text-white spin-loader' />
+                  ) : null}
                   Sign in
                 </button>
               </div>
             </form>
-            <p className='my-1' style={{margin:"0 auto",textAlign:"center"}}>
+            <p
+              className='my-1'
+              style={{ margin: '0 auto', textAlign: 'center' }}>
               Don't have an account? <Link to='/register'>Sign Up</Link>
               <Link className='ml-2' to='/'>
                 Home

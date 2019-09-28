@@ -44,6 +44,7 @@ const Dashboard = ({
   }} ,
   [
     auth,
+    fetchProfile,isAuthenticated,user
     // getWeeklyExpense,
     // getMonthlyExpense,
     // getYearlyExpense,
@@ -112,12 +113,12 @@ const Dashboard = ({
                 </span>
               </Link>
               <div className='dropdown-menu dropNav'>
-                <Link to='/login' className='dropdown-item' style={{margin:"0px auto",textAlign:"center"}}>
-                  <i className='fas fa-sign-out-alt' /> Logout
+                <Link to='/' className='dropdown-item'>
+                  <i className='fas fa-user-circle' /> Profile
                 </Link>
-                {/* <Link to='/' className='dropdown-item'>
+                <Link to='/' className='dropdown-item'>
                   <i className='fas fa-cog' /> Settings
-                </Link> */}
+                </Link>
               </div>
             </li>
           </ul>
@@ -347,7 +348,7 @@ const Dashboard = ({
               <div className='total'>
                 <div className='week'>
                   <p className='big'>
-                    ₦ <span className='big'>{profile.weekly_budget ==undefined?0:profile.weekly_budget}</span>
+                    ₦ <span className='big'>{profile.weekly_budget}</span>
                   </p>
                   <p className='small'>
                     Weekly
@@ -358,7 +359,7 @@ const Dashboard = ({
                 </div>
                 <div className='month'>
                   <p className='big'>
-                    ₦ <span className='big'>{profile.monthly_budget==undefined?0:profile.monthly_budget}</span>
+                    ₦ <span className='big'>{profile.monthly_budget}</span>
                   </p>
                   <p className='small'>
                     Monthly
@@ -369,7 +370,7 @@ const Dashboard = ({
                 </div>
                 <div className='year'>
                   <p className='big'>
-                    ₦ <span className='big'>{profile.yearly_budget==undefined?0:profile.yearly_budget}</span>
+                    ₦ <span className='big'>{profile.yearly_budget}</span>
                   </p>
                   <p className='small'>
                     Yearly
@@ -383,7 +384,7 @@ const Dashboard = ({
               <div className='total'>
                 <div className='week'>
                   <p className='big'>
-                    ₦ <span className='big'>{weeklyExpense==undefined?0:weeklyExpense.totalExpenses}</span>
+                    ₦ <span className='big'>{weeklyExpense.totalExpenses}</span>
                   </p>
                   <p className='small'>
                     This Week
@@ -394,7 +395,7 @@ const Dashboard = ({
                 </div>
                 <div className='month'>
                   <p className='big'>
-                    ₦ <span className='big'>{monthlyExpense==undefined?0:monthlyExpense.total}</span>
+                    ₦ <span className='big'>{monthlyExpense.total}</span>
                   </p>
                   <p className='small'>
                     This Month
@@ -405,7 +406,7 @@ const Dashboard = ({
                 </div>
                 <div className='year'>
                   <p className='big'>
-                    ₦ <span className='big'>{yearlyExpense==undefined?0:yearlyExpense.totalExpenses}</span>
+                    ₦ <span className='big'>{yearlyExpense.totalExpenses}</span>
                   </p>
                   <p className='small'>
                     This Year
