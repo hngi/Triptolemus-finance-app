@@ -4,6 +4,7 @@ let moment = require('moment');
 // let userAuth = require('../../middleware/userAuth');
 let Item = require('../../schema/item');
 const mongoose = require('mongoose');
+const User = require('../../schema/user');
 
 Date.prototype.addDays = function(days) {
   var date = new Date(this.valueOf());
@@ -335,5 +336,25 @@ router.post('/api/users/:userId/calculate/month', async (req, res, next) => {
     res.status(401).json({ error: error });
   }
 });
+
+router.get('/api/users/:userId/profile', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const id = req.user;
+    
+    const user = await User.find({_id: userId});
+    if (!user) {
+      res.status(200).json({
+        user: null
+      });
+    }
+    res.status(200).json({
+      user: user
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 
 module.exports = router;
