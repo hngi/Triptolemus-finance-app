@@ -168,20 +168,17 @@ export const resetPassword = (token, password, history) => async dispatch => {
     if (response.data.success){
       dispatch(setAlert(response.data.message.toString(), 'success'));
       dispatch({
-      type: REQUEST_PASSWORD_RESET_SUCCESS,
+      type: RESET_PASSWORD_SUCCESS,
       payload: response.data
     });
     } else {
       dispatch(setAlert(response.data.message.toString(), 'danger'));
-    dispatch({
-      type: REQUEST_PASSWORD_RESET_FAIL,
-      payload: response.data.message
-    });
-    }
-    dispatch({
-      type: RESET_PASSWORD_SUCCESS,
+      dispatch({
+      type: RESET_PASSWORD_FAIL,
       payload: response.data
     });
+    }
+    
   } catch (error) {
     console.log(error.response)
     if (error.hasOwnProperty('response')){
@@ -190,10 +187,6 @@ export const resetPassword = (token, password, history) => async dispatch => {
        dispatch(setAlert('server error', 'danger'))
        
      }
-     dispatch({
-         type: LOGIN_FAIL,
-         payload: error.response
-       });
     dispatch({
       type: RESET_PASSWORD_FAIL,
       payload: error.response.data

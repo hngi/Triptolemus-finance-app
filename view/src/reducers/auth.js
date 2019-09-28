@@ -4,14 +4,19 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
-  LOGIN_REQUIRED
+  LOGIN_REQUIRED,
+  REQUEST_PASSWORD_RESET_FAIL,
+  REQUEST_PASSWORD_RESET_SUCCESS,
+  RESET_PASSWORD_FAIL,
+  RESET_PASSWORD_SUCCESS
 } from '../actions/types';
+
 
 const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: true,
-  user: null
+  user: null,
 };
 export default function(state = initialState, action) {
   const { type, payload } = action;
