@@ -12,8 +12,8 @@ router.post('/api/users/:userId/setWeeklyBudget', async (req, res) => {
     // if (userId !== id) {
     //     return res.status(401).json({ error: 'Unauthorized user' });
     // }
-    let user = await User.find({
-      id: userId
+    let user = await User.findOne({
+      _id: userId
     });
     user.weekly_budget = budget;
     const updated_user = await user.save();
