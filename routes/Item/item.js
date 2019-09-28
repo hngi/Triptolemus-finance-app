@@ -51,6 +51,7 @@ Date.prototype.addDays = function(days) {
 };
 
 router.post('/api/users/:userId/items', userAuth, async (req, res) => {
+  console.log("hanldingpost")
   try {
     const { userId } = req.params;
     const id = req.user;
@@ -60,7 +61,7 @@ router.post('/api/users/:userId/items', userAuth, async (req, res) => {
       });
     }
 
-    const { name, description, amount } = req.body;
+    const { name, description, amount,date } = req.body;
     if (
       name == '' ||
       name == null ||
@@ -78,7 +79,7 @@ router.post('/api/users/:userId/items', userAuth, async (req, res) => {
       description,
       amount,
       user_id: id,
-      date: new Date()
+      date: date
     });
     const item = await newItem.save();
     res.status(200).json({

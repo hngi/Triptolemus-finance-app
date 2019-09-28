@@ -1,14 +1,19 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import {resetPassword} from '../../actions/auth';
-const ResetPassword = ({resetPassword,history}) => {
+
+
+const ResetPassword = ({resetPassword,history,match}) => {
+  const {header, payload,signature}= match.params
   const [formData, setFormData] = useState({
-    token:'',
-    password:''
+     password:''
   });
-  const { token, password } = formData;
+  const {password } = formData;
+  const email_token = [header,payload,signature].join(".")
+  console.log(email_token)
   const onChange = e => {
+    console.log(e.target.name + " " + e.target.value)
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   return (
@@ -33,6 +38,9 @@ const ResetPassword = ({resetPassword,history}) => {
                 className='form-control input1'
                 placeholder='************'
                 defaultValue
+                onChange={(e)=>{
+                  onChange(e);
+                }}
               />
             </div>
             <div className='confirm_pass'>
@@ -48,7 +56,7 @@ const ResetPassword = ({resetPassword,history}) => {
             {/* <div className='col-sm-11'> */}
               <button type='submit' onClick={(e)=>{
                     e.preventDefault();
-                    resetPassword(token,history)
+                    resetPassword(email_token,password,history)
               }} className='btn form-control'>
                 Submit
               </button>

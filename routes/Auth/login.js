@@ -14,18 +14,20 @@ router.post('/api/auth/login', async (req, res) => {
   try {
     User.findOne({ email: email }).then(user => {
       if (!user) {
-        return res.status(401).json({
+        console.log("..........")
+        return res.status(404).json({
           error: 'Invalid credentials'
         });
       }
       bcrypt.compare(password, user.password).then(isMatch => {
         if (isMatch) {
           token = jwt.sign({ _id: user._id }, 'secret');
-          userJSON = user.toJSON()
-          delete userJSON.password
+          let userJSON = user.toJSON();
+          
+          delete user.password
           return res.status(200).json({
-            token,
-            userJSON
+            token:token,
+            user: userJSON
           });
         } else {
           return res.status(401).json({
@@ -35,6 +37,7 @@ router.post('/api/auth/login', async (req, res) => {
       });
     });
   } catch (error) {
+    console.log(error)
     return res.status(400).json({
       error: error.message
     });
