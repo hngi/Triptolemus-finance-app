@@ -3,7 +3,7 @@ import './Forgot.css'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { requestResetPassword } from '../../actions/auth';
-const Forgot = ({requestResetPassword}) => {
+const Forgot = ({requestResetPassword, auth,history}) => {
   const [formData, setFormData] = useState({
     email: ''
   });
@@ -30,7 +30,7 @@ const Forgot = ({requestResetPassword}) => {
           <form action method className='form-horizontal'
           onSubmit={e => {
             e.preventDefault();
-            requestResetPassword(email)}}
+            requestResetPassword(email,history)}}
             >
         <div className='form-group'>
           <label className='control-label sm-1 ml-3' htmlFor='email'>
@@ -50,8 +50,9 @@ const Forgot = ({requestResetPassword}) => {
         <div className='form-group'>
           <div className='sm-1' />
           <div className='col-sm-11'>
-            <button type='submit' className='btn form-control'>
-              Submit
+            <button type='submit' className='btn custom-form-control'>
+            {auth.loading?<i className="fa fa-circle-o-notch text-white spin-loader"></i>:null}
+            Submit
             </button>
           </div>
         </div>
@@ -63,7 +64,7 @@ const Forgot = ({requestResetPassword}) => {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  auth: state.auth
 });
 export default connect(
   mapStateToProps,

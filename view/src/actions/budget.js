@@ -15,9 +15,10 @@ const base_url = 'https://finance-tracker-server.herokuapp.com';
 
 export const setWeeklyBudget = (
   duration,
-  amount,
+  budget,
   userIdd
 ) => async dispatch => {
+  console.log("weekly is running")
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -25,7 +26,7 @@ export const setWeeklyBudget = (
   };
   const body = JSON.stringify({
     duration,
-    amount
+    budget
   });
   try {
     const response = await axios.post(
@@ -33,14 +34,15 @@ export const setWeeklyBudget = (
       body,
       config
     );
-    console.log(response);
+   
     dispatch({
       type: SET_WEEKLY_BUDGET_SUCCESS,
       payload: response.data
     });
-    // history.push('/dashboard');
-    // dispatch(setAlert('Items were fetched successfully', 'success'));
+    dispatch(setAlert('Weekly Budget Set', 'success')); 
+    console.log(response);
   } catch (error) {
+    console.log(error);
     dispatch({
       type: SET_WEEKLY_BUDGET_FAIL,
       payload: error.response.data.error
@@ -50,7 +52,7 @@ export const setWeeklyBudget = (
 };
 export const setMonthlyBudget = (
   duration,
-  amount,
+  budget,
   userIdd
 ) => async dispatch => {
   const config = {
@@ -60,7 +62,7 @@ export const setMonthlyBudget = (
   };
   const body = JSON.stringify({
     duration,
-    amount
+    budget
   });
   try {
     const response = await axios.post(
@@ -74,7 +76,8 @@ export const setMonthlyBudget = (
       payload: response.data
     });
     // history.push('/dashboard');
-    // dispatch(setAlert('Items were fetched successfully', 'success'));
+    dispatch(setAlert('Monthly Budget Set', 'success'));
+    console.log(response);
   } catch (error) {
     dispatch({
       type: SET_MONTHLY_BUDGET_FAIL,
@@ -83,7 +86,7 @@ export const setMonthlyBudget = (
     dispatch(setAlert(error.response.data.error, 'danger'));
   }
 };
-export const setYearlyBudget = (duration, amount, userId) => async dispatch => {
+export const setYearlyBudget = (duration, budget, userId) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -91,7 +94,7 @@ export const setYearlyBudget = (duration, amount, userId) => async dispatch => {
   };
   const body = JSON.stringify({
     duration,
-    amount
+    budget
   });
   try {
     const response = await axios.post(
@@ -105,7 +108,8 @@ export const setYearlyBudget = (duration, amount, userId) => async dispatch => {
       payload: response.data
     });
     // history.push('/dashboard');
-    // dispatch(setAlert('Items were fetched successfully', 'success'));
+    dispatch(setAlert('Weekly Budget Set', 'success'));
+    console.log(response);
   } catch (error) {
     dispatch({
       type: SET_YEARLY_BUDGET_FAIL,

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {resetPassword} from '../../actions/auth';
 
 
-const ResetPassword = ({resetPassword,history,match}) => {
+const ResetPassword = ({auth,resetPassword,history,match}) => {
   const {header, payload,signature}= match.params
   const [formData, setFormData] = useState({
      password:''
@@ -49,7 +49,8 @@ const ResetPassword = ({resetPassword,history,match}) => {
             </div>
 
             {/* <div className='col-sm-11'> */}
-              <button type='submit' className='btn form-control'>
+              <button type='submit' className='btn custom-form-control'>
+              {auth.loading?<i className="fa fa-circle-o-notch text-white spin-loader"></i>:null}
                 Submit
               </button>
             {/* </div> */}
@@ -61,7 +62,7 @@ const ResetPassword = ({resetPassword,history,match}) => {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  auth: state.auth
 });
 export default connect(
   mapStateToProps,

@@ -5,8 +5,9 @@ import {
   GET_ITEMS_FAIL
 } from './types';
 import { setAlert } from './alert';
+import { loadData } from './auth';
 import axios from 'axios';
-const base_url = 'https://finance-tracker-server.herokuapp.com';
+const base_url = 'https://finance-tracker-server.herokuapp.com';;
 
 export const getItems = (userId, history) => async dispatch => {
   try {
@@ -35,7 +36,7 @@ export const addItem = (
   userId,
   history
 ) => async dispatch => {
-  const config = {
+ const config = {
     headers: {
       'Content-Type': 'application/json'
     }
@@ -56,8 +57,8 @@ export const addItem = (
       type: ADD_ITEM_SUCCESS,
       payload: response.data
     });
-    history.push('/dashboard');
     dispatch(setAlert('A new Item was added successfully', 'success'));
+    loadData(dispatch,userId)
   } catch (error) {
     console.log(error);
     dispatch({
