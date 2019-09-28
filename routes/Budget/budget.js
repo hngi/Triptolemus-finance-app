@@ -1,13 +1,8 @@
 let express = require('express');
 let router = express.Router();
-<<<<<<< HEAD
 let User = require('../../schema/user');
 const mongoose = require('mongoose');
 let userAuth = require('../../middleware/userAuth');
-=======
-let userAuth = require('../../middleware/userAuth');
-let User=require('../../schema/user')
->>>>>>> ba8e5f4d9fa31a8795b2e7f85ee31505095a08a3
 
 router.put('/api/users/:userId/update_budget',userAuth,async(req,res)=>{
   try {
@@ -21,13 +16,13 @@ router.put('/api/users/:userId/update_budget',userAuth,async(req,res)=>{
     }
 
     else if(duration === 'weekly'){
-      const newBudget= await User.findByIdAndUpdate(id,{weekly_budget:budget})
+      const newBudget= await User.findByIdAndUpdate({ _id: userId },{weekly_budget:budget})
       return res.status(200).json({
         budget: newBudget
       });
     }
     else if(duration === 'monthly'){
-      const newBudget = await User.findByIdAndUpdate(id,{
+      const newBudget = await User.findByIdAndUpdate({ _id: userId },{
         
         monthly_budget: budget
       });
@@ -36,7 +31,7 @@ router.put('/api/users/:userId/update_budget',userAuth,async(req,res)=>{
       });
     }
     else if(duration === 'yearly'){
-      const newBudget = await User.findByIdAndUpdate(id,{  yearly_budget: budget });
+      const newBudget = await User.findByIdAndUpdate({ _id: userId },{  yearly_budget: budget });
       return res.status(200).json({
         budget: newBudget
       });
@@ -51,6 +46,44 @@ router.put('/api/users/:userId/update_budget',userAuth,async(req,res)=>{
     });
   }
 })
+
+router.post('/api/users/:userId/setWeeklyBudget', userAuth, async (req, res) => {
+  try {
+		const { userId } = req.params;
+        const id = req.user;
+        let { budget } = req.body;
+        if (userId !== id) {
+            return res.status(401).json({ error: 'Unauthorized user' });
+        }
+        let updated_user = await User.updateOne({ _id: userId }, {weekly_budget : budget }, {upsert:true});
+        res.status(200).json({
+          user: updated_user,
+          message: "successfully upadated"
+        });
+  } catch (error) {
+        console.log(error.message);
+  }
+});
+
+router.post('/api/users/:userId/setYearlyBudget', userAuth, async (req, res) => {
+  try {
+		const { userId } = req.params;
+        const id = req.user;
+        let { budget } = req.body;
+        if (userId !== id) {
+            return res.status(401).json({ error: 'Unauthorized user' });
+        }
+        let updated_user = await User.updateOne({ _id: userId }, {yearly_budget : budget }, {upsert:true});
+        res.status(200).json({
+          user: updated_user,
+          message: "successfully upadated"
+        });
+  } catch (error) {
+        console.log(error.message);
+  }
+});
+
+
 router.put('/api/users/:userId/setMonthlyBudget', userAuth, async (req, res, next) => {
     try {
         const { userId } = req.params;
