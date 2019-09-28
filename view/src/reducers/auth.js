@@ -30,7 +30,7 @@ export default function(state = initialState, action) {
         isAuthenticated: true,
         loading: false,
         user: {
-          id: payload.user.id,
+          id: payload.user._id,
           username: payload.user.username,
           email: payload.user.email
         }
