@@ -13,11 +13,7 @@ import axios from 'axios';
 const base_url = 'https://finance-tracker-server.herokuapp.com';
 // const base_url = 'http://localhost:3500';
 
-export const setWeeklyBudget = (
-  duration,
-  amount,
-  userIdd
-) => async dispatch => {
+export const setWeeklyBudget = (duration, budget, userId) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -25,11 +21,11 @@ export const setWeeklyBudget = (
   };
   const body = JSON.stringify({
     duration,
-    amount
+    budget
   });
   try {
     const response = await axios.post(
-      base_url + `/api/users/${userIdd}/setWeeklyBudget`,
+      base_url + `/api/users/${userId}/setWeeklyBudget`,
       body,
       config
     );
@@ -50,8 +46,8 @@ export const setWeeklyBudget = (
 };
 export const setMonthlyBudget = (
   duration,
-  amount,
-  userIdd
+  budget,
+  userId
 ) => async dispatch => {
   const config = {
     headers: {
@@ -60,11 +56,11 @@ export const setMonthlyBudget = (
   };
   const body = JSON.stringify({
     duration,
-    amount
+    budget
   });
   try {
     const response = await axios.post(
-      base_url + `/api/users/${userIdd}/setMonthlyBudget`,
+      base_url + `/api/users/${userId}/setMonthlyBudget`,
       body,
       config
     );
@@ -83,7 +79,7 @@ export const setMonthlyBudget = (
     dispatch(setAlert(error.response.data.error, 'danger'));
   }
 };
-export const setYearlyBudget = (duration, amount, userId) => async dispatch => {
+export const setYearlyBudget = (duration, budget, userId) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -91,7 +87,7 @@ export const setYearlyBudget = (duration, amount, userId) => async dispatch => {
   };
   const body = JSON.stringify({
     duration,
-    amount
+    budget
   });
   try {
     const response = await axios.post(
@@ -99,7 +95,7 @@ export const setYearlyBudget = (duration, amount, userId) => async dispatch => {
       body,
       config
     );
-    // console.log(response);
+    console.log(response);
     dispatch({
       type: SET_YEARLY_BUDGET_SUCCESS,
       payload: response.data

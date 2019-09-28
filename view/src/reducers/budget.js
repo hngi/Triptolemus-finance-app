@@ -4,10 +4,10 @@ import {
   SET_WEEKLY_BUDGET_SUCCESS,
   SET_WEEKLY_BUDGET_FAIL,
   SET_YEARLY_BUDGET_SUCCESS,
-  SET_YEARLY_BUDGET_FAIL,
+  SET_YEARLY_BUDGET_FAIL
   // MODIFY_BUDGET_SUCCESS,
   // MODIFY_BUDGET_FAIL
-} from '../actions/types'
+} from '../actions/types';
 
 const initialState = {
   weeklyBudget: 0,
@@ -20,7 +20,7 @@ export default function(state = initialState, action) {
     case SET_WEEKLY_BUDGET_SUCCESS:
       return {
         ...state,
-        weeklyBudget: payload
+        weeklyBudget: payload.user
       };
     case SET_WEEKLY_BUDGET_FAIL:
       return {
@@ -30,7 +30,7 @@ export default function(state = initialState, action) {
     case SET_MONTHLY_BUDGET_SUCCESS:
       return {
         ...state,
-        monthlyBudget: payload
+        monthlyBudget: payload.user
       };
     case SET_MONTHLY_BUDGET_FAIL:
       return {
@@ -40,7 +40,7 @@ export default function(state = initialState, action) {
     case SET_YEARLY_BUDGET_SUCCESS:
       return {
         ...state,
-        yearlyBudget: payload
+        yearlyBudget: payload.user
       };
     case SET_YEARLY_BUDGET_FAIL:
       return {

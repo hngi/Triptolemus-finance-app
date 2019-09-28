@@ -38,11 +38,19 @@ const Dashboard = ({
     getWeeklyExpense(userIdd);
     getMonthlyExpense(userIdd);
     getYearlyExpense(userIdd);
-  }, [getWeeklyExpense, getMonthlyExpense, getYearlyExpense,auth.user,fetchProfile,goToLogin]);
+  }, [
+    getWeeklyExpense,
+    getMonthlyExpense,
+    getYearlyExpense,
+    auth.user,
+    fetchProfile,
+    goToLogin
+  ]);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     amount: '',
+    budget:'',
     duration: '',
     date: '',
     startDate: '',
@@ -59,6 +67,7 @@ const Dashboard = ({
     name,
     description,
     amount,
+    budget,
     duration,
     date,
     startDate,
@@ -256,11 +265,11 @@ const Dashboard = ({
                           onSubmit={e => {
                             e.preventDefault();
                             if (duration === 'Weekly') {
-                              setWeeklyBudget(duration, amount, userId);
+                              setWeeklyBudget(duration, budget, userId);
                             } else if (duration === 'Monthly') {
-                              setMonthlyBudget(duration, amount, userId);
+                              setMonthlyBudget(duration, budget, userId);
                             } else if (duration === 'Yearly') {
-                              setYearlyBudget(duration, amount, userId);
+                              setYearlyBudget(duration, budget, userId);
                             }
                           }}
                           className='form-horizontal'>
@@ -289,18 +298,18 @@ const Dashboard = ({
                           </div>
                           <div className='form-group'>
                             <label className='control-label sm-1 ml-3'>
-                              Amount
+                              Budget
                             </label>
                             <div className='col-sm-11'>
                               <input
                                 required
                                 type='number'
-                                name='amount'
-                                value={amount}
+                                name='budget'
+                                value={budget}
                                 onChange={e => onChange(e)}
                                 id='budgetDuration'
                                 className='form-control'
-                                placeholder='Enter Amount'
+                                placeholder='Enter Budget'
                               />
                             </div>
                           </div>
