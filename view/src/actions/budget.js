@@ -13,7 +13,12 @@ import axios from 'axios';
 const base_url = 'https://finance-tracker-server.herokuapp.com';
 // const base_url = 'http://localhost:3500';
 
-export const setWeeklyBudget = (duration, budget, userId) => async dispatch => {
+export const setWeeklyBudget = (
+  duration,
+  budget,
+  userId
+) => async dispatch => {
+  console.log("weekly is running")
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -29,14 +34,15 @@ export const setWeeklyBudget = (duration, budget, userId) => async dispatch => {
       body,
       config
     );
-    console.log(response);
+   
     dispatch({
       type: SET_WEEKLY_BUDGET_SUCCESS,
       payload: response.data
     });
-    // history.push('/dashboard');
-    // dispatch(setAlert('Items were fetched successfully', 'success'));
+    dispatch(setAlert('Weekly Budget Set', 'success')); 
+    console.log(response);
   } catch (error) {
+    console.log(error);
     dispatch({
       type: SET_WEEKLY_BUDGET_FAIL,
       payload: error.response.data.error
@@ -70,7 +76,8 @@ export const setMonthlyBudget = (
       payload: response.data
     });
     // history.push('/dashboard');
-    // dispatch(setAlert('Items were fetched successfully', 'success'));
+    dispatch(setAlert('Monthly Budget Set', 'success'));
+    console.log(response);
   } catch (error) {
     dispatch({
       type: SET_MONTHLY_BUDGET_FAIL,
@@ -101,7 +108,8 @@ export const setYearlyBudget = (duration, budget, userId) => async dispatch => {
       payload: response.data
     });
     // history.push('/dashboard');
-    // dispatch(setAlert('Items were fetched successfully', 'success'));
+    dispatch(setAlert('Weekly Budget Set', 'success'));
+    console.log(response);
   } catch (error) {
     dispatch({
       type: SET_YEARLY_BUDGET_FAIL,

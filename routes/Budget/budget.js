@@ -70,10 +70,10 @@ router.post('/api/users/:userId/setWeeklyBudget', async (req, res) => {
         { weekly_budget: budget },
         { upsert: true }
       );
-      const user = await User.find({ _id: userId });
+      const user = await User.findOne({ _id: userId });
       console.log(user);
       res.status(200).json({
-        weekly_budget: user[0].weekly_budget,
+        weekly_budget: user.weekly_budget,
         message: 'Budget set successfully'
       });
     } else {
@@ -100,9 +100,10 @@ router.post('/api/users/:userId/setYearlyBudget', async (req, res) => {
         { yearly_budget: budget },
         { upsert: true }
       );
-      const user = await User.find({ _id: userId });
+      const user = await User.findOne({ _id: userId });
+      console.log(user)
       res.status(200).json({
-        user: user[0].yearly_budget,
+        user: user.yearly_budget,
         message: 'Budget set successfully'
       });
     } else {
@@ -128,9 +129,10 @@ router.post('/api/users/:userId/setMonthlyBudget', async (req, res) => {
         { monthly_budget: budget },
         { upsert: true }
       );
-      const user = await User.find({ _id: userId });
+      
+      const user = await User.findOne({ _id: userId });
       res.status(200).json({
-        user: user[0].monthly_budget,
+        user: user.monthly_budget,
         message: 'Budget set successfully'
       });
     } else {

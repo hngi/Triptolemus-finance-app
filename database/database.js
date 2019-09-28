@@ -14,7 +14,7 @@ class Database {
         console.log('Database connection successful');
       })
       .catch(err => {
-        console.error('Database connection error');
+        console.error(err);
       });
   }
 }

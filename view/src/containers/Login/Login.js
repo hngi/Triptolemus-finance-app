@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link ,Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import './Login.css';
 
-const Login = ({ login, history, isAuthenticated }) => {
+const Login = ({ login, history, auth }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -13,6 +13,10 @@ const Login = ({ login, history, isAuthenticated }) => {
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  // if (isAuthenticated){
+  //   return <Redirect push to="/dashboard"/>
+  // }
 
   return (
     <section className='login-container'>
@@ -69,7 +73,8 @@ const Login = ({ login, history, isAuthenticated }) => {
                 <Link to='/forgot'>Forgot Password?</Link>
               </p>
               <div className='col-sm-11' style={{margin:"0px auto"}}>
-                <button type='submit' className='btn form-control'>
+                <button type='submit' className='btn custom-form-control'>
+                {auth.loading?<i className="fa fa-circle-o-notch text-white spin-loader"></i>:null}
                   Sign in
                 </button>
               </div>
@@ -88,7 +93,7 @@ const Login = ({ login, history, isAuthenticated }) => {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  auth: state.auth
 });
 export default connect(
   mapStateToProps,

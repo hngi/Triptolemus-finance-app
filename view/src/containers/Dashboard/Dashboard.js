@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import { goToLogin } from '../../actions/auth';
+import { showLoginAlert } from '../../actions/auth';
 import { addItem } from '../../actions/item';
 import { connect } from 'react-redux';
 import './Dashboard.css';
@@ -16,7 +16,7 @@ import {
 } from '../../actions/budget';
 import { fetchProfile } from '../../actions/auth';
 const Dashboard = ({
-  goToLogin,
+  showLoginAlert,
   auth,
   expense,
   addItem,
@@ -28,40 +28,44 @@ const Dashboard = ({
   setMonthlyBudget,
   setYearlyBudget,
   fetchProfile
-}) => {
+}) => { 
+  
+  const { isAuthenticated, user, profile } = auth;
+  const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
   useEffect(() => {
     if (isAuthenticated == null || !isAuthenticated || user == null || !user) {
-      goToLogin();
-    }
-    const userIdd = auth.user.id;
-    fetchProfile(userIdd);
-    getWeeklyExpense(userIdd);
-    getMonthlyExpense(userIdd);
-    getYearlyExpense(userIdd);
-  }, [
-    getWeeklyExpense,
-    getMonthlyExpense,
-    getYearlyExpense,
-    auth.user,
-    fetchProfile,
-    goToLogin
+      
+    } else{
+    const userId = auth.user.id;
+    fetchProfile(userId);
+    // getWeeklyExpense(userIdd);
+    // getMonthlyExpense(userIdd);
+    // getYearlyExpense(userIdd);
+  }} ,
+  [
+    auth,
+    // getWeeklyExpense,
+    // getMonthlyExpense,
+    // getYearlyExpense,
+    // auth.user,
+    // fetchProfile,
   ]);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     amount: '',
     budget:'',
-    duration: '',
+    duration: 'Weekly',
     date: '',
     startDate: '',
     endDate: ''
   });
-  const { isAuthenticated, user, profile } = auth;
-  const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
+ 
   // console.log(monthlyExpense.items)
   // console.log(expense)
   if (isAuthenticated == null || !isAuthenticated || user == null || !user) {
-    goToLogin();
+    showLoginAlert('You need to be logged in to do that', 'danger',history);
+    return <Redirect to="/login" />
   }
   const {
     name,
@@ -76,19 +80,10 @@ const Dashboard = ({
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const userId = auth.user.id
 
-  // if (!user) {
-  //   return <Redirect to='/login' />;
-  // }
-  const userId = user.id;
-  console.log(profile);
-  return isAuthenticated == null ||
-    !isAuthenticated ||
-    user == null ||
-    !user ? (
-    <Redirect to='/login' />
-  ) : (
-    <div>
+  return (
+    <>
       <nav
         className='navbar navbar-expand-md navbar-light fixed-top py-4'
         id='main-nav'>
@@ -112,7 +107,7 @@ const Dashboard = ({
                   {' '}
                   {user
                     ? user.username.charAt(0).toUpperCase() +
-                      user.username.slice(1)
+                    user.username.slice(1)
                     : null}{' '}
                 </span>
               </Link>
@@ -160,6 +155,16 @@ const Dashboard = ({
                               userId,
                               history
                             );
+                            // document.getElementById("addExpenseEffect").click()
+                            // let addExpense = document.getElementById('addExpense')
+                            // addExpense.style.display = "none";
+                            // addExpense.style.paddingRight = null;
+                            // addExpense.classList.remove("show");
+                            // addExpense.setAttribute("aria-hidden",true)
+                            // addExpense.removeAttribute("aria-modal")
+                            // document.getElementsByTagName("body")[0].removeChild(document.getElementsByClassName('modal-backdrop')[0])
+                            // document.body.classList.remove("modal-open")
+                            // document.body.style.paddingRight = "34px";
                           }}
                           className='form-horizontal'>
                           <div className='form-group'>
@@ -234,7 +239,9 @@ const Dashboard = ({
                             <div className='sm-1' />
                             <div className='col-sm-11'>
                               <button
-                                type='submit'
+                              type='submit'
+                                data-toggle="modal"
+                                data-target="#addExpense"
                                 className='btn form-control expenseBtn'>
                                 Record Expense
                               </button>
@@ -265,11 +272,12 @@ const Dashboard = ({
                           onSubmit={e => {
                             e.preventDefault();
                             if (duration === 'Weekly') {
-                              setWeeklyBudget(duration, budget, userId);
+                              console.log("weekly should runnow")
+                             setWeeklyBudget(duration, budget, userId);
                             } else if (duration === 'Monthly') {
-                              setMonthlyBudget(duration, budget, userId);
+                           setMonthlyBudget(duration, budget, userId);
                             } else if (duration === 'Yearly') {
-                              setYearlyBudget(duration, budget, userId);
+                           setYearlyBudget(duration, budget, userId);
                             }
                           }}
                           className='form-horizontal'>
@@ -318,6 +326,8 @@ const Dashboard = ({
                             <div className='col-sm-11'>
                               <button
                                 type='submit'
+                                data-toggle="modal"
+                                data-target="#setBudget"
                                 className='btn form-control budgetBtn'>
                                 Set Budget
                               </button>
@@ -425,7 +435,7 @@ const Dashboard = ({
                   id='startDate'
                   value={startDate}
                   onChange={e => onChange(e)}
-                  // className='form-control mr-1 specify'
+                // className='form-control mr-1 specify'
                 />
                 {/* <i className='fa fa-calendar-alt mr-3' /> */}
               </div>
@@ -543,7 +553,7 @@ const Dashboard = ({
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 };
 
@@ -554,7 +564,7 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    goToLogin,
+    showLoginAlert,
     addItem,
     getWeeklyExpense,
     getMonthlyExpense,
