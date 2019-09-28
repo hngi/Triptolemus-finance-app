@@ -4,16 +4,17 @@ import { goToLogin } from '../../actions/auth';
 import { addItem } from '../../actions/item';
 import { connect } from 'react-redux';
 import './Dashboard.css';
-const Dashboard = ({ goToLogin, auth, addItem, history,match }) => {
+const Dashboard = ({ goToLogin, auth, addItem, history }) => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     amount: '',
     duration: '',
+    date:'',
     startDate: '',
     endDate: ''
   });
-  const { name, description, amount, duration, startDate, endDate } = formData;
+  const { name, description, amount, duration, date,startDate, endDate } = formData;
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -92,11 +93,20 @@ const Dashboard = ({ goToLogin, auth, addItem, history,match }) => {
                         <form
                           onSubmit={e => {
                             e.preventDefault();
-                            addItem(name, description, amount, userId, history);
+                            addItem(
+                              name,
+                              description,
+                              amount,
+                              date,
+                              userId,
+                              history
+                            );
                           }}
                           className='form-horizontal'>
                           <div className='form-group'>
-                            <label className='control-label sm-1 ml-3' htmlFor>
+                            <label
+                              className='control-label sm-1 ml-3'
+                              htmlFor>
                               Item Name
                             </label>
                             <div className='col-sm-11'>
@@ -113,7 +123,9 @@ const Dashboard = ({ goToLogin, auth, addItem, history,match }) => {
                             </div>
                           </div>
                           <div className='form-group'>
-                            <label className='control-label sm-1 ml-3' htmlFor>
+                            <label
+                              className='control-label sm-1 ml-3'
+                              htmlFor>
                               Item Description
                             </label>
                             <div className='col-sm-11'>
@@ -131,7 +143,9 @@ const Dashboard = ({ goToLogin, auth, addItem, history,match }) => {
                           </div>
 
                           <div className='form-group'>
-                            <label className='control-label sm-1 ml-3' htmlFor>
+                            <label
+                              className='control-label sm-1 ml-3'
+                              htmlFor>
                               Amount
                             </label>
                             <div className='col-sm-11'>
@@ -145,6 +159,23 @@ const Dashboard = ({ goToLogin, auth, addItem, history,match }) => {
                                 className='form-control'
                                 placeholder='Enter Amount'
                               />
+                            </div>
+                          </div>
+                          <div className='form-group'>
+                            <label className='control-label sm-1 ml-3'>
+                              Date of purchase
+                            </label>
+                            <div className='col-sm-11'>
+                            
+                            <input
+                              required
+                              type='date'
+                              name='date'
+                              id='date'
+                              value={date}
+                              onChange={e => onChange(e)}
+                              className='form-control mr-1 specify'
+                            />
                             </div>
                           </div>
                           <div className='form-group'>
@@ -184,7 +215,9 @@ const Dashboard = ({ goToLogin, auth, addItem, history,match }) => {
                           }}
                           className='form-horizontal'>
                           <div className='form-group'>
-                            <label className='control-label sm-1 ml-3' htmlFor>
+                            <label
+                              className='control-label sm-1 ml-3'
+                              htmlFor>
                               Duration
                             </label>
                             <div class='col-sm-11'>
@@ -208,7 +241,9 @@ const Dashboard = ({ goToLogin, auth, addItem, history,match }) => {
                             </div>
                           </div>
                           <div className='form-group'>
-                            <label className='control-label sm-1 ml-3' htmlFor>
+                            <label
+                              className='control-label sm-1 ml-3'
+                              htmlFor>
                               Amount
                             </label>
                             <div className='col-sm-11'>
