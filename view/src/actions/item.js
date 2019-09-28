@@ -60,10 +60,10 @@ export const addItem = (
     dispatch(setAlert('A new Item was added successfully', 'success'));
   } catch (error) {
     console.log(error);
-    // dispatch({
-    //   type: ADD_ITEM_FAIL,
-    //   payload: error.response.data.error
-    // });
-    // dispatch(setAlert(error.response.data.error, 'danger'));
+    dispatch({
+      type: ADD_ITEM_FAIL,
+      payload: error.response.data.error
+    });
+    dispatch(setAlert(error.response.data.error, 'danger'));
   }
 };

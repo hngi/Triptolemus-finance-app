@@ -1,31 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { goToLogin } from '../../actions/auth';
 import { addItem } from '../../actions/item';
 import { connect } from 'react-redux';
 import './Dashboard.css';
-const Dashboard = ({ goToLogin, auth, addItem, history }) => {
+import {
+  getWeeklyExpense,
+  getMonthlyExpense,
+  getYearlyExpense
+} from '../../actions/expense';
+const Dashboard = ({
+  goToLogin,
+  auth,
+  expense,
+  addItem,
+  history,
+  getWeeklyExpense,
+  getMonthlyExpense,
+  getYearlyExpense
+}) => {
+  const { isAuthenticated, user } = auth;
+  const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
+  if (isAuthenticated == null || !isAuthenticated || user == null || !user) {
+    goToLogin();
+  }
+  const userId = user.id;
+
+  useEffect(() => {
+    getWeeklyExpense(userId);
+    getMonthlyExpense(userId);
+    getYearlyExpense(userId);
+  }, []);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     amount: '',
     duration: '',
-    date:'',
+    date: '',
     startDate: '',
     endDate: ''
   });
-  const { name, description, amount, duration, date,startDate, endDate } = formData;
-  const onChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-  const { isAuthenticated, user } = auth;
+
   if (!user) {
     return <Redirect to='/login' />;
   }
-  const userId = user.id;
-  if (isAuthenticated == null || !isAuthenticated) {
-    goToLogin();
-  }
+  const {
+    name,
+    description,
+    amount,
+    duration,
+    date,
+    startDate,
+    endDate
+  } = formData;
+  const onChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   return isAuthenticated == null || !isAuthenticated ? (
     <Redirect to='/login' />
   ) : (
@@ -104,9 +135,7 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
                           }}
                           className='form-horizontal'>
                           <div className='form-group'>
-                            <label
-                              className='control-label sm-1 ml-3'
-                              htmlFor>
+                            <label className='control-label sm-1 ml-3' htmlFor>
                               Item Name
                             </label>
                             <div className='col-sm-11'>
@@ -123,9 +152,7 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
                             </div>
                           </div>
                           <div className='form-group'>
-                            <label
-                              className='control-label sm-1 ml-3'
-                              htmlFor>
+                            <label className='control-label sm-1 ml-3' htmlFor>
                               Item Description
                             </label>
                             <div className='col-sm-11'>
@@ -143,9 +170,7 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
                           </div>
 
                           <div className='form-group'>
-                            <label
-                              className='control-label sm-1 ml-3'
-                              htmlFor>
+                            <label className='control-label sm-1 ml-3' htmlFor>
                               Amount
                             </label>
                             <div className='col-sm-11'>
@@ -166,16 +191,15 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
                               Date of purchase
                             </label>
                             <div className='col-sm-11'>
-                            
-                            <input
-                              required
-                              type='date'
-                              name='date'
-                              id='date'
-                              value={date}
-                              onChange={e => onChange(e)}
-                              className='form-control mr-1 specify'
-                            />
+                              <input
+                                required
+                                type='date'
+                                name='date'
+                                id='date'
+                                value={date}
+                                onChange={e => onChange(e)}
+                                className='form-control mr-1 specify'
+                              />
                             </div>
                           </div>
                           <div className='form-group'>
@@ -215,9 +239,7 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
                           }}
                           className='form-horizontal'>
                           <div className='form-group'>
-                            <label
-                              className='control-label sm-1 ml-3'
-                              htmlFor>
+                            <label className='control-label sm-1 ml-3' htmlFor>
                               Duration
                             </label>
                             <div class='col-sm-11'>
@@ -241,9 +263,7 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
                             </div>
                           </div>
                           <div className='form-group'>
-                            <label
-                              className='control-label sm-1 ml-3'
-                              htmlFor>
+                            <label className='control-label sm-1 ml-3' htmlFor>
                               Amount
                             </label>
                             <div className='col-sm-11'>
@@ -283,35 +303,35 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
               <div className='total'>
                 <div className='week'>
                   <p>
-                    ₦ <span className='big'>25,000</span>
+                    ₦ <span className='big'>{weeklyExpense}</span>
                   </p>
                   <p className='small'>
                     Week
-                    <span className='bg-success expTotal'>
+                    {/* <span className='bg-success expTotal'>
                       <i className='fa fa-arrow-up' /> 500
-                    </span>
+                    </span> */}
                   </p>
                 </div>
                 <div className='month'>
                   <p>
-                    ₦ <span className='big'>99,419</span>
+                    ₦ <span className='big'>{monthlyExpense}</span>
                   </p>
                   <p className='small'>
                     Month
-                    <span className='bg-danger expTotal'>
+                    {/* <span className='bg-danger expTotal'>
                       <i className='fa fa-arrow-up' /> 500
-                    </span>
+                    </span> */}
                   </p>
                 </div>
                 <div className='year'>
                   <p>
-                    ₦ <span className='big'>997,000</span>
+                    ₦ <span className='big'>{yearlyExpense}</span>
                   </p>
                   <p className='small'>
                     Year
-                    <span className='bg-success expTotal'>
+                    {/* <span className='bg-success expTotal'>
                       <i className='fa fa-arrow-down' /> 1000
-                    </span>
+                    </span> */}
                   </p>
                 </div>
               </div>
@@ -457,9 +477,10 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  expense: state.expense
 });
 export default connect(
   mapStateToProps,
-  { goToLogin, addItem }
+  { goToLogin, addItem, getWeeklyExpense, getMonthlyExpense, getYearlyExpense }
 )(Dashboard);
