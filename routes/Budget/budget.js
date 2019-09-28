@@ -57,8 +57,7 @@ router.put('/api/users/:userId/update_budget', async (req, res) => {
     //   });
     // }
 
-//<<<<<<< HEAD
-    else if(duration === 'weekly'){
+    if(duration === 'weekly'){
       const newBudget= await User.findByIdAndUpdate({ _id: userId },{weekly_budget:budget})
       return res.status(200).json({
         budget: newBudget
@@ -66,18 +65,6 @@ router.put('/api/users/:userId/update_budget', async (req, res) => {
     }
     else if(duration === 'monthly'){
       const newBudget = await User.findByIdAndUpdate({ _id: userId },{
-        
-// =======
-//     if (duration === 'weekly') {
-//       const newBudget = await User.findByIdAndUpdate(userId, {
-//         weekly_budget: budget
-//       });
-//       return res.status(200).json({
-//         budget: newBudget
-//       });
-//     } else if (duration === 'monthly') {
-//       const newBudget = await User.findByIdAndUpdate(userId, {
-// >>>>>>> 3841f8a27a6022632a713b6b5ade6980e5eacc1c
         monthly_budget: budget
       });
       return res.status(200).json({

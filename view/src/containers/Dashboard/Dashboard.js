@@ -9,6 +9,7 @@ import {
   getMonthlyExpense,
   getYearlyExpense
 } from '../../actions/expense';
+
 const Dashboard = ({
   goToLogin,
   auth,
@@ -19,18 +20,17 @@ const Dashboard = ({
   getMonthlyExpense,
   getYearlyExpense
 }) => {
-  const { isAuthenticated, user } = auth;
-  const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
-  if (isAuthenticated == null || !isAuthenticated || user == null || !user) {
-    goToLogin();
-  }
-  const userId = user.id;
-
+  
   useEffect(() => {
-    getWeeklyExpense(userId);
-    getMonthlyExpense(userId);
-    getYearlyExpense(userId);
-  }, []);
+    if (auth.user===null&&auth.isAuthenticated===null&&auth.loading===true) {
+      return <Redirect to='/login' />;
+    }
+    const userIdd=auth.user.id
+
+      getWeeklyExpense(userIdd);
+      getMonthlyExpense(userIdd);
+      getYearlyExpense(userIdd);
+  }, [getWeeklyExpense, getMonthlyExpense, getYearlyExpense, ]);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -40,9 +40,12 @@ const Dashboard = ({
     startDate: '',
     endDate: ''
   });
-
-  if (!user) {
-    return <Redirect to='/login' />;
+  
+  const { isAuthenticated, user } = auth;
+  const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
+  console.log(expense)
+  if (isAuthenticated == null || !isAuthenticated || user == null || !user) {
+    goToLogin();
   }
   const {
     name,
@@ -56,9 +59,13 @@ const Dashboard = ({
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  return isAuthenticated == null || !isAuthenticated ? (
-    <Redirect to='/login' />
+  
+  // if (!user) {
+    //   return <Redirect to='/login' />;
+    // }
+    const userId = user.id;
+    return isAuthenticated == null || !isAuthenticated || user==null || !user ? (
+      <Redirect to='/login' />
   ) : (
     <div>
       <nav
@@ -135,7 +142,7 @@ const Dashboard = ({
                           }}
                           className='form-horizontal'>
                           <div className='form-group'>
-                            <label className='control-label sm-1 ml-3' htmlFor>
+                            <label className='control-label sm-1 ml-3'>
                               Item Name
                             </label>
                             <div className='col-sm-11'>
@@ -152,7 +159,7 @@ const Dashboard = ({
                             </div>
                           </div>
                           <div className='form-group'>
-                            <label className='control-label sm-1 ml-3' htmlFor>
+                            <label className='control-label sm-1 ml-3'>
                               Item Description
                             </label>
                             <div className='col-sm-11'>
@@ -170,7 +177,7 @@ const Dashboard = ({
                           </div>
 
                           <div className='form-group'>
-                            <label className='control-label sm-1 ml-3' htmlFor>
+                            <label className='control-label sm-1 ml-3'>
                               Amount
                             </label>
                             <div className='col-sm-11'>
@@ -239,10 +246,10 @@ const Dashboard = ({
                           }}
                           className='form-horizontal'>
                           <div className='form-group'>
-                            <label className='control-label sm-1 ml-3' htmlFor>
+                            <label className='control-label sm-1 ml-3'>
                               Duration
                             </label>
-                            <div class='col-sm-11'>
+                            <div className='col-sm-11'>
                               <select
                                 name='duration'
                                 id='budgetDuration'
@@ -250,20 +257,20 @@ const Dashboard = ({
                                 value={duration}
                                 onChange={e => onChange(e)}>
                                 <option value=''>Select Category</option>
-                                <option name='weekly' class='expenseCat'>
+                                <option name='weekly' className='expenseCat'>
                                   Weekly
                                 </option>
-                                <option name='monthly' class='expenseCat'>
+                                <option name='monthly' className='expenseCat'>
                                   Monthly
                                 </option>
-                                <option name='yearly' class='expenseCat'>
+                                <option name='yearly' className='expenseCat'>
                                   Yearly
                                 </option>
                               </select>
                             </div>
                           </div>
                           <div className='form-group'>
-                            <label className='control-label sm-1 ml-3' htmlFor>
+                            <label className='control-label sm-1 ml-3'>
                               Amount
                             </label>
                             <div className='col-sm-11'>
@@ -303,7 +310,7 @@ const Dashboard = ({
               <div className='total'>
                 <div className='week'>
                   <p>
-                    ₦ <span className='big'>{weeklyExpense}</span>
+                    {/* ₦ <span className='big'>{weeklyExpense}</span> */}
                   </p>
                   <p className='small'>
                     Week
@@ -314,7 +321,7 @@ const Dashboard = ({
                 </div>
                 <div className='month'>
                   <p>
-                    ₦ <span className='big'>{monthlyExpense}</span>
+                    {/* ₦ <span className='big'>{monthlyExpense}</span> */}
                   </p>
                   <p className='small'>
                     Month
@@ -325,7 +332,7 @@ const Dashboard = ({
                 </div>
                 <div className='year'>
                   <p>
-                    ₦ <span className='big'>{yearlyExpense}</span>
+                    {/* ₦ <span className='big'>{yearlyExpense}</span> */}
                   </p>
                   <p className='small'>
                     Year
@@ -344,7 +351,7 @@ const Dashboard = ({
             <p>Specify Period</p>
           </div>
           <div className='row ml-1'>
-            <form action method className='form-inline'>
+            <form className='form-inline'>
               <div className='form-group'>
                 <label className='mr-2'>Start Date</label>
                 <input
@@ -439,9 +446,9 @@ const Dashboard = ({
               <Link to='/' className='pl-2 pr-2'>
                 3
               </Link>
-              <p className>.</p>
-              <p className>.</p>
-              <p className>.</p>
+              <p>.</p>
+              <p>.</p>
+              <p>.</p>
               <Link to='/' className='pl-2 pr-2'>
                 15
               </Link>
@@ -451,11 +458,11 @@ const Dashboard = ({
             </div>
           </div>
           <div className='row ml-1 mt-3 mb-3'>
-            <form action method className='form-inline'>
+            <form className='form-inline'>
               <div className='form-group'>
                 <label className='mr-4'>Download Format:</label>
                 <button
-                  type
+                  type='submit'
                   className='btn form-control pl-5 pr-5 mr-5 excelBtn dlFormat'
                   value='excel'>
                   Excel

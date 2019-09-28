@@ -7,13 +7,13 @@ import {
   FETCH_YEARLY_EXPENSE_FAIL
   
 } from './types';
-import { setAlert } from './alert';
+// import { setAlert } from './alert';
 import axios from 'axios';
 const base_url = 'https://finance-tracker-server.herokuapp.com';
 
 export const getWeeklyExpense = (userId) => async dispatch => {
   try {
-    const response = await axios.get(base_url + `/api/users/${userId}/calculate/week`);
+    const response = await axios.post(base_url + `/api/users/${userId}/calculate/week`);
     console.log(response);
     dispatch({
       type: FETCH_WEEKLY_EXPENSE_SUCCESS,
@@ -31,7 +31,7 @@ export const getWeeklyExpense = (userId) => async dispatch => {
 };
 export const getMonthlyExpense = (userId) => async dispatch => {
   try {
-    const response = await axios.get(base_url + `/api/users/${userId}/calculate/month`);
+    const response = await axios.post(base_url + `/api/users/${userId}/calculate/month`);
     console.log(response);
     dispatch({
       type: FETCH_MONTHLY_EXPENSE_SUCCESS,
