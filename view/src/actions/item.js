@@ -11,7 +11,7 @@ const base_url = 'https://finance-tracker-server.herokuapp.com';
 export const getItems = (userId, history) => async dispatch => {
   try {
     const response = await axios.get(base_url + `/api/users/${userId}/items`);
-    console.log(response);
+    // console.log(response);
     dispatch({
       type: GET_ITEMS_SUCCESS,
       payload: response.data
@@ -31,6 +31,7 @@ export const addItem = (
   name,
   description,
   amount,
+  date,
   userId,
   history
 ) => async dispatch => {
@@ -42,7 +43,7 @@ export const addItem = (
   const body = JSON.stringify({
     name,
     description,
-    amount
+    amount,date
   });
   try {
     const response = await axios.post(
@@ -58,10 +59,11 @@ export const addItem = (
     history.push('/dashboard');
     dispatch(setAlert('A new Item was added successfully', 'success'));
   } catch (error) {
-    dispatch({
-      type: ADD_ITEM_FAIL,
-      payload: error.response.data.error
-    });
-    dispatch(setAlert(error.response.data.error, 'danger'));
+    console.log(error);
+    // dispatch({
+    //   type: ADD_ITEM_FAIL,
+    //   payload: error.response.data.error
+    // });
+    // dispatch(setAlert(error.response.data.error, 'danger'));
   }
 };
