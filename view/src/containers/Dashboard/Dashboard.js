@@ -38,14 +38,7 @@ const Dashboard = ({
     getWeeklyExpense(userIdd);
     getMonthlyExpense(userIdd);
     getYearlyExpense(userIdd);
-  }, [
-    getWeeklyExpense,
-    getMonthlyExpense,
-    getYearlyExpense,
-    auth.user,
-    fetchProfile,
-    goToLogin
-  ]);
+  }, [getWeeklyExpense, getMonthlyExpense, getYearlyExpense,auth.user,fetchProfile,goToLogin]);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
