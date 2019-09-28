@@ -59,9 +59,10 @@ router.post('/api/users/:userId/setWeeklyBudget', async (req, res) => {
         // }
         if (duration == "weekly") {
         	let updated_user = await User.updateOne({ _id: userId }, {weekly_budget : budget }, {upsert:true});
+        	const user = await User.find({ _id: userId });
             res.status(200).json({
-            user: updated_user,
-            message: "successfully upadated"
+            weekly_budget: user.weekly_budget,
+            message: "Budget set successfully"
             });
         } else {
         	return res.status(400).json({
@@ -83,9 +84,10 @@ router.post('/api/users/:userId/setYearlyBudget', async (req, res) => {
         // }
         if (duration == "yearly") {
         	let updated_user = await User.updateOne({ _id: userId }, {yearly_budget : budget }, {upsert:true});
+        	const user = await User.find({ _id: userId });
             res.status(200).json({
-            user: updated_user,
-            message: "successfully upadated"
+            user: user.yearly_budget,
+            message: "Budget set successfully"
             });
         } else {
         	return res.status(400).json({
@@ -112,7 +114,9 @@ router.put('/api/users/:userId/setMonthlyBudget', async (req, res, next) => {
     if(duration == "monthly") {
     	await User.updateOne({ _id: userId }, { $set: { monthly_budget: budget } })
       .then(() => {
+      	const user = await User.find({ _id: userId });
         res.status(201).json({
+          user: user.monthly_budget,
           message: 'Budget set successfully'
         });
       })
