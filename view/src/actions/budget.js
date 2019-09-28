@@ -1,70 +1,116 @@
-// import {
-//   ADD_ITEM_SUCCESS,
-//   ADD_ITEM_FAIL,
-//   GET_ITEMS_SUCCESS,
-//   GET_ITEMS_FAIL
-// } from './types';
-// import { setAlert } from './alert';
-// import axios from 'axios';
-// const base_url = 'https://finance-tracker-server.herokuapp.com';
+import {
+  SET_MONTHLY_BUDGET_SUCCESS,
+  SET_MONTHLY_BUDGET_FAIL,
+  SET_WEEKLY_BUDGET_SUCCESS,
+  SET_WEEKLY_BUDGET_FAIL,
+  SET_YEARLY_BUDGET_SUCCESS,
+  SET_YEARLY_BUDGET_FAIL
+  // MODIFY_BUDGET_SUCCESS,
+  // MODIFY_BUDGET_FAIL
+} from './types';
+import { setAlert } from './alert';
+import axios from 'axios';
+const base_url = 'https://finance-tracker-server.herokuapp.com';
+// const base_url = 'http://localhost:3500';
 
-// export const getItems = (userId, history) => async dispatch => {
-//   try {
-//     const response = await axios.get(base_url + `/api/users/${userId}/items`);
-//     // console.log(response);
-//     dispatch({
-//       type: GET_ITEMS_SUCCESS,
-//       payload: response.data
-//     });
-//     history.push('/dashboard');
-//     dispatch(setAlert('Items were fetched successfully', 'success'));
-//   } catch (error) {
-//     dispatch({
-//       type: GET_ITEMS_FAIL,
-//       payload: error.response.data.error
-//     });
-//     dispatch(setAlert(error.response.data.error, 'danger'));
-//   }
-// };
-
-// export const addItem = (
-//   name,
-//   description,
-//   amount,
-//   date,
-//   userId,
-//   history
-// ) => async dispatch => {
-//   const config = {
-//     headers: {
-//       'Content-Type': 'application/json'
-//     }
-//   };
-//   const body = JSON.stringify({
-//     name,
-//     description,
-//     amount,
-//     date
-//   });
-//   try {
-//     const response = await axios.post(
-//       base_url + `/api/users/${userId}/items`,
-//       body,
-//       config
-//     );
-//     console.log(response);
-//     dispatch({
-//       type: ADD_ITEM_SUCCESS,
-//       payload: response.data
-//     });
-//     history.push('/dashboard');
-//     dispatch(setAlert('A new Item was added successfully', 'success'));
-//   } catch (error) {
-//     console.log(error);
-//     // dispatch({
-//     //   type: ADD_ITEM_FAIL,
-//     //   payload: error.response.data.error
-//     // });
-//     // dispatch(setAlert(error.response.data.error, 'danger'));
-//   }
-// };
+export const setWeeklyBudget = (
+  duration,
+  amount,
+  userIdd
+) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  const body = JSON.stringify({
+    duration,
+    amount
+  });
+  try {
+    const response = await axios.post(
+      base_url + `/api/users/${userIdd}/setWeeklyBudget`,
+      body,
+      config
+    );
+    console.log(response);
+    dispatch({
+      type: SET_WEEKLY_BUDGET_SUCCESS,
+      payload: response.data
+    });
+    // history.push('/dashboard');
+    // dispatch(setAlert('Items were fetched successfully', 'success'));
+  } catch (error) {
+    dispatch({
+      type: SET_WEEKLY_BUDGET_FAIL,
+      payload: error.response.data.error
+    });
+    dispatch(setAlert(error.response.data.error, 'danger'));
+  }
+};
+export const setMonthlyBudget = (
+  duration,
+  amount,
+  userIdd
+) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  const body = JSON.stringify({
+    duration,
+    amount
+  });
+  try {
+    const response = await axios.post(
+      base_url + `/api/users/${userIdd}/setMonthlyBudget`,
+      body,
+      config
+    );
+    // console.log(response);
+    dispatch({
+      type: SET_MONTHLY_BUDGET_SUCCESS,
+      payload: response.data
+    });
+    // history.push('/dashboard');
+    // dispatch(setAlert('Items were fetched successfully', 'success'));
+  } catch (error) {
+    dispatch({
+      type: SET_MONTHLY_BUDGET_FAIL,
+      payload: error.response.data.error
+    });
+    dispatch(setAlert(error.response.data.error, 'danger'));
+  }
+};
+export const setYearlyBudget = (duration, amount, userId) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  const body = JSON.stringify({
+    duration,
+    amount
+  });
+  try {
+    const response = await axios.post(
+      base_url + `/api/users/${userId}/setYearlyBudget`,
+      body,
+      config
+    );
+    // console.log(response);
+    dispatch({
+      type: SET_YEARLY_BUDGET_SUCCESS,
+      payload: response.data
+    });
+    // history.push('/dashboard');
+    // dispatch(setAlert('Items were fetched successfully', 'success'));
+  } catch (error) {
+    dispatch({
+      type: SET_YEARLY_BUDGET_FAIL,
+      payload: error.response.data.error
+    });
+    dispatch(setAlert(error.response.data.error, 'danger'));
+  }
+};

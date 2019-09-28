@@ -1,32 +1,89 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { goToLogin } from '../../actions/auth';
 import { addItem } from '../../actions/item';
 import { connect } from 'react-redux';
 import './Dashboard.css';
-const Dashboard = ({ goToLogin, auth, addItem, history }) => {
+import {
+  getWeeklyExpense,
+  getMonthlyExpense,
+  getYearlyExpense
+} from '../../actions/expense';
+import {
+  setWeeklyBudget,
+  setMonthlyBudget,
+  setYearlyBudget
+} from '../../actions/budget';
+import { fetchProfile } from '../../actions/auth';
+const Dashboard = ({
+  goToLogin,
+  auth,
+  expense,
+  addItem,
+  history,
+  getWeeklyExpense,
+  getMonthlyExpense,
+  getYearlyExpense,
+  setWeeklyBudget,
+  setMonthlyBudget,
+  setYearlyBudget,
+  fetchProfile
+}) => {
+  useEffect(() => {
+    if (isAuthenticated == null || !isAuthenticated || user == null || !user) {
+      goToLogin();
+    }
+    const userIdd = auth.user.id;
+    fetchProfile(userIdd);
+    getWeeklyExpense(userIdd);
+    getMonthlyExpense(userIdd);
+    getYearlyExpense(userIdd);
+  }, [
+    getWeeklyExpense,
+    getMonthlyExpense,
+    getYearlyExpense,
+    auth.user,
+    fetchProfile,
+    goToLogin
+  ]);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     amount: '',
     duration: '',
-    date:'',
+    date: '',
     startDate: '',
     endDate: ''
   });
-  const { name, description, amount, duration, date,startDate, endDate } = formData;
+  const { isAuthenticated, user, profile } = auth;
+  const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
+  // console.log(monthlyExpense.items)
+  // console.log(expense)
+  if (isAuthenticated == null || !isAuthenticated || user == null || !user) {
+    goToLogin();
+  }
+  const {
+    name,
+    description,
+    amount,
+    duration,
+    date,
+    startDate,
+    endDate
+  } = formData;
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const { isAuthenticated, user } = auth;
-  if (!user) {
-    return <Redirect to='/login' />;
-  }
+
+  // if (!user) {
+  //   return <Redirect to='/login' />;
+  // }
   const userId = user.id;
-  if (isAuthenticated == null || !isAuthenticated) {
-    goToLogin();
-  }
-  return isAuthenticated == null || !isAuthenticated ? (
+  console.log(profile);
+  return isAuthenticated == null ||
+    !isAuthenticated ||
+    user == null ||
+    !user ? (
     <Redirect to='/login' />
   ) : (
     <div>
@@ -104,9 +161,7 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
                           }}
                           className='form-horizontal'>
                           <div className='form-group'>
-                            <label
-                              className='control-label sm-1 ml-3'
-                              htmlFor>
+                            <label className='control-label sm-1 ml-3'>
                               Item Name
                             </label>
                             <div className='col-sm-11'>
@@ -123,9 +178,7 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
                             </div>
                           </div>
                           <div className='form-group'>
-                            <label
-                              className='control-label sm-1 ml-3'
-                              htmlFor>
+                            <label className='control-label sm-1 ml-3'>
                               Item Description
                             </label>
                             <div className='col-sm-11'>
@@ -143,9 +196,7 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
                           </div>
 
                           <div className='form-group'>
-                            <label
-                              className='control-label sm-1 ml-3'
-                              htmlFor>
+                            <label className='control-label sm-1 ml-3'>
                               Amount
                             </label>
                             <div className='col-sm-11'>
@@ -166,16 +217,15 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
                               Date of purchase
                             </label>
                             <div className='col-sm-11'>
-                            
-                            <input
-                              required
-                              type='date'
-                              name='date'
-                              id='date'
-                              value={date}
-                              onChange={e => onChange(e)}
-                              className='form-control mr-1 specify'
-                            />
+                              <input
+                                required
+                                type='date'
+                                name='date'
+                                id='date'
+                                value={date}
+                                onChange={e => onChange(e)}
+                                className='form-control mr-1 specify'
+                              />
                             </div>
                           </div>
                           <div className='form-group'>
@@ -212,38 +262,40 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
                         <form
                           onSubmit={e => {
                             e.preventDefault();
+                            if (duration === 'Weekly') {
+                              setWeeklyBudget(duration, amount, userId);
+                            } else if (duration === 'Monthly') {
+                              setMonthlyBudget(duration, amount, userId);
+                            } else if (duration === 'Yearly') {
+                              setYearlyBudget(duration, amount, userId);
+                            }
                           }}
                           className='form-horizontal'>
                           <div className='form-group'>
-                            <label
-                              className='control-label sm-1 ml-3'
-                              htmlFor>
+                            <label className='control-label sm-1 ml-3'>
                               Duration
                             </label>
-                            <div class='col-sm-11'>
+                            <div className='col-sm-11'>
                               <select
                                 name='duration'
                                 id='budgetDuration'
                                 className='form-control'
                                 value={duration}
                                 onChange={e => onChange(e)}>
-                                <option value=''>Select Category</option>
-                                <option name='weekly' class='expenseCat'>
+                                <option name='weekly' className='expenseCat'>
                                   Weekly
                                 </option>
-                                <option name='monthly' class='expenseCat'>
+                                <option name='monthly' className='expenseCat'>
                                   Monthly
                                 </option>
-                                <option name='yearly' class='expenseCat'>
+                                <option name='yearly' className='expenseCat'>
                                   Yearly
                                 </option>
                               </select>
                             </div>
                           </div>
                           <div className='form-group'>
-                            <label
-                              className='control-label sm-1 ml-3'
-                              htmlFor>
+                            <label className='control-label sm-1 ml-3'>
                               Amount
                             </label>
                             <div className='col-sm-11'>
@@ -279,44 +331,81 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
             <div
               className='col-md-7 totalExp mt-2'
               style={{ backgroundColor: '#022EC1' }}>
-              <h2>Total Expenses</h2>
+              <h2>Your Budget</h2>
               <div className='total'>
                 <div className='week'>
-                  <p>
-                    ₦ <span className='big'>25,000</span>
+                  <p className='big'>
+                    ₦ <span className='big'>{profile.weekly_budget}</span>
                   </p>
                   <p className='small'>
-                    Week
-                    <span className='bg-success expTotal'>
+                    Weekly
+                    {/* <span className='bg-success expTotal'>
                       <i className='fa fa-arrow-up' /> 500
-                    </span>
+                    </span> */}
                   </p>
                 </div>
                 <div className='month'>
-                  <p>
-                    ₦ <span className='big'>99,419</span>
+                  <p className='big'>
+                    ₦ <span className='big'>{profile.monthly_budget}</span>
                   </p>
                   <p className='small'>
-                    Month
-                    <span className='bg-danger expTotal'>
+                    Monthly
+                    {/* <span className='bg-danger expTotal'>
                       <i className='fa fa-arrow-up' /> 500
-                    </span>
+                    </span> */}
                   </p>
                 </div>
                 <div className='year'>
-                  <p>
-                    ₦ <span className='big'>997,000</span>
+                  <p className='big'>
+                    ₦ <span className='big'>{profile.yearly_budget}</span>
                   </p>
                   <p className='small'>
-                    Year
-                    <span className='bg-success expTotal'>
+                    Yearly
+                    {/* <span className='bg-success expTotal'>
                       <i className='fa fa-arrow-down' /> 1000
-                    </span>
+                    </span> */}
+                  </p>
+                </div>
+              </div>
+              <h2>Total Expenses</h2>
+              <div className='total'>
+                <div className='week'>
+                  <p className='big'>
+                    ₦ <span className='big'>{weeklyExpense.totalExpenses}</span>
+                  </p>
+                  <p className='small'>
+                    This Week
+                    {/* <span className='bg-success expTotal'>
+                      <i className='fa fa-arrow-up' /> 500
+                    </span> */}
+                  </p>
+                </div>
+                <div className='month'>
+                  <p className='big'>
+                    ₦ <span className='big'>{monthlyExpense.total}</span>
+                  </p>
+                  <p className='small'>
+                    This Month
+                    {/* <span className='bg-danger expTotal'>
+                      <i className='fa fa-arrow-up' /> 500
+                    </span> */}
+                  </p>
+                </div>
+                <div className='year'>
+                  <p className='big'>
+                    ₦ <span className='big'>{yearlyExpense.totalExpenses}</span>
+                  </p>
+                  <p className='small'>
+                    This Year
+                    {/* <span className='bg-success expTotal'>
+                      <i className='fa fa-arrow-down' /> 1000
+                    </span> */}
                   </p>
                 </div>
               </div>
             </div>
           </div>
+
           <div className='row mt-4 track ml-1'>
             <h2>Expense Tracking</h2>
           </div>
@@ -324,7 +413,7 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
             <p>Specify Period</p>
           </div>
           <div className='row ml-1'>
-            <form action method className='form-inline'>
+            <form className='form-inline'>
               <div className='form-group'>
                 <label className='mr-2'>Start Date</label>
                 <input
@@ -419,9 +508,9 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
               <Link to='/' className='pl-2 pr-2'>
                 3
               </Link>
-              <p className>.</p>
-              <p className>.</p>
-              <p className>.</p>
+              <p>.</p>
+              <p>.</p>
+              <p>.</p>
               <Link to='/' className='pl-2 pr-2'>
                 15
               </Link>
@@ -431,11 +520,11 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
             </div>
           </div>
           <div className='row ml-1 mt-3 mb-3'>
-            <form action method className='form-inline'>
+            <form className='form-inline'>
               <div className='form-group'>
                 <label className='mr-4'>Download Format:</label>
                 <button
-                  type
+                  type='submit'
                   className='btn form-control pl-5 pr-5 mr-5 excelBtn dlFormat'
                   value='excel'>
                   Excel
@@ -457,9 +546,20 @@ const Dashboard = ({ goToLogin, auth, addItem, history }) => {
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  expense: state.expense
 });
 export default connect(
   mapStateToProps,
-  { goToLogin, addItem }
+  {
+    goToLogin,
+    addItem,
+    getWeeklyExpense,
+    getMonthlyExpense,
+    getYearlyExpense,
+    setWeeklyBudget,
+    setMonthlyBudget,
+    setYearlyBudget,
+    fetchProfile
+  }
 )(Dashboard);

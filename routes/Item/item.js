@@ -341,8 +341,8 @@ router.get('/api/users/:userId/profile', async (req, res) => {
   try {
     const { userId } = req.params;
     const id = req.user;
-    
-    const user = await User.find({_id: userId});
+
+    const user = await User.find({ _id: userId });
     if (!user) {
       res.status(200).json({
         user: null
@@ -355,6 +355,5 @@ router.get('/api/users/:userId/profile', async (req, res) => {
     console.log(error.message);
   }
 });
-
 
 module.exports = router;
