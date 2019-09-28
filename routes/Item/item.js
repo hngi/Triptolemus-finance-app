@@ -195,7 +195,7 @@ router.post('/api/users/:userId/calculate/year', async (req, res) => {
             if (i + 1 == docCount) {
               yearlies.push({
                 yearlyCost: yearCost,
-                Year: 'Year ' + item_year
+                weekNumber: 'Year ' + item_year
               });
             }
           } else {
@@ -203,16 +203,16 @@ router.post('/api/users/:userId/calculate/year', async (req, res) => {
             if (i + 1 == docCount) {
               yearlies.push({
                 yearlyCost: yearCost,
-                Year: 'Year ' + prev_year
+                weekNumber: 'Year ' + prev_year
               });
               yearlies.push({
                 yearlyCost: doc[i].amount,
-                Year: 'Year ' + item_year
+                weekNumber: 'Year ' + item_year
               });
             } else {
               yearlies.push({
                 yearlyCost: yearCost,
-                Year: 'Year ' + prev_year
+                weekNumber: 'Year ' + prev_year
               });
               yearCost = 0;
               yearCost = yearCost + doc[i].amount;
@@ -341,8 +341,8 @@ router.get('/api/users/:userId/profile', async (req, res) => {
   try {
     const { userId } = req.params;
     const id = req.user;
-    
-    const user = await User.find({_id: userId});
+
+    const user = await User.find({ _id: userId });
     if (!user) {
       res.status(200).json({
         user: null
@@ -355,6 +355,5 @@ router.get('/api/users/:userId/profile', async (req, res) => {
     console.log(error.message);
   }
 });
-
 
 module.exports = router;

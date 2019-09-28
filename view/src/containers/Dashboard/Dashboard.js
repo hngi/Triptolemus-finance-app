@@ -9,7 +9,12 @@ import {
   getMonthlyExpense,
   getYearlyExpense
 } from '../../actions/expense';
-
+import {
+  setWeeklyBudget,
+  setMonthlyBudget,
+  setYearlyBudget
+} from '../../actions/budget';
+import { fetchProfile } from '../../actions/auth';
 const Dashboard = ({
   goToLogin,
   auth,
@@ -18,19 +23,29 @@ const Dashboard = ({
   history,
   getWeeklyExpense,
   getMonthlyExpense,
-  getYearlyExpense
+  getYearlyExpense,
+  setWeeklyBudget,
+  setMonthlyBudget,
+  setYearlyBudget,
+  fetchProfile
 }) => {
-  
   useEffect(() => {
-    if (auth.user===null&&auth.isAuthenticated===null&&auth.loading===true) {
-      return <Redirect to='/login' />;
+    if (isAuthenticated == null || !isAuthenticated || user == null || !user) {
+      goToLogin();
     }
-    const userIdd=auth.user.id
-
-      getWeeklyExpense(userIdd);
-      getMonthlyExpense(userIdd);
-      getYearlyExpense(userIdd);
-  }, [getWeeklyExpense, getMonthlyExpense, getYearlyExpense, ]);
+    const userIdd = auth.user.id;
+    fetchProfile(userIdd);
+    getWeeklyExpense(userIdd);
+    getMonthlyExpense(userIdd);
+    getYearlyExpense(userIdd);
+  }, [
+    getWeeklyExpense,
+    getMonthlyExpense,
+    getYearlyExpense,
+    auth.user,
+    fetchProfile,
+    goToLogin
+  ]);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -40,10 +55,10 @@ const Dashboard = ({
     startDate: '',
     endDate: ''
   });
-  
-  const { isAuthenticated, user } = auth;
+  const { isAuthenticated, user, profile } = auth;
   const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
-  console.log(expense)
+  // console.log(monthlyExpense.items)
+  // console.log(expense)
   if (isAuthenticated == null || !isAuthenticated || user == null || !user) {
     goToLogin();
   }
@@ -59,13 +74,17 @@ const Dashboard = ({
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  
+
   // if (!user) {
-    //   return <Redirect to='/login' />;
-    // }
-    const userId = user.id;
-    return isAuthenticated == null || !isAuthenticated || user==null || !user ? (
-      <Redirect to='/login' />
+  //   return <Redirect to='/login' />;
+  // }
+  const userId = user.id;
+  console.log(profile);
+  return isAuthenticated == null ||
+    !isAuthenticated ||
+    user == null ||
+    !user ? (
+    <Redirect to='/login' />
   ) : (
     <div>
       <nav
@@ -243,6 +262,13 @@ const Dashboard = ({
                         <form
                           onSubmit={e => {
                             e.preventDefault();
+                            if (duration === 'Weekly') {
+                              setWeeklyBudget(duration, amount, userId);
+                            } else if (duration === 'Monthly') {
+                              setMonthlyBudget(duration, amount, userId);
+                            } else if (duration === 'Yearly') {
+                              setYearlyBudget(duration, amount, userId);
+                            }
                           }}
                           className='form-horizontal'>
                           <div className='form-group'>
@@ -256,7 +282,6 @@ const Dashboard = ({
                                 className='form-control'
                                 value={duration}
                                 onChange={e => onChange(e)}>
-                                
                                 <option name='weekly' className='expenseCat'>
                                   Weekly
                                 </option>
@@ -306,36 +331,72 @@ const Dashboard = ({
             <div
               className='col-md-7 totalExp mt-2'
               style={{ backgroundColor: '#022EC1' }}>
-              <h2>Total Expenses</h2>
+              <h2>Your Budget</h2>
               <div className='total'>
                 <div className='week'>
-                  <p>
-                    {/* ₦ <span className='big'>{weeklyExpense}</span> */}
+                  <p className='big'>
+                    ₦ <span className='big'>{profile.weekly_budget}</span>
                   </p>
                   <p className='small'>
-                    Week
+                    Weekly
                     {/* <span className='bg-success expTotal'>
                       <i className='fa fa-arrow-up' /> 500
                     </span> */}
                   </p>
                 </div>
                 <div className='month'>
-                  <p>
-                    {/* ₦ <span className='big'>{monthlyExpense}</span> */}
+                  <p className='big'>
+                    ₦ <span className='big'>{profile.monthly_budget}</span>
                   </p>
                   <p className='small'>
-                    Month
+                    Monthly
                     {/* <span className='bg-danger expTotal'>
                       <i className='fa fa-arrow-up' /> 500
                     </span> */}
                   </p>
                 </div>
                 <div className='year'>
-                  <p>
-                    {/* ₦ <span className='big'>{yearlyExpense}</span> */}
+                  <p className='big'>
+                    ₦ <span className='big'>{profile.yearly_budget}</span>
                   </p>
                   <p className='small'>
-                    Year
+                    Yearly
+                    {/* <span className='bg-success expTotal'>
+                      <i className='fa fa-arrow-down' /> 1000
+                    </span> */}
+                  </p>
+                </div>
+              </div>
+              <h2>Total Expenses</h2>
+              <div className='total'>
+                <div className='week'>
+                  <p className='big'>
+                    ₦ <span className='big'>{weeklyExpense.totalExpenses}</span>
+                  </p>
+                  <p className='small'>
+                    This Week
+                    {/* <span className='bg-success expTotal'>
+                      <i className='fa fa-arrow-up' /> 500
+                    </span> */}
+                  </p>
+                </div>
+                <div className='month'>
+                  <p className='big'>
+                    ₦ <span className='big'>{monthlyExpense.total}</span>
+                  </p>
+                  <p className='small'>
+                    This Month
+                    {/* <span className='bg-danger expTotal'>
+                      <i className='fa fa-arrow-up' /> 500
+                    </span> */}
+                  </p>
+                </div>
+                <div className='year'>
+                  <p className='big'>
+                    ₦ <span className='big'>{yearlyExpense.totalExpenses}</span>
+                  </p>
+                  <p className='small'>
+                    This Year
                     {/* <span className='bg-success expTotal'>
                       <i className='fa fa-arrow-down' /> 1000
                     </span> */}
@@ -344,6 +405,7 @@ const Dashboard = ({
               </div>
             </div>
           </div>
+
           <div className='row mt-4 track ml-1'>
             <h2>Expense Tracking</h2>
           </div>
@@ -489,5 +551,15 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { goToLogin, addItem, getWeeklyExpense, getMonthlyExpense, getYearlyExpense }
+  {
+    goToLogin,
+    addItem,
+    getWeeklyExpense,
+    getMonthlyExpense,
+    getYearlyExpense,
+    setWeeklyBudget,
+    setMonthlyBudget,
+    setYearlyBudget,
+    fetchProfile
+  }
 )(Dashboard);

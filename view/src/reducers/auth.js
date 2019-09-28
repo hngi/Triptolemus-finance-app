@@ -5,6 +5,8 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
   LOGIN_REQUIRED,
+  FETCH_PROFILE_SUCCESS,
+  FETCH_PROFILE_FAIL
   // REQUEST_PASSWORD_RESET_FAIL,
   // REQUEST_PASSWORD_RESET_SUCCESS,
   // RESET_PASSWORD_FAIL,
@@ -17,6 +19,7 @@ const initialState = {
   isAuthenticated: null,
   loading: true,
   user: null,
+  profile:{}
 };
 export default function(state = initialState, action) {
   const { type, payload } = action;
@@ -34,6 +37,20 @@ export default function(state = initialState, action) {
           username: payload.user.username,
           email: payload.user.email
         }
+      };
+    case FETCH_PROFILE_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        profile: payload
+      };
+    case FETCH_PROFILE_FAIL:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        profile: {}
       };
     case LOGIN_REQUIRED:
     case REGISTER_FAIL:

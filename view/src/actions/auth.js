@@ -9,7 +9,9 @@ import {
   REQUEST_PASSWORD_RESET_SUCCESS,
   REQUEST_PASSWORD_RESET_FAIL,
   RESET_PASSWORD_FAIL,
-  RESET_PASSWORD_SUCCESS
+  RESET_PASSWORD_SUCCESS,
+  FETCH_PROFILE_SUCCESS,
+  FETCH_PROFILE_FAIL
 } from './types';
 import { setAlert } from './alert';
 
@@ -90,6 +92,26 @@ export const login = (email, password, history) => async dispatch => {
         type: LOGIN_FAIL,
         payload: error.response
       });
+  }
+};
+export const fetchProfile = (userIdd) => async dispatch => {
+
+  try {
+    const response = await axios.get(
+      base_url + `/api/users/${userIdd}/profile`
+    );
+    // console.log(response.data.user[0])
+    dispatch({
+      type: FETCH_PROFILE_SUCCESS,
+      payload: response.data.user[0]
+    });
+
+  } catch (error) {
+
+    dispatch({
+      type: FETCH_PROFILE_FAIL,
+      payload: error.response
+    });
   }
 };
 

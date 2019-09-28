@@ -4,6 +4,7 @@ import alert from './alert';
 import item from './item'
 import contact from './contact'
 import expense from './expense'
-const rootReducer = combineReducers({ auth,alert,item,contact,expense });
+import budget from './budget'
+const rootReducer = combineReducers({ auth,alert,item,contact,expense,budget });
 
 export default rootReducer;
