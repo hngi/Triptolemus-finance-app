@@ -4,48 +4,6 @@ let User = require('../../schema/user');
 // const mongoose = require('mongoose');
 // const userAuth = require('../../middleware/userAuth');
 
-router.post('/api/users/:userId/setWeeklyBudget', async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const id = req.user;
-    let { budget } = req.body;
-    // if (userId !== id) {
-    //     return res.status(401).json({ error: 'Unauthorized user' });
-    // }
-    let user = await User.find({
-      id: userId
-    });
-    user.weekly_budget = budget;
-    const updated_user = await user.save();
-    res.status(200).json({
-      user: updated_user
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
-});
-
-router.post('/api/users/:userId/setYearlyBudget', async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const id = req.user;
-    let { budget } = req.body;
-    // if (userId !== id) {
-    //     return res.status(401).json({ error: 'Unauthorized user' });
-    // }
-    let user = await User.find({
-      id: userId
-    });
-    user.yearly_budget = budget;
-    const updated_user = await user.save();
-    res.status(200).json({
-      user: updated_user
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
-});
-
 router.put('/api/users/:userId/update_budget', async (req, res) => {
   try {
     const { userId } = req.params;
@@ -58,14 +16,15 @@ router.put('/api/users/:userId/update_budget', async (req, res) => {
     // }
 
 //<<<<<<< HEAD
-    else if(duration === 'weekly'){
-      const newBudget= await User.findByIdAndUpdate({ _id: userId },{weekly_budget:budget})
+    if(duration === 'weekly'){
+      let newBudget= await User.findByIdAndUpdate({ _id: userId },{weekly_budget:budget})
+      const user = await User.find({ _id: userId });
       return res.status(200).json({
-        budget: newBudget
+        budget: user
       });
     }
     else if(duration === 'monthly'){
-      const newBudget = await User.findByIdAndUpdate({ _id: userId },{
+      let newBudget = await User.findByIdAndUpdate({ _id: userId },{
         
 // =======
 //     if (duration === 'weekly') {
@@ -80,13 +39,15 @@ router.put('/api/users/:userId/update_budget', async (req, res) => {
 // >>>>>>> 3841f8a27a6022632a713b6b5ade6980e5eacc1c
         monthly_budget: budget
       });
+      const user = await User.find({ _id: userId });
       return res.status(200).json({
-        budget: newBudget
+        budget: user
       });
 //<<<<<<< HEAD
     }
     else if(duration === 'yearly'){
-      const newBudget = await User.findByIdAndUpdate({ _id: userId },{  yearly_budget: budget });
+      let newBudget = await User.findByIdAndUpdate({ _id: userId },{  yearly_budget: budget });
+      const user = await User.find({ _id: userId });
 // =======
 //     } else if (duration === 'yearly') {
 //       const newBudget = await User.findByIdAndUpdate(userId, {
@@ -94,7 +55,7 @@ router.put('/api/users/:userId/update_budget', async (req, res) => {
 //       });
 // >>>>>>> 3841f8a27a6022632a713b6b5ade6980e5eacc1c
       return res.status(200).json({
-        budget: newBudget
+        budget: user
       });
     } else {
       return res.status(400).json({
@@ -108,14 +69,14 @@ router.put('/api/users/:userId/update_budget', async (req, res) => {
   }
 })
 
-router.post('/api/users/:userId/setWeeklyBudget', userAuth, async (req, res) => {
+router.post('/api/users/:userId/setWeeklyBudget', async (req, res) => {
   try {
 		const { userId } = req.params;
         const id = req.user;
         let { budget } = req.body;
-        if (userId !== id) {
-            return res.status(401).json({ error: 'Unauthorized user' });
-        }
+        // if (userId !== id) {
+        //     return res.status(401).json({ error: 'Unauthorized user' });
+        // }
         let updated_user = await User.updateOne({ _id: userId }, {weekly_budget : budget }, {upsert:true});
         res.status(200).json({
           user: updated_user,
@@ -126,14 +87,14 @@ router.post('/api/users/:userId/setWeeklyBudget', userAuth, async (req, res) => 
   }
 });
 
-router.post('/api/users/:userId/setYearlyBudget', userAuth, async (req, res) => {
+router.post('/api/users/:userId/setYearlyBudget', async (req, res) => {
   try {
 		const { userId } = req.params;
         const id = req.user;
         let { budget } = req.body;
-        if (userId !== id) {
-            return res.status(401).json({ error: 'Unauthorized user' });
-        }
+        // if (userId !== id) {
+        //     return res.status(401).json({ error: 'Unauthorized user' });
+        // }
         let updated_user = await User.updateOne({ _id: userId }, {yearly_budget : budget }, {upsert:true});
         res.status(200).json({
           user: updated_user,
