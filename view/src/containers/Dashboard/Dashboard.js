@@ -36,8 +36,8 @@ const Dashboard = ({
     if (isAuthenticated == null || !isAuthenticated || user == null || !user) {
       
     } else{
-    const userIdd = auth.user.id;
-    fetchProfile(userIdd);
+    const userId = auth.user.id;
+    fetchProfile(userId);
     // getWeeklyExpense(userIdd);
     // getMonthlyExpense(userIdd);
     // getYearlyExpense(userIdd);
@@ -80,7 +80,7 @@ const Dashboard = ({
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const userIdd = auth.user.id
+  const userId = auth.user.id
 
   return (
     <>
@@ -152,7 +152,7 @@ const Dashboard = ({
                               description,
                               amount,
                               date,
-                              userIdd,
+                              userId,
                               history
                             );
                             // document.getElementById("addExpenseEffect").click()
@@ -273,11 +273,11 @@ const Dashboard = ({
                             e.preventDefault();
                             if (duration === 'Weekly') {
                               console.log("weekly should runnow")
-                             setWeeklyBudget(duration, budget, userIdd);
+                             setWeeklyBudget(duration, budget, userId);
                             } else if (duration === 'Monthly') {
-                           setMonthlyBudget(duration, budget, userIdd);
+                           setMonthlyBudget(duration, budget, userId);
                             } else if (duration === 'Yearly') {
-                           setYearlyBudget(duration, budget, userIdd);
+                           setYearlyBudget(duration, budget, userId);
                             }
                           }}
                           className='form-horizontal'>

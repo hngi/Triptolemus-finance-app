@@ -16,7 +16,7 @@ const base_url = 'https://finance-tracker-server.herokuapp.com';
 export const setWeeklyBudget = (
   duration,
   budget,
-  userIdd
+  userId
 ) => async dispatch => {
   console.log("weekly is running")
   const config = {
@@ -30,7 +30,7 @@ export const setWeeklyBudget = (
   });
   try {
     const response = await axios.post(
-      base_url + `/api/users/${userIdd}/setWeeklyBudget`,
+      base_url + `/api/users/${userId}/setWeeklyBudget`,
       body,
       config
     );
@@ -53,7 +53,7 @@ export const setWeeklyBudget = (
 export const setMonthlyBudget = (
   duration,
   budget,
-  userIdd
+  userId
 ) => async dispatch => {
   const config = {
     headers: {
@@ -66,7 +66,7 @@ export const setMonthlyBudget = (
   });
   try {
     const response = await axios.post(
-      base_url + `/api/users/${userIdd}/setMonthlyBudget`,
+      base_url + `/api/users/${userId}/setMonthlyBudget`,
       body,
       config
     );
@@ -102,7 +102,7 @@ export const setYearlyBudget = (duration, budget, userId) => async dispatch => {
       body,
       config
     );
-    // console.log(response);
+    console.log(response);
     dispatch({
       type: SET_YEARLY_BUDGET_SUCCESS,
       payload: response.data
