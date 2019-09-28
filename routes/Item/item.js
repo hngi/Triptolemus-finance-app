@@ -195,7 +195,7 @@ router.post('/api/users/:userId/calculate/year', async (req, res) => {
             if (i + 1 == docCount) {
               yearlies.push({
                 yearlyCost: yearCost,
-                weekNumber: 'Year ' + item_year
+                Year: 'Year ' + item_year
               });
             }
           } else {
@@ -203,16 +203,16 @@ router.post('/api/users/:userId/calculate/year', async (req, res) => {
             if (i + 1 == docCount) {
               yearlies.push({
                 yearlyCost: yearCost,
-                weekNumber: 'Year ' + prev_year
+                Year: 'Year ' + prev_year
               });
               yearlies.push({
                 yearlyCost: doc[i].amount,
-                weekNumber: 'Year ' + item_year
+                Year: 'Year ' + item_year
               });
             } else {
               yearlies.push({
                 yearlyCost: yearCost,
-                weekNumber: 'Year ' + prev_year
+                Year: 'Year ' + prev_year
               });
               yearCost = 0;
               yearCost = yearCost + doc[i].amount;

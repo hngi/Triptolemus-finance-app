@@ -256,7 +256,7 @@ const Dashboard = ({
                                 className='form-control'
                                 value={duration}
                                 onChange={e => onChange(e)}>
-                                <option value=''>Select Category</option>
+                                
                                 <option name='weekly' className='expenseCat'>
                                   Weekly
                                 </option>
