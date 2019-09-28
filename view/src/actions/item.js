@@ -8,12 +8,10 @@ import { setAlert } from './alert';
 import axios from 'axios';
 const base_url = 'https://finance-tracker-server.herokuapp.com';
 
-export const getItems = (userId,history) => async dispatch => {
+export const getItems = (userId, history) => async dispatch => {
   try {
-    const response = await axios.get(
-      base_url + `/api/users/${userId}/items`
-    );
-    console.log(response)
+    const response = await axios.get(base_url + `/api/users/${userId}/items`);
+    console.log(response);
     dispatch({
       type: GET_ITEMS_SUCCESS,
       payload: response.data
@@ -21,7 +19,6 @@ export const getItems = (userId,history) => async dispatch => {
     history.push('/dashboard');
     dispatch(setAlert('Items were fetched successfully', 'success'));
   } catch (error) {
-    
     dispatch({
       type: GET_ITEMS_FAIL,
       payload: error.response.data.error
@@ -31,7 +28,10 @@ export const getItems = (userId,history) => async dispatch => {
 };
 
 export const addItem = (
-  name,description,amount,userId,
+  name,
+  description,
+  amount,
+  userId,
   history
 ) => async dispatch => {
   const config = {
@@ -46,8 +46,7 @@ export const addItem = (
   });
   try {
     const response = await axios.post(
-      base_url +
-        `/api/users/${userId}/items`,
+      base_url + `/api/users/${userId}/items`,
       body,
       config
     );
@@ -58,7 +57,6 @@ export const addItem = (
     });
     history.push('/dashboard');
     dispatch(setAlert('A new Item was added successfully', 'success'));
-
   } catch (error) {
     dispatch({
       type: ADD_ITEM_FAIL,

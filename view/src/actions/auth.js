@@ -71,6 +71,7 @@ export const login = (email, password, history) => async dispatch => {
       body,
       config
     );
+    console.log(response)
     dispatch({
       type: LOGIN_SUCCESS,
       payload: response.data
@@ -78,15 +79,17 @@ export const login = (email, password, history) => async dispatch => {
     dispatch(setAlert('Login was successful', 'success'));
     history.push('/dashboard');
   } catch (error) {
-    const errors = [];
-    errors.push(error.response.data.error);
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error, 'danger')));
+    if (error.hasOwnProperty('response')){
+     dispatch(setAlert(error.response.data.error, 'danger'))
+     
+    } else{
+      dispatch(setAlert('server error', 'danger'))
+      
     }
     dispatch({
-      type: LOGIN_FAIL,
-      payload: error.response.data.error
-    });
+        type: LOGIN_FAIL,
+        payload: error.response
+      });
   }
 };
 
@@ -121,14 +124,25 @@ export const requestResetPassword = email => async dispatch => {
       body,
       config
     );
-    dispatch({
+    if (response.data.success){
+      console.log("Successful")
+      dispatch(setAlert(response.data.message.toString(), 'success'));
+      dispatch({
       type: REQUEST_PASSWORD_RESET_SUCCESS,
       payload: response.data
     });
-    console.log(response.data);
-  } catch (error) {
-    console.log(error);
+    } else {
+      dispatch(setAlert(response.data.message.toString(), 'danger'));
     dispatch({
+      type: REQUEST_PASSWORD_RESET_FAIL,
+      payload: response.data.message
+    });
+    }
+    
+  } catch (error) {
+    console.log(error.response)
+    dispatch(setAlert("Error", 'danger'));
+      dispatch({
       type: REQUEST_PASSWORD_RESET_FAIL,
       payload: error.response
     });
@@ -150,11 +164,29 @@ export const resetPassword = (token, password, history) => async dispatch => {
       body,
       config
     );
-    dispatch({
+
+    if (response.data.success){
+      dispatch(setAlert(response.data.message.toString(), 'success'));
+      dispatch({
       type: RESET_PASSWORD_SUCCESS,
       payload: response.data
     });
+    } else {
+      dispatch(setAlert(response.data.message.toString(), 'danger'));
+      dispatch({
+      type: RESET_PASSWORD_FAIL,
+      payload: response.data
+    });
+    }
+    
   } catch (error) {
+    console.log(error.response)
+    if (error.hasOwnProperty('response')){
+      dispatch(setAlert(error.response.data.error, 'danger'))
+     } else{
+       dispatch(setAlert('server error', 'danger'))
+       
+     }
     dispatch({
       type: RESET_PASSWORD_FAIL,
       payload: error.response.data
