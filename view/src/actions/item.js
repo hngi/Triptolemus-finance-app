@@ -44,10 +44,11 @@ export const addItem = (
     description,
     amount
   });
+  // console.log(userId)
   try {
     const response = await axios.post(
-      base_url +
-        `/api/users/${userId}/items`,
+      // base_url +
+        `http://localhost:3500/api/users/${userId}/items`,
       body,
       config
     );
@@ -56,8 +57,8 @@ export const addItem = (
       type: ADD_ITEM_SUCCESS,
       payload: response.data
     });
-    history.push('/dashboard');
     dispatch(setAlert('A new Item was added successfully', 'success'));
+    history.push('/dashboard');
 
   } catch (error) {
     dispatch({

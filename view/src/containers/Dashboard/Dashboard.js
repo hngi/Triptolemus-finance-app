@@ -4,7 +4,7 @@ import { goToLogin } from '../../actions/auth';
 import { addItem } from '../../actions/item';
 import { connect } from 'react-redux';
 import './Dashboard.css';
-const Dashboard = ({ goToLogin, auth,addItem,history }) => {
+const Dashboard = ({ goToLogin, auth, addItem, history,match }) => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -18,12 +18,10 @@ const Dashboard = ({ goToLogin, auth,addItem,history }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const { isAuthenticated, user } = auth;
-  if(!user){
+  if (!user) {
     return <Redirect to='/login' />;
-
   }
-  const userId=user.id
-  // console.log(userId);
+  const userId = user.id;
   if (isAuthenticated == null || !isAuthenticated) {
     goToLogin();
   }
@@ -94,17 +92,16 @@ const Dashboard = ({ goToLogin, auth,addItem,history }) => {
                         <form
                           onSubmit={e => {
                             e.preventDefault();
-                            addItem(name,description,amount,history,userId)
+                            addItem(name, description, amount, userId, history);
                           }}
                           className='form-horizontal'>
                           <div className='form-group'>
-                            <label
-                              className='control-label sm-1 ml-3'
-                              htmlFor>
+                            <label className='control-label sm-1 ml-3' htmlFor>
                               Item Name
                             </label>
                             <div className='col-sm-11'>
                               <input
+                                required
                                 type='text'
                                 name='name'
                                 value={name}
@@ -116,13 +113,12 @@ const Dashboard = ({ goToLogin, auth,addItem,history }) => {
                             </div>
                           </div>
                           <div className='form-group'>
-                            <label
-                              className='control-label sm-1 ml-3'
-                              htmlFor>
+                            <label className='control-label sm-1 ml-3' htmlFor>
                               Item Description
                             </label>
                             <div className='col-sm-11'>
                               <input
+                                required
                                 type='text'
                                 name='description'
                                 value={description}
@@ -135,13 +131,12 @@ const Dashboard = ({ goToLogin, auth,addItem,history }) => {
                           </div>
 
                           <div className='form-group'>
-                            <label
-                              className='control-label sm-1 ml-3'
-                              htmlFor>
+                            <label className='control-label sm-1 ml-3' htmlFor>
                               Amount
                             </label>
                             <div className='col-sm-11'>
                               <input
+                                required
                                 type='number'
                                 name='amount'
                                 value={amount}
@@ -189,9 +184,7 @@ const Dashboard = ({ goToLogin, auth,addItem,history }) => {
                           }}
                           className='form-horizontal'>
                           <div className='form-group'>
-                            <label
-                              className='control-label sm-1 ml-3'
-                              htmlFor>
+                            <label className='control-label sm-1 ml-3' htmlFor>
                               Duration
                             </label>
                             <div class='col-sm-11'>
@@ -215,13 +208,12 @@ const Dashboard = ({ goToLogin, auth,addItem,history }) => {
                             </div>
                           </div>
                           <div className='form-group'>
-                            <label
-                              className='control-label sm-1 ml-3'
-                              htmlFor>
+                            <label className='control-label sm-1 ml-3' htmlFor>
                               Amount
                             </label>
                             <div className='col-sm-11'>
                               <input
+                                required
                                 type='number'
                                 name='amount'
                                 value={amount}
@@ -301,6 +293,7 @@ const Dashboard = ({ goToLogin, auth,addItem,history }) => {
               <div className='form-group'>
                 <label className='mr-2'>Start Date</label>
                 <input
+                  required
                   type='date'
                   name='startDate'
                   id='startDate'
@@ -313,6 +306,7 @@ const Dashboard = ({ goToLogin, auth,addItem,history }) => {
               <div className='form-group'>
                 <label className='mr-2'>End Date</label>
                 <input
+                  required
                   type='date'
                   name='endDate'
                   id='endDate'
@@ -432,5 +426,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { goToLogin ,addItem}
+  { goToLogin, addItem }
 )(Dashboard);
