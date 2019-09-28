@@ -6,11 +6,12 @@ import {
 } from './types';
 import { setAlert } from './alert';
 import axios from 'axios';
+const base_url = 'https://finance-tracker-server.herokuapp.com';
 
 export const getItems = (userId,history) => async dispatch => {
   try {
     const response = await axios.get(
-      `https://3qllt.sse.codesandbox.io/api/users/${userId}/items`
+      base_url + `/api/users/${userId}/items`
     );
     console.log(response)
     dispatch({
@@ -29,8 +30,8 @@ export const getItems = (userId,history) => async dispatch => {
   }
 };
 
-export const addItem = (userId,
-  name,description,amount,
+export const addItem = (
+  name,description,amount,userId,
   history
 ) => async dispatch => {
   const config = {
@@ -45,7 +46,8 @@ export const addItem = (userId,
   });
   try {
     const response = await axios.post(
-      `https://3qllt.sse.codesandbox.io/api/users/${userId}/items`,
+      base_url +
+        `/api/users/${userId}/items`,
       body,
       config
     );

@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { goToLogin } from '../../actions/auth';
+import { addItem } from '../../actions/item';
 import { connect } from 'react-redux';
 import './Dashboard.css';
-const Dashboard = ({ goToLogin, auth }) => {
+const Dashboard = ({ goToLogin, auth,addItem,history }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    amount: '',
+    duration: '',
+    startDate: '',
+    endDate: ''
+  });
+  const { name, description, amount, duration, startDate, endDate } = formData;
+  const onChange = e => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
   const { isAuthenticated, user } = auth;
-  console.log(auth);
+  if(!user){
+    return <Redirect to='/login' />;
+
+  }
+  const userId=user.id
+  // console.log(userId);
   if (isAuthenticated == null || !isAuthenticated) {
     goToLogin();
   }
@@ -31,8 +49,14 @@ const Dashboard = ({ goToLogin, auth }) => {
                 to='/'
                 className='nav-link dropdown-toggle'
                 data-toggle='dropdown'>
-                <i className='fas fa-user' style={{ color: 'white' }} />
-                <span className='list'> {user ? user.username : null} </span>
+                <i className='fas fa-user' style={{ color: 'white' }} />{' '}
+                <span className='list'>
+                  {' '}
+                  {user
+                    ? user.username.charAt(0).toUpperCase() +
+                      user.username.slice(1)
+                    : null}{' '}
+                </span>
               </Link>
               <div className='dropdown-menu dropNav'>
                 <Link to='/' className='dropdown-item'>
@@ -50,7 +74,9 @@ const Dashboard = ({ goToLogin, auth }) => {
         <div className='container'>
           <div className='row'>
             <div className='col-md-5 align-self-center'>
-              <h1 className='msg'>How Have You Spent Your Money So Far</h1>
+              <h1 className='msg'>
+                Calculate How You Have Spent Your Money So Far
+              </h1>
               <span>
                 <button
                   className='expenses mr-3'
@@ -65,128 +91,61 @@ const Dashboard = ({ goToLogin, auth }) => {
                         <h1 style={{ color: '#022EC1' }} className='ml-3'>
                           Add Expense
                         </h1>
-                        <form action method className='form-horizontal'>
+                        <form
+                          onSubmit={e => {
+                            e.preventDefault();
+                            addItem(name,description,amount,history,userId)
+                          }}
+                          className='form-horizontal'>
                           <div className='form-group'>
-                            <label className='control-label sm-1 ml-3' htmlFor>
+                            <label
+                              className='control-label sm-1 ml-3'
+                              htmlFor>
+                              Item Name
+                            </label>
+                            <div className='col-sm-11'>
+                              <input
+                                type='text'
+                                name='name'
+                                value={name}
+                                onChange={e => onChange(e)}
+                                id='expenseName'
+                                className='form-control'
+                                placeholder='Enter Item Name'
+                              />
+                            </div>
+                          </div>
+                          <div className='form-group'>
+                            <label
+                              className='control-label sm-1 ml-3'
+                              htmlFor>
                               Item Description
                             </label>
                             <div className='col-sm-11'>
                               <input
                                 type='text'
-                                name
+                                name='description'
+                                value={description}
+                                onChange={e => onChange(e)}
                                 id='expenseDescription'
                                 className='form-control'
                                 placeholder='Enter Item Description'
                               />
                             </div>
                           </div>
-                          {/* <div className='form-group'>
-                            <label
-                              htmlFor='expenseSel'
-                              className='control-label sm-1 ml-3'>
-                              Category
-                            </label>
-                            <div className='col-sm-11'>
-                              <select
-                                name
-                                id='expenseSel'
-                                className='form-control'>
-                                <option value>Select Category</option>
-                                <option value className='expenseCat'>
-                                  Airtime &amp; Data
-                                </option>
-                                <option value className='expenseCat'>
-                                  Beauty
-                                </option>
-                                <option value className='expenseCat'>
-                                  Cable TV
-                                </option>
-                                <option value className='expenseCat'>
-                                  Celebrations
-                                </option>
-                                <option value className='expenseCat'>
-                                  Chilling
-                                </option>
-                                <option value className='expenseCat'>
-                                  Clothing
-                                </option>
-                                <option value className='expenseCat'>
-                                  Debt Payment
-                                </option>
-                                <option value className='expenseCat'>
-                                  Electronic Appliances
-                                </option>
-                                <option value className='expenseCat'>
-                                  Emergencies
-                                </option>
-                                <option value className='expenseCat'>
-                                  Fees
-                                </option>
-                                <option value className='expenseCat'>
-                                  Food
-                                </option>
-                                <option value className='expenseCat'>
-                                  Fuel
-                                </option>
-                                <option value className='expenseCat'>
-                                  Gifts
-                                </option>
-                                <option value className='expenseCat'>
-                                  Groceries
-                                </option>
-                                <option value className='expenseCat'>
-                                  Health &amp; Finances
-                                </option>
-                                <option value className='expenseCat'>
-                                  Insurance
-                                </option>
-                                <option value className='expenseCat'>
-                                  Laundry
-                                </option>
-                                <option value className='expenseCat'>
-                                  Loans
-                                </option>
-                                <option value className='expenseCat'>
-                                  Medicals
-                                </option>
-                                <option value className='expenseCat'>
-                                  Offerings &amp; Tithe
-                                </option>
-                                <option value className='expenseCat'>
-                                  Others
-                                </option>
-                                <option value className='expenseCat'>
-                                  Rent/Mortgage
-                                </option>
-                                <option value className='expenseCat'>
-                                  Repairs &amp; Maintenance
-                                </option>
-                                <option value className='expenseCat'>
-                                  Savings
-                                </option>
-                                <option value className='expenseCat'>
-                                  Subscriptions
-                                </option>
-                                <option value className='expenseCat'>
-                                  Transport
-                                </option>
-                                <option value className='expenseCat'>
-                                  Travel
-                                </option>
-                                <option value className='expenseCat'>
-                                  Utility Bills
-                                </option>
-                              </select>
-                            </div>
-                          </div> */}
+
                           <div className='form-group'>
-                            <label className='control-label sm-1 ml-3' htmlFor>
+                            <label
+                              className='control-label sm-1 ml-3'
+                              htmlFor>
                               Amount
                             </label>
                             <div className='col-sm-11'>
                               <input
                                 type='number'
-                                name
+                                name='amount'
+                                value={amount}
+                                onChange={e => onChange(e)}
                                 id='expenseAmount'
                                 className='form-control'
                                 placeholder='Enter Amount'
@@ -221,30 +180,52 @@ const Dashboard = ({ goToLogin, auth }) => {
                         <h1 style={{ color: '#022EC1' }} className='ml-3'>
                           Set Budget
                         </h1>
-                        <p className='budgetScheme ml-3'>Setup Budget Scheme</p>
-                        <form action method className='form-horizontal'>
+                        {/* <p className='budgetScheme ml-3'>
+                          Setup Budget Scheme
+                        </p> */}
+                        <form
+                          onSubmit={e => {
+                            e.preventDefault();
+                          }}
+                          className='form-horizontal'>
                           <div className='form-group'>
-                            <label className='control-label sm-1 ml-3' htmlFor>
+                            <label
+                              className='control-label sm-1 ml-3'
+                              htmlFor>
                               Duration
                             </label>
-                            <div className='col-sm-11'>
-                              <input
-                                type='text'
-                                name
+                            <div class='col-sm-11'>
+                              <select
+                                name='duration'
                                 id='budgetDuration'
                                 className='form-control'
-                                placeholder='Weekly, Monthly, Yearly'
-                              />
+                                value={duration}
+                                onChange={e => onChange(e)}>
+                                <option value=''>Select Category</option>
+                                <option name='weekly' class='expenseCat'>
+                                  Weekly
+                                </option>
+                                <option name='monthly' class='expenseCat'>
+                                  Monthly
+                                </option>
+                                <option name='yearly' class='expenseCat'>
+                                  Yearly
+                                </option>
+                              </select>
                             </div>
                           </div>
                           <div className='form-group'>
-                            <label className='control-label sm-1 ml-3' htmlFor>
+                            <label
+                              className='control-label sm-1 ml-3'
+                              htmlFor>
                               Amount
                             </label>
                             <div className='col-sm-11'>
                               <input
                                 type='number'
-                                name
+                                name='amount'
+                                value={amount}
+                                onChange={e => onChange(e)}
                                 id='budgetDuration'
                                 className='form-control'
                                 placeholder='Enter Amount'
@@ -318,28 +299,28 @@ const Dashboard = ({ goToLogin, auth }) => {
           <div className='row ml-1'>
             <form action method className='form-inline'>
               <div className='form-group'>
-                <label htmlFor className='mr-2'>
-                  Start Date
-                </label>
+                <label className='mr-2'>Start Date</label>
                 <input
                   type='date'
-                  name='date'
-                  id
-                  className='form-control mr-1 specify'
+                  name='startDate'
+                  id='startDate'
+                  value={startDate}
+                  onChange={e => onChange(e)}
+                  // className='form-control mr-1 specify'
                 />
-                <i className='fa fa-calendar-alt mr-3' />
+                {/* <i className='fa fa-calendar-alt mr-3' /> */}
               </div>
               <div className='form-group'>
-                <label htmlFor className='mr-2'>
-                  End Date
-                </label>
+                <label className='mr-2'>End Date</label>
                 <input
                   type='date'
-                  name='date'
-                  id
+                  name='endDate'
+                  id='endDate'
+                  value={endDate}
+                  onChange={e => onChange(e)}
                   className='form-control mr-1 specify'
                 />
-                <i className='fa fa-calendar-alt mr-3' />
+                {/* <i className='fa fa-calendar-alt mr-3' /> */}
               </div>
               <div className='form-group'>
                 <button
@@ -423,9 +404,7 @@ const Dashboard = ({ goToLogin, auth }) => {
           <div className='row ml-1 mt-3 mb-3'>
             <form action method className='form-inline'>
               <div className='form-group'>
-                <label htmlFor className='mr-4'>
-                  Download Format:
-                </label>
+                <label className='mr-4'>Download Format:</label>
                 <button
                   type
                   className='btn form-control pl-5 pr-5 mr-5 excelBtn dlFormat'
@@ -453,5 +432,5 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  { goToLogin }
+  { goToLogin ,addItem}
 )(Dashboard);

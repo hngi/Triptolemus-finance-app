@@ -14,7 +14,7 @@ import {
 import { setAlert } from './alert';
 
 import axios from 'axios';
-const base_url = 'http://127.0.0.1:3500';
+const base_url = 'https://finance-tracker-server.herokuapp.com';
 export const register = (
   username,
   email,

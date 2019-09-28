@@ -29,7 +29,11 @@ const ResetPassword = ({resetPassword,history,match}) => {
             <h2 className='text-center'>Reset Password</h2>
           </div>
           <p className='text-center'>Set a new password for your log in</p>
-          <form>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              resetPassword(email_token,password,history)
+            }}>
             <div className='new_password'>
               <label htmlFor='password'>Enter new password</label>
               <input
@@ -43,21 +47,9 @@ const ResetPassword = ({resetPassword,history,match}) => {
                 }}
               />
             </div>
-            <div className='confirm_pass'>
-              <label htmlFor='password'>Confirm new password</label>
-              <input
-                type='password'
-                name='confirm_password'
-                className='form-control input1'
-                placeholder='************'
-                defaultValue
-              />
-            </div>
+
             {/* <div className='col-sm-11'> */}
-              <button type='submit' onClick={(e)=>{
-                    e.preventDefault();
-                    resetPassword(email_token,password,history)
-              }} className='btn form-control'>
+              <button type='submit' className='btn form-control'>
                 Submit
               </button>
             {/* </div> */}
