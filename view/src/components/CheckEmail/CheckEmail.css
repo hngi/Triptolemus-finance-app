@@ -1,0 +1,14 @@
+.check-email-move{
+    margin-left: 30%;
+}
+@media screen and (max-width:450px){
+    .check-email-move{
+        margin-left: 10%;
+        font-size: 80%;
+    }
+}
+@media screen and (max-width:350px){
+    .check-email-move{
+        margin-left: 5%;
+    }
+}
