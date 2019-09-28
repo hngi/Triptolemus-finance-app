@@ -21,14 +21,16 @@ router.post('/api/users/:userId/items', async (req, res) => {
     //     error: 'Unauthorized user'
     //   });
     // }
-    const { name, description, amount } = req.body;
+    const { name, description, amount, date } = req.body;
     if (
       name == '' ||
       name == null ||
       description == '' ||
       description == null ||
       amount == '' ||
-      amount == null
+      amount == null ||
+      date == '' ||
+      date == null
     ) {
       res.status(400).json({
         error: 'All input fields are required'
@@ -39,7 +41,7 @@ router.post('/api/users/:userId/items', async (req, res) => {
       description,
       amount,
       user_id: userId,
-      date: new Date()
+      date: date
     });
     const item = await newItem.save();
     res.status(200).json({
