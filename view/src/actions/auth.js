@@ -23,6 +23,8 @@ import { setAlert } from './alert';
 
 import axios from 'axios';
 const base_url = 'https://finance-tracker-server.herokuapp.com';
+// const base_url = 'http://localhost:3500';
+
 export const register = (
   username,
   email,
@@ -32,7 +34,7 @@ export const register = (
   dispatch({
     type: LOADING
   });
-  
+
   const body = JSON.stringify({
     username,
     email,
@@ -53,7 +55,7 @@ export const register = (
       payload: response.data
     });
     dispatch(setAlert('Registration was successful', 'success'));
-    loadData(dispatch,response.data.user._id)
+    loadData(dispatch, response.data.user._id);
     history.push('/dashboard');
   } catch (error) {
     const errors = [];
@@ -87,43 +89,35 @@ export const login = (email, password, history) => async dispatch => {
       body,
       config
     );
-    console.log(response)
+    console.log(response);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: response.data
     });
-    console.log(response)
+    console.log(response);
     dispatch(setAlert('Login was successful', 'success'));
-    loadData(dispatch,response.data.user._id)
-   history.push('/dashboard');
+    loadData(dispatch, response.data.user._id);
+    history.push('/dashboard');
   } catch (error) {
-    if (error.hasOwnProperty('response')){
-     dispatch(setAlert(error.response.data.error, 'danger'))
-     
-    } else{
-      dispatch(setAlert('server error', 'danger'))
-      
+    if (error.hasOwnProperty('response')) {
+      dispatch(setAlert(error.response.data.error, 'danger'));
+    } else {
+      dispatch(setAlert('server error', 'danger'));
     }
     dispatch({
-        type: LOGIN_FAIL,
-        payload: error.response
-      });
+      type: LOGIN_FAIL,
+      payload: error.response
+    });
   }
 };
-export const fetchProfile = (userIdd) => async dispatch => {
-
+export const fetchProfile = userId => async dispatch => {
   try {
-    const response = await axios.get(
-      base_url + `/api/users/${userIdd}/profile`
-    );
-    // console.log(response.data.user[0])
+    const response = await axios.get(base_url + `/api/users/${userId}/profile`);
     dispatch({
       type: FETCH_PROFILE_SUCCESS,
       payload: response.data.user[0]
     });
-
   } catch (error) {
-
     dispatch({
       type: FETCH_PROFILE_FAIL,
       payload: error.response
@@ -141,15 +135,15 @@ export const logout = () => dispatch => {
   dispatch(setAlert('Logout was successful', 'success'));
 };
 
-export const showLoginAlert = (message,alertType) => async dispatch => {
+export const showLoginAlert = (message, alertType) => async dispatch => {
   dispatch({
     type: LOGIN_REQUIRED
   });
 
-dispatch(setAlert(message, alertType));
+  dispatch(setAlert(message, alertType));
 };
 
-export const requestResetPassword = (email,history) => async dispatch => {
+export const requestResetPassword = (email, history) => async dispatch => {
   dispatch({
     type: LOADING
   });
@@ -166,27 +160,24 @@ export const requestResetPassword = (email,history) => async dispatch => {
       body,
       config
     );
-    if (response.data.success){
-      console.log("Successful")
+    if (response.data.success) {
       dispatch(setAlert(response.data.message.toString(), 'success'));
       dispatch({
-      type: REQUEST_PASSWORD_RESET_SUCCESS,
-      payload: response.data
-    });
-history.push({pathname:'/check-email',state:{email:email}})
+        type: REQUEST_PASSWORD_RESET_SUCCESS,
+        payload: response.data
+      });
+      history.push({ pathname: '/check-email', state: { email: email } });
     } else {
       dispatch(setAlert(response.data.message.toString(), 'danger'));
-    dispatch({
-      type: REQUEST_PASSWORD_RESET_FAIL,
-      payload: response.data.message
-    });
-    
-    }
-    
-  } catch (error) {
-    console.log(error.response)
-    dispatch(setAlert("Error", 'danger'));
       dispatch({
+        type: REQUEST_PASSWORD_RESET_FAIL,
+        payload: response.data.message
+      });
+    }
+  } catch (error) {
+    console.log(error.response);
+    dispatch(setAlert('Error resetting password', 'danger'));
+    dispatch({
       type: REQUEST_PASSWORD_RESET_FAIL,
       payload: error.response
     });
@@ -212,29 +203,27 @@ export const resetPassword = (token, password, history) => async dispatch => {
       config
     );
 
-    if (response.data.success){
+    if (response.data.success) {
       dispatch(setAlert(response.data.message.toString(), 'success'));
       dispatch({
-      type: RESET_PASSWORD_SUCCESS,
-      payload: response.data
-    });
-    history.push('/login')
+        type: RESET_PASSWORD_SUCCESS,
+        payload: response.data
+      });
+      history.push('/login');
     } else {
       dispatch(setAlert(response.data.message.toString(), 'danger'));
       dispatch({
-      type: RESET_PASSWORD_FAIL,
-      payload: response.data
-    });
+        type: RESET_PASSWORD_FAIL,
+        payload: response.data
+      });
     }
-    
   } catch (error) {
-    console.log(error.response)
-    if (error.hasOwnProperty('response')){
-      dispatch(setAlert(error.response.data.error, 'danger'))
-     } else{
-       dispatch(setAlert('server error', 'danger'))
-       
-     }
+    console.log(error.response);
+    if (error.hasOwnProperty('response')) {
+      dispatch(setAlert(error.response.data.error, 'danger'));
+    } else {
+      dispatch(setAlert('Server error', 'danger'));
+    }
     dispatch({
       type: RESET_PASSWORD_FAIL,
       payload: error.response.data
@@ -242,11 +231,9 @@ export const resetPassword = (token, password, history) => async dispatch => {
   }
 };
 
-export const loadData=( dis,id) => {
-  console.log("loading for " + id)
-  getWeeklyInitial(dis,id);
-  getMonthlyInitial(dis,id);
-  getYearlyInitial(dis,id);
-  
-
- }
+export const loadData = (dis, id) => {
+  console.log('loading for ' + id);
+  getWeeklyInitial(dis, id);
+  getMonthlyInitial(dis, id);
+  getYearlyInitial(dis, id);
+};

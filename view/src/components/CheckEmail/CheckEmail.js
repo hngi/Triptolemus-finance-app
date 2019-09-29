@@ -17,7 +17,7 @@ class CheckEmail extends React.Component {
       <div className='container'>
         <div className='row mt-5 check-email-move'>
           <div className='col-sm-12 align-self-center'>
-            <h1>Check your mailbox</h1>
+            <h1 className='mt-5'>Check your mailbox</h1>
           </div>
         </div>
         <div className='row mt-5 check-email-move'>

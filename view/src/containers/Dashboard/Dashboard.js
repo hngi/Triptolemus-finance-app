@@ -44,7 +44,7 @@ const Dashboard = ({
   }} ,
   [
     auth,
-    fetchProfile,isAuthenticated,user
+    fetchProfile,isAuthenticated,user,profile
     // getWeeklyExpense,
     // getMonthlyExpense,
     // getYearlyExpense,
