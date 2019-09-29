@@ -55,12 +55,12 @@ router.post('/api/users/:userId/allItems', async (req, res) => {
   try {
     const { userId } = req.params;
     const { startDate, endDate } = req.body;
-  
-    const items=await Item.find({
+
+    const items = await Item.find({
       user_id: userId,
       date: { $gte: startDate, $lte: endDate }
     });
-    console.log(items)
+    console.log(items);
     if (!items) {
       res.status(200).json({
         items: null
