@@ -35,11 +35,11 @@ https://res.cloudinary.com/busola/image/upload/c_scale,h_35,w_175/v1569398282/Lo
               Features
             </Link>
           </li>
-          <li className='nav-item'>
+          {/* <li className='nav-item'>
             <Link className='nav-link' to='/downloads'>
               Downloads
             </Link>
-          </li>
+          </li> */}
           <li className='nav-item'>
             <Link className='nav-link' to='/faqs'>
               FAQs
