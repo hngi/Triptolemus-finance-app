@@ -18,7 +18,6 @@ export const setWeeklyBudget = (
   budget,
   userId
 ) => async dispatch => {
-  console.log("weekly is running")
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -40,9 +39,7 @@ export const setWeeklyBudget = (
       payload: response.data
     });
     dispatch(setAlert('Weekly Budget Set', 'success')); 
-    console.log(response);
   } catch (error) {
-    console.log(error);
     dispatch({
       type: SET_WEEKLY_BUDGET_FAIL,
       payload: error.response.data.error
@@ -70,14 +67,11 @@ export const setMonthlyBudget = (
       body,
       config
     );
-    // console.log(response);
     dispatch({
       type: SET_MONTHLY_BUDGET_SUCCESS,
       payload: response.data
     });
-    // history.push('/dashboard');
     dispatch(setAlert('Monthly Budget Set', 'success'));
-    console.log(response);
   } catch (error) {
     dispatch({
       type: SET_MONTHLY_BUDGET_FAIL,
@@ -102,14 +96,11 @@ export const setYearlyBudget = (duration, budget, userId) => async dispatch => {
       body,
       config
     );
-    console.log(response);
     dispatch({
       type: SET_YEARLY_BUDGET_SUCCESS,
       payload: response.data
     });
-    // history.push('/dashboard');
     dispatch(setAlert('Weekly Budget Set', 'success'));
-    console.log(response);
   } catch (error) {
     dispatch({
       type: SET_YEARLY_BUDGET_FAIL,

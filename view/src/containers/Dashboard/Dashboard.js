@@ -32,9 +32,7 @@ const Dashboard = ({
   getItems,
   items
 }) => {
-  console.log(items);
   const { isAuthenticated, user, profile } = auth;
-  const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
   useEffect(() => {
     if (
       isAuthenticated == null ||
@@ -47,20 +45,14 @@ const Dashboard = ({
     } else {
       const userId = auth.user.id;
       fetchProfile(userId);
-      // getWeeklyExpense(userIdd);
-      // getMonthlyExpense(userIdd);
-      // getYearlyExpense(userIdd);
+      getWeeklyExpense(userId);
+      getMonthlyExpense(userId);
+      getYearlyExpense(userId);
     }
   }, [
-    auth,
-    user,
-    items,isAuthenticated,
-    // getWeeklyExpense,
-    // getMonthlyExpense,
-    // getYearlyExpense,
-    // auth.user,
-    fetchProfile
+    
   ]);
+  const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -72,8 +64,6 @@ const Dashboard = ({
     endDate: ''
   });
 
-  // console.log(monthlyExpense.items)
-  // console.log(expense)
   if (isAuthenticated == null || !isAuthenticated || user == null || !user) {
     showLoginAlert('You need to be logged in to do that', 'danger', history);
     return <Redirect to='/login' />;
@@ -287,7 +277,6 @@ const Dashboard = ({
                           onSubmit={e => {
                             e.preventDefault();
                             if (duration === 'Weekly') {
-                              console.log('weekly should runnow');
                               setWeeklyBudget(duration, budget, userId);
                             } else if (duration === 'Monthly') {
                               setMonthlyBudget(duration, budget, userId);

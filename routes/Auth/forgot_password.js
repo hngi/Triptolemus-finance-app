@@ -11,7 +11,6 @@ const tripHostEmail = process.env.TRIP_EMAIL
 const mailgun = require('mailgun-js')({ apiKey: API, domain: DOMAIN });
 const nodemailer = require('nodemailer');
 const tripHostEmailPass = process.env.TRIP_EMAIL_PASS
-// console.log(tripHostEmailPass)
 
 router.post('/api/auth/reset',emailAuth, async (req, res) => {
     console.log(req.email)
@@ -46,10 +45,8 @@ router.post('/api/auth/reset',emailAuth, async (req, res) => {
 
 
 router.post('/api/auth/forgot', async (req, res) => {
-    console.log("ddddddddddddddddddddddddddddddddddddddddd")
     console.log(tripHostEmailPass)
-    const feUrl =
-      'https://financetracker-triptolemus.herokuapp.com';
+    const feUrl = 'http://127.0.0.1:3000'
     try {
     const { email } = req.body
     if (email == '' || undefined){
@@ -64,7 +61,6 @@ router.post('/api/auth/forgot', async (req, res) => {
     token = jwt.sign({email: email},process.env.JWT_KEY,{expiresIn: 60*15})
 
     password_reset_link = feUrl + "/reset-password/" + token.split('.').join('/')
-  console.log(tripHostEmailPass)
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {

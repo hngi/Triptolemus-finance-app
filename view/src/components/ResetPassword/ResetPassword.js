@@ -11,9 +11,7 @@ const ResetPassword = ({auth,resetPassword,history,match}) => {
   });
   const {password } = formData;
   const email_token = [header,payload,signature].join(".")
-  console.log(email_token)
   const onChange = e => {
-    console.log(e.target.name + " " + e.target.value)
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   return (

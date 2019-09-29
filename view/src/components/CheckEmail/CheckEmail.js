@@ -1,11 +1,10 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect,Link } from 'react-router-dom';
 class CheckEmail extends React.Component {
   constructor(props) {
     super(props);
     if (this.props.location.state !== undefined) {
       this.state = this.props.location.state;
-      console.log(this.state);
     }
   }
 
@@ -17,6 +16,11 @@ class CheckEmail extends React.Component {
       <div className='container'>
         <div className='row mt-5 check-email-move'>
           <div className='col-sm-12 align-self-center'>
+            <div className='arrow-left'>
+              <Link to='/forgot'>
+                <i className='fas fa-arrow-left' />
+              </Link>
+            </div>
             <h1 className='mt-5'>Check your mailbox</h1>
           </div>
         </div>

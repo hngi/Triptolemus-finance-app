@@ -89,12 +89,10 @@ export const login = (email, password, history) => async dispatch => {
       body,
       config
     );
-    console.log(response);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: response.data
     });
-    console.log(response);
     dispatch(setAlert('Login was successful', 'success'));
     loadData(dispatch, response.data.user._id);
     history.push('/dashboard');
@@ -232,7 +230,6 @@ export const resetPassword = (token, password, history) => async dispatch => {
 };
 
 export const loadData = (dis, id) => {
-  console.log('loading for ' + id);
   getWeeklyInitial(dis, id);
   getMonthlyInitial(dis, id);
   getYearlyInitial(dis, id);

@@ -33,7 +33,6 @@ export const getWeeklyExpense = userIdd => async dispatch => {
       body,
       config
     );
-    console.log(response);
     dispatch({
       type: FETCH_WEEKLY_EXPENSE_SUCCESS,
       payload: response.data
@@ -54,7 +53,6 @@ export const getMonthlyExpense = userIdd => async dispatch => {
   var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
 
   var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-  // console.log(month);
   const body = JSON.stringify({
     startDate: firstDay,
     endDate: lastDay
@@ -68,13 +66,11 @@ export const getMonthlyExpense = userIdd => async dispatch => {
       body,
       config
     );
-    console.log(response);
     dispatch({
       type: FETCH_MONTHLY_EXPENSE_SUCCESS,
       payload: response.data.items[0]
     });
-    // history.push('/dashboard');
-    // dispatch(setAlert('Items were fetched successfully', 'success'));
+
   } catch (error) {
     dispatch({
       type: FETCH_MONTHLY_EXPENSE_FAIL,
@@ -99,19 +95,16 @@ export const getYearlyExpense = userIdd => async dispatch => {
       body,
       config
     );
-    console.log(response);
     dispatch({
       type: FETCH_YEARLY_EXPENSE_SUCCESS,
       payload: response.data
     });
-    // history.push('/dashboard');
-    // dispatch(setAlert('Items were fetched successfully', 'success'));
   } catch (error) {
     dispatch({
       type: FETCH_YEARLY_EXPENSE_FAIL,
       payload: error
     });
-    // dispatch(setAlert(error.response.data.error, 'danger'));
+   
   }
 };
 
@@ -133,13 +126,11 @@ for (let i = 1; i <= 7; i++) {
  };
 try {
     const response = await axios.post(base_url + `/api/users/${userIdd}/calculate/week`,body,config);
-    console.log(response);
     dispatch({
       type: FETCH_WEEKLY_EXPENSE_SUCCESS,
       payload: response.data
     });
-    // history.push('/dashboard');
-    // dispatch(setAlert('Items were fetched successfully', 'success'));
+
   } catch (error) {
     dispatch({
       type: FETCH_WEEKLY_EXPENSE_FAIL,
@@ -155,7 +146,6 @@ export const getMonthlyInitial = async (dispatch,userIdd) => {
   var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
  
   var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0); 
-   // console.log(month);
    const body = JSON.stringify({
      startDate: firstDay,
      endDate: lastDay
@@ -165,7 +155,6 @@ export const getMonthlyInitial = async (dispatch,userIdd) => {
    };
    try {
      const response = await axios.post(base_url + `/api/users/${userIdd}/calculate/month`,body,config);
-     console.log(response);
      dispatch({
        type: FETCH_MONTHLY_EXPENSE_SUCCESS,
        payload: response.data.items[0]
@@ -192,18 +181,16 @@ export const getMonthlyInitial = async (dispatch,userIdd) => {
  };
    try {
      const response = await axios.post(base_url + `/api/users/${userIdd}/calculate/year`,body,config);
-     console.log(response);
      dispatch({
        type: FETCH_YEARLY_EXPENSE_SUCCESS,
        payload: response.data
      });
-     // history.push('/dashboard');
-     // dispatch(setAlert('Items were fetched successfully', 'success'));
+ 
    } catch (error) {
      dispatch({
        type: FETCH_YEARLY_EXPENSE_FAIL,
        payload: error
      });
-     // dispatch(setAlert(error.response.data.error, 'danger'));
+     ;
    }
  };

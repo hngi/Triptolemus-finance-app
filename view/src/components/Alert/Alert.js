@@ -10,7 +10,6 @@ const Alert = ({ alerts }) =>
       left: "0",
       zIndex: "1040",
       width: "100%",}}>
-    {/* {console.log(alert.alertType)} */}
       {alert.msg}
     </div>
   ));
