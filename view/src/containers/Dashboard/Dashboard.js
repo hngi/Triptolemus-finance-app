@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
-import { showLoginAlert } from '../../actions/auth';
+import { showLoginAlert, logout } from '../../actions/auth';
 import { addItem, getItems } from '../../actions/item';
 import { connect } from 'react-redux';
 import './Dashboard.css';
@@ -17,6 +17,7 @@ import {
 import { fetchProfile } from '../../actions/auth';
 const Dashboard = ({
   showLoginAlert,
+  logout,
   auth,
   expense,
   addItem,
@@ -121,6 +122,7 @@ const Dashboard = ({
               </Link>
               <div className='dropdown-menu dropNav'>
                 <Link
+                  onClick={logout}
                   to='/login'
                   className='dropdown-item'
                   style={{ margin: '0px auto', textAlign: 'center' }}>
@@ -603,6 +605,7 @@ export default connect(
     setMonthlyBudget,
     setYearlyBudget,
     fetchProfile,
-    getItems
+    getItems,
+    logout
   }
 )(Dashboard);
