@@ -29,7 +29,6 @@ export const setWeeklyBudget = (duration, budget, userId) => async dispatch => {
       body,
       config
     );
-    console.log(response);
     if (response.data.success) {
       dispatch({
         type: SET_WEEKLY_BUDGET_SUCCESS,
@@ -46,7 +45,6 @@ export const setWeeklyBudget = (duration, budget, userId) => async dispatch => {
       type: SET_WEEKLY_BUDGET_FAIL,
       payload: error.toString()
     });
-    dispatch(setAlert(error.toString(), 'danger'));
   }
 };
 export const setMonthlyBudget = (
@@ -79,12 +77,11 @@ export const setMonthlyBudget = (
       dispatch(setAlert(response.data.message, 'danger'));
     }
   } catch (error) {
-    dispatch(setAlert(error.toString(), 'danger'));
-
     dispatch({
       type: SET_MONTHLY_BUDGET_FAIL,
       payload: error.toString()
     });
+    dispatch(setAlert(error.toString(), 'danger'));
   }
 };
 export const setYearlyBudget = (duration, budget, userId) => async dispatch => {
@@ -114,6 +111,7 @@ export const setYearlyBudget = (duration, budget, userId) => async dispatch => {
     }
   } catch (error) {
     dispatch(setAlert(error.toString(), 'danger'));
+
     dispatch({
       type: SET_YEARLY_BUDGET_FAIL,
       payload: error.toString()

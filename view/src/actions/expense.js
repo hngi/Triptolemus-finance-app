@@ -24,6 +24,7 @@ export const getWeeklyExpense = userIdd => async dispatch => {
     startDate: week[0],
     endDate: week[6]
   });
+  console.log(body);
   const config = {
     headers: { 'Content-Type': 'application/json' }
   };
@@ -37,7 +38,7 @@ export const getWeeklyExpense = userIdd => async dispatch => {
       console.log('weekly update expected');
       dispatch({
         type: FETCH_WEEKLY_EXPENSE_SUCCESS,
-        payload: response.data.total_weekly_expense
+        payload: response.data.total_weekly_cost
       });
     }
   } catch (error) {
@@ -136,7 +137,7 @@ export const getWeeklyInitial = async (dispatch, userIdd) => {
       console.log('Weekly update ran');
       dispatch({
         type: FETCH_WEEKLY_EXPENSE_SUCCESS,
-        payload: response.data.expensePerYear[0]
+        payload: response.data.total_weekly_cost
       });
     }
   } catch (error) {
