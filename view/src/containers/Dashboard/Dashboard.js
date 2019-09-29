@@ -28,23 +28,20 @@ const Dashboard = ({
   setMonthlyBudget,
   setYearlyBudget,
   fetchProfile
-}) => { 
-  
+}) => {
   const { isAuthenticated, user, profile } = auth;
   const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
   useEffect(() => {
     if (isAuthenticated == null || !isAuthenticated || user == null || !user) {
-      
-    } else{
-    const userId = auth.user.id;
-    fetchProfile(userId);
-    // getWeeklyExpense(userIdd);
-    // getMonthlyExpense(userIdd);
-    // getYearlyExpense(userIdd);
-  }} ,
-  [
-    auth,
-    fetchProfile,isAuthenticated,user,profile
+    } else {
+      const userId = auth.user.id;
+      fetchProfile(userId);
+      // getWeeklyExpense(userIdd);
+      // getMonthlyExpense(userIdd);
+      // getYearlyExpense(userIdd);
+    }
+  }, [
+    auth
     // getWeeklyExpense,
     // getMonthlyExpense,
     // getYearlyExpense,
@@ -55,18 +52,18 @@ const Dashboard = ({
     name: '',
     description: '',
     amount: '',
-    budget:'',
+    budget: '',
     duration: 'Weekly',
     date: '',
     startDate: '',
     endDate: ''
   });
- 
+
   // console.log(monthlyExpense.items)
   // console.log(expense)
   if (isAuthenticated == null || !isAuthenticated || user == null || !user) {
-    showLoginAlert('You need to be logged in to do that', 'danger',history);
-    return <Redirect to="/login" />
+    showLoginAlert('You need to be logged in to do that', 'danger', history);
+    return <Redirect to='/login' />;
   }
   const {
     name,
@@ -81,7 +78,7 @@ const Dashboard = ({
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const userId = auth.user.id
+  const userId = auth.user.id;
 
   return (
     <>
@@ -108,17 +105,20 @@ const Dashboard = ({
                   {' '}
                   {user
                     ? user.username.charAt(0).toUpperCase() +
-                    user.username.slice(1)
+                      user.username.slice(1)
                     : null}{' '}
                 </span>
               </Link>
               <div className='dropdown-menu dropNav'>
-                <Link to='/' className='dropdown-item'>
-                  <i className='fas fa-user-circle' /> Profile
+                <Link
+                  to='/login'
+                  className='dropdown-item'
+                  style={{ margin: '0px auto', textAlign: 'center' }}>
+                  <i className='fas fa-sign-out-alt' /> Logout
                 </Link>
-                <Link to='/' className='dropdown-item'>
+                {/* <Link to='/' className='dropdown-item'>
                   <i className='fas fa-cog' /> Settings
-                </Link>
+                </Link> */}
               </div>
             </li>
           </ul>
@@ -240,9 +240,9 @@ const Dashboard = ({
                             <div className='sm-1' />
                             <div className='col-sm-11'>
                               <button
-                              type='submit'
-                                data-toggle="modal"
-                                data-target="#addExpense"
+                                type='submit'
+                                data-toggle='modal'
+                                data-target='#addExpense'
                                 className='btn form-control expenseBtn'>
                                 Record Expense
                               </button>
@@ -273,12 +273,12 @@ const Dashboard = ({
                           onSubmit={e => {
                             e.preventDefault();
                             if (duration === 'Weekly') {
-                              console.log("weekly should runnow")
-                             setWeeklyBudget(duration, budget, userId);
+                              console.log('weekly should runnow');
+                              setWeeklyBudget(duration, budget, userId);
                             } else if (duration === 'Monthly') {
-                           setMonthlyBudget(duration, budget, userId);
+                              setMonthlyBudget(duration, budget, userId);
                             } else if (duration === 'Yearly') {
-                           setYearlyBudget(duration, budget, userId);
+                              setYearlyBudget(duration, budget, userId);
                             }
                           }}
                           className='form-horizontal'>
@@ -327,8 +327,8 @@ const Dashboard = ({
                             <div className='col-sm-11'>
                               <button
                                 type='submit'
-                                data-toggle="modal"
-                                data-target="#setBudget"
+                                data-toggle='modal'
+                                data-target='#setBudget'
                                 className='btn form-control budgetBtn'>
                                 Set Budget
                               </button>
@@ -348,7 +348,12 @@ const Dashboard = ({
               <div className='total'>
                 <div className='week'>
                   <p className='big'>
-                    ₦ <span className='big'>{profile.weekly_budget}</span>
+                    ₦{' '}
+                    <span className='big'>
+                      {profile.weekly_budget == undefined
+                        ? 0
+                        : profile.weekly_budget}
+                    </span>
                   </p>
                   <p className='small'>
                     Weekly
@@ -359,7 +364,12 @@ const Dashboard = ({
                 </div>
                 <div className='month'>
                   <p className='big'>
-                    ₦ <span className='big'>{profile.monthly_budget}</span>
+                    ₦{' '}
+                    <span className='big'>
+                      {profile.monthly_budget == undefined
+                        ? 0
+                        : profile.monthly_budget}
+                    </span>
                   </p>
                   <p className='small'>
                     Monthly
@@ -370,7 +380,12 @@ const Dashboard = ({
                 </div>
                 <div className='year'>
                   <p className='big'>
-                    ₦ <span className='big'>{profile.yearly_budget}</span>
+                    ₦{' '}
+                    <span className='big'>
+                      {profile.yearly_budget == undefined
+                        ? 0
+                        : profile.yearly_budget}
+                    </span>
                   </p>
                   <p className='small'>
                     Yearly
@@ -384,7 +399,12 @@ const Dashboard = ({
               <div className='total'>
                 <div className='week'>
                   <p className='big'>
-                    ₦ <span className='big'>{weeklyExpense.totalExpenses}</span>
+                    ₦{' '}
+                    <span className='big'>
+                      {weeklyExpense == undefined
+                        ? 0
+                        : weeklyExpense.totalExpenses}
+                    </span>
                   </p>
                   <p className='small'>
                     This Week
@@ -395,7 +415,10 @@ const Dashboard = ({
                 </div>
                 <div className='month'>
                   <p className='big'>
-                    ₦ <span className='big'>{monthlyExpense.total}</span>
+                    ₦{' '}
+                    <span className='big'>
+                      {monthlyExpense == undefined ? 0 : monthlyExpense.total}
+                    </span>
                   </p>
                   <p className='small'>
                     This Month
@@ -406,7 +429,12 @@ const Dashboard = ({
                 </div>
                 <div className='year'>
                   <p className='big'>
-                    ₦ <span className='big'>{yearlyExpense.totalExpenses}</span>
+                    ₦{' '}
+                    <span className='big'>
+                      {yearlyExpense == undefined
+                        ? 0
+                        : yearlyExpense.totalExpenses}
+                    </span>
                   </p>
                   <p className='small'>
                     This Year
@@ -436,7 +464,7 @@ const Dashboard = ({
                   id='startDate'
                   value={startDate}
                   onChange={e => onChange(e)}
-                // className='form-control mr-1 specify'
+                  // className='form-control mr-1 specify'
                 />
                 {/* <i className='fa fa-calendar-alt mr-3' /> */}
               </div>
