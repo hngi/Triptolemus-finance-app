@@ -53,6 +53,8 @@ const Dashboard = ({
     }
   }, [
     auth,
+    user,
+    items,isAuthenticated,
     // getWeeklyExpense,
     // getMonthlyExpense,
     // getYearlyExpense,
