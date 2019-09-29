@@ -2,8 +2,8 @@ import { SEND_MESSAGE_FAIL, SEND_MESSAGE_SUCCESS } from './types';
 import { setAlert } from './alert';
 
 import axios from 'axios';
-// const base_url = 'https://finance-tracker-server.herokuapp.com';
-const base_url = 'http://localhost:3500';
+const base_url = 'https://finance-tracker-server.herokuapp.com';
+// const base_url = 'http://localhost:3500';
 
 export const contact = (
   fullname,

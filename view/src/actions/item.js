@@ -7,8 +7,8 @@ import {
 import { setAlert } from './alert';
 import { loadData } from './auth';
 import axios from 'axios';
-// const base_url = 'https://finance-tracker-server.herokuapp.com';;
-const base_url = 'http://localhost:3500';
+const base_url = 'https://finance-tracker-server.herokuapp.com';
+// const base_url = 'http://localhost:3500';
 export const getItems = (
   startDate,
   endDate,
