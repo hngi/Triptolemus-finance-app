@@ -51,18 +51,16 @@ router.post('/api/users/:userId/items', async (req, res) => {
     console.log(error.message);
   }
 });
-router.get('/api/users/:userId/items', async (req, res) => {
+router.post('/api/users/:userId/allItems', async (req, res) => {
   try {
     const { userId } = req.params;
-    const id = req.user;
-    // if (userId !== id) {
-    //   return res.status(401).json({
-    //     error: 'Unauthorized user'
-    //   });
-    // }
-    const items = await Item.find({
-      user_id: userId
+    const { startDate, endDate } = req.body;
+  
+    const items=await Item.find({
+      user_id: userId,
+      date: { $gte: startDate, $lte: endDate }
     });
+    console.log(items)
     if (!items) {
       res.status(200).json({
         items: null

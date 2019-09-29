@@ -8,23 +8,38 @@ import { setAlert } from './alert';
 import { loadData } from './auth';
 import axios from 'axios';
 const base_url = 'https://finance-tracker-server.herokuapp.com';;
-
-export const getItems = (userId, history) => async dispatch => {
+// const base_url = 'http://localhost:3500';
+export const getItems = (
+  startDate,
+  endDate,
+  userId,
+  history
+) => async dispatch => {
   try {
-    const response = await axios.get(base_url + `/api/users/${userId}/items`);
-    // console.log(response);
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    const body = JSON.stringify({
+      startDate,
+      endDate
+    });
+    const response = await axios.post(
+      base_url + `/api/users/${userId}/allItems`,
+      body,
+      config
+    );
+    console.log(response);
     dispatch({
       type: GET_ITEMS_SUCCESS,
       payload: response.data
     });
-    history.push('/dashboard');
-    dispatch(setAlert('Items were fetched successfully', 'success'));
   } catch (error) {
     dispatch({
       type: GET_ITEMS_FAIL,
-      payload: error.response.data.error
+      payload: error
     });
-    dispatch(setAlert(error.response.data.error, 'danger'));
   }
 };
 
@@ -36,7 +51,7 @@ export const addItem = (
   userId,
   history
 ) => async dispatch => {
- const config = {
+  const config = {
     headers: {
       'Content-Type': 'application/json'
     }
@@ -44,7 +59,8 @@ export const addItem = (
   const body = JSON.stringify({
     name,
     description,
-    amount,date
+    amount,
+    date
   });
   try {
     const response = await axios.post(
@@ -58,7 +74,7 @@ export const addItem = (
       payload: response.data
     });
     dispatch(setAlert('A new Item was added successfully', 'success'));
-    loadData(dispatch,userId)
+    loadData(dispatch, userId);
   } catch (error) {
     console.log(error);
     dispatch({

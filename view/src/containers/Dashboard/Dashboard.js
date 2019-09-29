@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { showLoginAlert } from '../../actions/auth';
-import { addItem } from '../../actions/item';
+import { addItem, getItems } from '../../actions/item';
 import { connect } from 'react-redux';
 import './Dashboard.css';
 import {
@@ -27,27 +27,40 @@ const Dashboard = ({
   setWeeklyBudget,
   setMonthlyBudget,
   setYearlyBudget,
-  fetchProfile
+  fetchProfile,
+  getItems,
+  items
 }) => {
+  console.log(items);
   const { isAuthenticated, user, profile } = auth;
   const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
-  useEffect(() => {
-    if (isAuthenticated == null || !isAuthenticated || user == null || !user) {
-    } else {
-      const userId = auth.user.id;
-      fetchProfile(userId);
-      // getWeeklyExpense(userIdd);
-      // getMonthlyExpense(userIdd);
-      // getYearlyExpense(userIdd);
-    }
-  }, [
-    auth
-    // getWeeklyExpense,
-    // getMonthlyExpense,
-    // getYearlyExpense,
-    // auth.user,
-    // fetchProfile,
-  ]);
+  useEffect(
+    () => {
+      if (
+        isAuthenticated == null ||
+        !isAuthenticated ||
+        user == null ||
+        !user||
+        items == null ||
+        !items
+      ) {
+      } else {
+        const userId = auth.user.id;
+        fetchProfile(userId);
+        // getWeeklyExpense(userIdd);
+        // getMonthlyExpense(userIdd);
+        // getYearlyExpense(userIdd);
+      }
+    },
+    [
+      auth,
+      // getWeeklyExpense,
+      // getMonthlyExpense,
+      // getYearlyExpense,
+      // auth.user,
+      fetchProfile
+    ]
+  );
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -350,7 +363,7 @@ const Dashboard = ({
                   <p className='big'>
                     ₦{' '}
                     <span className='big'>
-                      {profile.weekly_budget == undefined
+                      {profile.weekly_budget === undefined
                         ? 0
                         : profile.weekly_budget}
                     </span>
@@ -366,7 +379,7 @@ const Dashboard = ({
                   <p className='big'>
                     ₦{' '}
                     <span className='big'>
-                      {profile.monthly_budget == undefined
+                      {profile.monthly_budget === undefined
                         ? 0
                         : profile.monthly_budget}
                     </span>
@@ -382,7 +395,7 @@ const Dashboard = ({
                   <p className='big'>
                     ₦{' '}
                     <span className='big'>
-                      {profile.yearly_budget == undefined
+                      {profile.yearly_budget === undefined
                         ? 0
                         : profile.yearly_budget}
                     </span>
@@ -454,7 +467,12 @@ const Dashboard = ({
             <p>Specify Period</p>
           </div>
           <div className='row ml-1'>
-            <form className='form-inline'>
+            <form
+              onSubmit={e => {
+                e.preventDefault();
+                getItems(startDate, endDate, userId);
+              }}
+              className='form-inline'>
               <div className='form-group'>
                 <label className='mr-2'>Start Date</label>
                 <input
@@ -469,7 +487,7 @@ const Dashboard = ({
                 {/* <i className='fa fa-calendar-alt mr-3' /> */}
               </div>
               <div className='form-group'>
-                <label className='mr-2'>End Date</label>
+                <label className='ml-5'>End Date</label>
                 <input
                   required
                   type='date'
@@ -490,51 +508,36 @@ const Dashboard = ({
               </div>
             </form>
           </div>
+
           <div className='row ml-1 mt-3'>
             <table className='table transTable col-sm-12'>
               <thead>
                 <tr>
                   <th>Transaction Date</th>
-                  <th>Items</th>
-                  <th>Category</th>
+                  <th>Item</th>
+                  <th>Description</th>
                   <th>Amount</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>02-Sep-2019</td>
-                  <td>Toilet Paper</td>
-                  <td>Toiletries</td>
-                  <td>₦250</td>
-                </tr>
-                <tr>
-                  <td>02-Sep-2019</td>
-                  <td>Toilet Paper</td>
-                  <td>Toiletries</td>
-                  <td>₦250</td>
-                </tr>
-                <tr>
-                  <td>02-Sep-2019</td>
-                  <td>Toilet Paper</td>
-                  <td>Toiletries</td>
-                  <td>₦250</td>
-                </tr>
-                <tr>
-                  <td>02-Sep-2019</td>
-                  <td>Toilet Paper</td>
-                  <td>Toiletries</td>
-                  <td>₦250</td>
-                </tr>
-                <tr>
-                  <td>02-Sep-2019</td>
-                  <td>Toilet Paper</td>
-                  <td>Toiletries</td>
-                  <td>₦250</td>
-                </tr>
+                {items.items === undefined
+                  ? null
+                  : items.items.map(item => {
+                      return (
+                        <tr>
+                          <td>{item === undefined ? null : item.date}</td>
+                          <td>{item === undefined ? null : item.name}</td>
+                          <td>
+                            {item === undefined ? null : item.description}
+                          </td>
+                          <td>{item === undefined ? 0 : item.amount}</td>
+                        </tr>
+                      );
+                    })}
               </tbody>
             </table>
           </div>
-          <div className='row'>
+          {/* <div className='row'>
             <div className='col-sm-10' />
             <div className='col-sm-2 pages'>
               <Link to='/'>
@@ -578,8 +581,8 @@ const Dashboard = ({
                   Export
                 </button>
               </div>
-            </form>
-          </div>
+            </form> */}
+          {/* </div> */}
         </div>
       </section>
     </>
@@ -588,7 +591,8 @@ const Dashboard = ({
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  expense: state.expense
+  expense: state.expense,
+  items: state.item.items
 });
 export default connect(
   mapStateToProps,
@@ -601,6 +605,7 @@ export default connect(
     setWeeklyBudget,
     setMonthlyBudget,
     setYearlyBudget,
-    fetchProfile
+    fetchProfile,
+    getItems
   }
 )(Dashboard);
