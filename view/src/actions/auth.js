@@ -233,6 +233,7 @@ export const resetPassword = (token, password, history) => async dispatch => {
 };
 
 export const loadData = (dis, id) => {
+  console.log('Loading update');
   getWeeklyInitial(dis, id);
   getMonthlyInitial(dis, id);
   getYearlyInitial(dis, id);

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './Landing.css';
-const Landing = () => {
+const Landing = ({ isAuthenticated }) => {
   return (
     <>
       <section id='landing-info' className='landing-py-'>
@@ -15,11 +16,13 @@ const Landing = () => {
                 <li className='landing-list'>know how you spend</li>
                 <li className='landing-list'>Manage your finances</li>
               </ul>
-              <Link to='/register' className='nav-link'>
-                <button className='btn-signup landing-btn-signup'>
-                  Sign up for free
-                </button>
-              </Link>
+              {isAuthenticated ? null : (
+                <Link to='/register' className='nav-link'>
+                  <button className='btn-signup landing-btn-signup'>
+                    Sign up for free
+                  </button>
+                </Link>
+              )}
             </div>
             <div className='col-md-6'>
               <img
@@ -34,4 +37,10 @@ const Landing = () => {
     </>
   );
 };
-export default Landing;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+export default connect(
+  mapStateToProps,
+  null
+)(Landing);

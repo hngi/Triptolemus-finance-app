@@ -49,9 +49,7 @@ const Dashboard = ({
       getMonthlyExpense(userId);
       getYearlyExpense(userId);
     }
-  }, [
-    
-  ]);
+  }, []);
   const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
   const [formData, setFormData] = useState({
     name: '',
@@ -404,9 +402,7 @@ const Dashboard = ({
                   <p className='big'>
                     ₦{' '}
                     <span className='big'>
-                      {weeklyExpense === undefined
-                        ? 0
-                        : weeklyExpense.totalExpenses}
+                      {weeklyExpense === undefined ? 0 : weeklyExpense}
                     </span>
                   </p>
                   <p className='small'>
@@ -420,7 +416,7 @@ const Dashboard = ({
                   <p className='big'>
                     ₦{' '}
                     <span className='big'>
-                      {monthlyExpense === undefined ? 0 : monthlyExpense.total}
+                      {monthlyExpense === undefined ? 0 : monthlyExpense}
                     </span>
                   </p>
                   <p className='small'>
@@ -434,9 +430,7 @@ const Dashboard = ({
                   <p className='big'>
                     ₦{' '}
                     <span className='big'>
-                      {yearlyExpense === undefined
-                        ? 0
-                        : yearlyExpense.totalExpenses}
+                      {yearlyExpense === undefined ? 0 : yearlyExpense}
                     </span>
                   </p>
                   <p className='small'>

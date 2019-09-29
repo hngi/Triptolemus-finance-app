@@ -8,8 +8,8 @@ import {
 } from './types';
 // import { setAlert } from './alert';
 import axios from 'axios';
-const base_url = 'https://finance-tracker-server.herokuapp.com';
-// const base_url = 'http://localhost:3500';
+// const base_url = 'https://finance-tracker-server.herokuapp.com';
+const base_url = 'http://localhost:3500';
 
 export const getWeeklyExpense = userIdd => async dispatch => {
   let curr = new Date();
@@ -34,9 +34,10 @@ export const getWeeklyExpense = userIdd => async dispatch => {
       config
     );
     if (response.data.success) {
+      console.log('weekly update expected');
       dispatch({
         type: FETCH_WEEKLY_EXPENSE_SUCCESS,
-        payload: response.data
+        payload: response.data.total_weekly_expense
       });
     }
   } catch (error) {
@@ -68,7 +69,7 @@ export const getMonthlyExpense = userIdd => async dispatch => {
     if (response.data.success) {
       dispatch({
         type: FETCH_MONTHLY_EXPENSE_SUCCESS,
-        payload: response.data.items[0]
+        payload: response.data.items[0].total
       });
     }
   } catch (error) {
@@ -98,7 +99,7 @@ export const getYearlyExpense = userIdd => async dispatch => {
     if (response.data.success) {
       dispatch({
         type: FETCH_YEARLY_EXPENSE_SUCCESS,
-        payload: response.data
+        payload: response.data.totalExpenses
       });
     }
   } catch (error) {
@@ -132,9 +133,10 @@ export const getWeeklyInitial = async (dispatch, userIdd) => {
       config
     );
     if (response.data.success) {
+      console.log('Weekly update ran');
       dispatch({
         type: FETCH_WEEKLY_EXPENSE_SUCCESS,
-        payload: response.data
+        payload: response.data.expensePerYear[0]
       });
     }
   } catch (error) {
@@ -167,7 +169,7 @@ export const getMonthlyInitial = async (dispatch, userIdd) => {
     if (response.data.success) {
       dispatch({
         type: FETCH_MONTHLY_EXPENSE_SUCCESS,
-        payload: response.data.items[0]
+        payload: response.data.items[0].total
       });
     }
   } catch (error) {
@@ -175,6 +177,7 @@ export const getMonthlyInitial = async (dispatch, userIdd) => {
       type: FETCH_MONTHLY_EXPENSE_FAIL,
       payload: error.toString()
     });
+    // dispatch(setAlert(error.response.data.error, 'danger'));
   }
 };
 export const getYearlyInitial = async (dispatch, userIdd) => {
@@ -196,7 +199,7 @@ export const getYearlyInitial = async (dispatch, userIdd) => {
     if (response.data.success) {
       dispatch({
         type: FETCH_YEARLY_EXPENSE_SUCCESS,
-        payload: response.data
+        payload: response.data.totalExpenses
       });
     }
   } catch (error) {

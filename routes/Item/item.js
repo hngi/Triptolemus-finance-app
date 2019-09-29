@@ -91,6 +91,7 @@ router.post('/api/users/:userId/calculate/week', async (req, res) => {
     const { userId } = req.params;
     const id = req.user;
     let { startDate, endDate } = req.body;
+    console.log(req.body);
     if (
       startDate == '' ||
       startDate == null ||
@@ -156,11 +157,14 @@ router.post('/api/users/:userId/calculate/week', async (req, res) => {
             }
           }
         }
-        weekly_track = {
+        console.log('week week week ');
+        let weekly_track = {
           success: true,
+          total_weekly_cost: totalCost,
           totalExpenses: totalCost,
           expensePerWeek: weeklies
         };
+        console.log(weekly_track);
         res.status(200).json(weekly_track);
         // } else {
         //   res
