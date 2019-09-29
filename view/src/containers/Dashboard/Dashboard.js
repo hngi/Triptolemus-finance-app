@@ -34,33 +34,30 @@ const Dashboard = ({
   console.log(items);
   const { isAuthenticated, user, profile } = auth;
   const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
-  useEffect(
-    () => {
-      if (
-        isAuthenticated == null ||
-        !isAuthenticated ||
-        user == null ||
-        !user||
-        items == null ||
-        !items
-      ) {
-      } else {
-        const userId = auth.user.id;
-        fetchProfile(userId);
-        // getWeeklyExpense(userIdd);
-        // getMonthlyExpense(userIdd);
-        // getYearlyExpense(userIdd);
-      }
-    },
-    [
-      auth,
-      // getWeeklyExpense,
-      // getMonthlyExpense,
-      // getYearlyExpense,
-      // auth.user,
-      fetchProfile
-    ]
-  );
+  useEffect(() => {
+    if (
+      isAuthenticated == null ||
+      !isAuthenticated ||
+      user == null ||
+      !user ||
+      items == null ||
+      !items
+    ) {
+    } else {
+      const userId = auth.user.id;
+      fetchProfile(userId);
+      // getWeeklyExpense(userIdd);
+      // getMonthlyExpense(userIdd);
+      // getYearlyExpense(userIdd);
+    }
+  }, [
+    auth,
+    // getWeeklyExpense,
+    // getMonthlyExpense,
+    // getYearlyExpense,
+    // auth.user,
+    fetchProfile
+  ]);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -414,7 +411,7 @@ const Dashboard = ({
                   <p className='big'>
                     ₦{' '}
                     <span className='big'>
-                      {weeklyExpense == undefined
+                      {weeklyExpense === undefined
                         ? 0
                         : weeklyExpense.totalExpenses}
                     </span>
@@ -430,7 +427,7 @@ const Dashboard = ({
                   <p className='big'>
                     ₦{' '}
                     <span className='big'>
-                      {monthlyExpense == undefined ? 0 : monthlyExpense.total}
+                      {monthlyExpense === undefined ? 0 : monthlyExpense.total}
                     </span>
                   </p>
                   <p className='small'>
@@ -444,7 +441,7 @@ const Dashboard = ({
                   <p className='big'>
                     ₦{' '}
                     <span className='big'>
-                      {yearlyExpense == undefined
+                      {yearlyExpense === undefined
                         ? 0
                         : yearlyExpense.totalExpenses}
                     </span>
@@ -524,7 +521,7 @@ const Dashboard = ({
                   ? null
                   : items.items.map(item => {
                       return (
-                        <tr>
+                        <tr key={item === undefined ? null : item._id}>
                           <td>{item === undefined ? null : item.date}</td>
                           <td>{item === undefined ? null : item.name}</td>
                           <td>
