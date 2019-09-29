@@ -7,8 +7,8 @@ import {
 import { setAlert } from './alert';
 import { loadData } from './auth';
 import axios from 'axios';
-const base_url = 'https://finance-tracker-server.herokuapp.com';;
-// const base_url = 'http://localhost:3500';
+// const base_url = 'https://finance-tracker-server.herokuapp.com';;
+const base_url = 'http://localhost:3500';
 export const getItems = (
   startDate,
   endDate,
@@ -30,15 +30,16 @@ export const getItems = (
       body,
       config
     );
-    console.log(response);
-    dispatch({
-      type: GET_ITEMS_SUCCESS,
-      payload: response.data
-    });
+    if (response.data.success) {
+      dispatch({
+        type: GET_ITEMS_SUCCESS,
+        payload: response.data
+      });
+    }
   } catch (error) {
     dispatch({
       type: GET_ITEMS_FAIL,
-      payload: error
+      payload: error.toString()
     });
   }
 };
@@ -68,19 +69,22 @@ export const addItem = (
       body,
       config
     );
-    console.log(response);
-    dispatch({
-      type: ADD_ITEM_SUCCESS,
-      payload: response.data
-    });
-    dispatch(setAlert('A new Item was added successfully', 'success'));
-    loadData(dispatch, userId);
+    if (response.data.success) {
+      dispatch({
+        type: ADD_ITEM_SUCCESS,
+        payload: response.data
+      });
+      dispatch(setAlert('A new Item was added successfully', 'success'));
+      loadData(dispatch, userId);
+    } else {
+      dispatch(setAlert(response.data.message, 'danger'));
+    }
   } catch (error) {
-    console.log(error);
+    dispatch(setAlert(error.toString(), 'danger'));
+
     dispatch({
       type: ADD_ITEM_FAIL,
-      payload: error.response.data.error
+      payload: error.toString()
     });
-    dispatch(setAlert(error.response.data.error, 'danger'));
   }
 };

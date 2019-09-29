@@ -10,14 +10,10 @@ import {
 } from './types';
 import { setAlert } from './alert';
 import axios from 'axios';
-const base_url = 'https://finance-tracker-server.herokuapp.com';
-// const base_url = 'http://localhost:3500';
+// const base_url = 'https://finance-tracker-server.herokuapp.com';
+const base_url = 'http://localhost:3500';
 
-export const setWeeklyBudget = (
-  duration,
-  budget,
-  userId
-) => async dispatch => {
+export const setWeeklyBudget = (duration, budget, userId) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -33,18 +29,24 @@ export const setWeeklyBudget = (
       body,
       config
     );
-   
-    dispatch({
-      type: SET_WEEKLY_BUDGET_SUCCESS,
-      payload: response.data
-    });
-    dispatch(setAlert('Weekly Budget Set', 'success')); 
+    console.log(response);
+    if (response.data.success) {
+      dispatch({
+        type: SET_WEEKLY_BUDGET_SUCCESS,
+        payload: response.data
+      });
+      dispatch(setAlert('Weekly Budget Set', 'success'));
+    } else {
+      dispatch(setAlert(response.data.message, 'danger'));
+    }
   } catch (error) {
+    dispatch(setAlert(error.toString(), 'danger'));
+
     dispatch({
       type: SET_WEEKLY_BUDGET_FAIL,
-      payload: error.response.data.error
+      payload: error.toString()
     });
-    dispatch(setAlert(error.response.data.error, 'danger'));
+    dispatch(setAlert(error.toString(), 'danger'));
   }
 };
 export const setMonthlyBudget = (
@@ -67,17 +69,22 @@ export const setMonthlyBudget = (
       body,
       config
     );
-    dispatch({
-      type: SET_MONTHLY_BUDGET_SUCCESS,
-      payload: response.data
-    });
-    dispatch(setAlert('Monthly Budget Set', 'success'));
+    if (response.data.success) {
+      dispatch({
+        type: SET_MONTHLY_BUDGET_SUCCESS,
+        payload: response.data
+      });
+      dispatch(setAlert('Monthly Budget Set', 'success'));
+    } else {
+      dispatch(setAlert(response.data.message, 'danger'));
+    }
   } catch (error) {
+    dispatch(setAlert(error.toString(), 'danger'));
+
     dispatch({
       type: SET_MONTHLY_BUDGET_FAIL,
-      payload: error.response.data.error
+      payload: error.toString()
     });
-    dispatch(setAlert(error.response.data.error, 'danger'));
   }
 };
 export const setYearlyBudget = (duration, budget, userId) => async dispatch => {
@@ -96,16 +103,20 @@ export const setYearlyBudget = (duration, budget, userId) => async dispatch => {
       body,
       config
     );
-    dispatch({
-      type: SET_YEARLY_BUDGET_SUCCESS,
-      payload: response.data
-    });
-    dispatch(setAlert('Weekly Budget Set', 'success'));
+    if (response.data.success) {
+      dispatch({
+        type: SET_YEARLY_BUDGET_SUCCESS,
+        payload: response.data
+      });
+      dispatch(setAlert('Weekly Budget Set', 'success'));
+    } else {
+      dispatch(setAlert(response.data.message, 'danger'));
+    }
   } catch (error) {
+    dispatch(setAlert(error.toString(), 'danger'));
     dispatch({
       type: SET_YEARLY_BUDGET_FAIL,
-      payload: error.response.data.error
+      payload: error.toString()
     });
-    dispatch(setAlert(error.response.data.error, 'danger'));
   }
 };

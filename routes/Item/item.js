@@ -32,8 +32,9 @@ router.post('/api/users/:userId/items', async (req, res) => {
       date == '' ||
       date == null
     ) {
-      res.status(400).json({
-        error: 'All input fields are required'
+      res.status(200).json({
+        message: 'All input fields are required',
+        success: false
       });
     }
     const newItem = new Item({
@@ -45,10 +46,15 @@ router.post('/api/users/:userId/items', async (req, res) => {
     });
     const item = await newItem.save();
     res.status(200).json({
-      item: item
+      item: item,
+      success: true
     });
   } catch (error) {
     console.log(error.message);
+    res.status(200).json({
+      message: error.toString(),
+      success: false
+    });
   }
 });
 router.post('/api/users/:userId/allItems', async (req, res) => {
@@ -63,14 +69,21 @@ router.post('/api/users/:userId/allItems', async (req, res) => {
     console.log(items);
     if (!items) {
       res.status(200).json({
-        items: null
+        items: null,
+        success: false
       });
     }
     res.status(200).json({
-      items: items
+      items: items,
+      success: true
     });
   } catch (error) {
     console.log(error.message);
+    res.status(200).json({
+      items: null,
+      success: false,
+      message: error.toString()
+    });
   }
 });
 router.post('/api/users/:userId/calculate/week', async (req, res) => {
@@ -84,8 +97,9 @@ router.post('/api/users/:userId/calculate/week', async (req, res) => {
       endDate == '' ||
       endDate == null
     ) {
-      return res.status(400).json({
-        error: 'All input fields are required'
+      return res.status(200).json({
+        message: 'All input fields are required',
+        success: false
       });
     }
     let end_msec = Date.parse(endDate);
@@ -142,7 +156,11 @@ router.post('/api/users/:userId/calculate/week', async (req, res) => {
             }
           }
         }
-        weekly_track = { totalExpenses: totalCost, expensePerWeek: weeklies };
+        weekly_track = {
+          success: true,
+          totalExpenses: totalCost,
+          expensePerWeek: weeklies
+        };
         res.status(200).json(weekly_track);
         // } else {
         //   res
@@ -151,10 +169,15 @@ router.post('/api/users/:userId/calculate/week', async (req, res) => {
         // }
       })
       .catch(err => {
-        console.error(err);
+        console.error(err.toString() + 'in expense weekly');
+        throw err;
       });
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
+    res.status(200).json({
+      message: error.toString(),
+      success: false
+    });
   }
 });
 
@@ -217,7 +240,11 @@ router.post('/api/users/:userId/calculate/year', async (req, res) => {
             }
           }
         }
-        yearly_track = { totalExpenses: totalCost, expensePerYear: yearlies };
+        yearly_track = {
+          success: true,
+          totalExpenses: totalCost,
+          expensePerYear: yearlies
+        };
         res.status(200).json(yearly_track);
         // } else {
         //   res
@@ -226,10 +253,14 @@ router.post('/api/users/:userId/calculate/year', async (req, res) => {
         // }
       })
       .catch(err => {
-        console.error(err);
+        console.error(err.toString + ' in yearly expense ');
       });
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
+    res.status(200).json({
+      message: error.toString(),
+      success: false
+    });
   }
 });
 
@@ -289,9 +320,10 @@ router.post('/api/users/:userId/calculate/month', async (req, res, next) => {
     // }
 
     if (startDate > endDate) {
-      return res
-        .status(400)
-        .json({ error: 'Invalid Request. Start Date is in the future' });
+      return res.status(200).json({
+        message: 'Invalid Request. Start Date is in the future',
+        success: false
+      });
     }
 
     startDate = new Date(startDate);
@@ -327,11 +359,11 @@ router.post('/api/users/:userId/calculate/month', async (req, res, next) => {
     ]);
 
     if (!filteredItems) {
-      res.status(200).json({ items: null });
+      res.status(200).json({ items: [{ totalExpenses: 0 }], success: true });
     }
-    res.status(200).json({ items: filteredItems });
+    res.status(200).json({ items: filteredItems, success: true });
   } catch (error) {
-    res.status(401).json({ error: error });
+    res.status(200).json({ message: error.toString(), success: false });
   }
 });
 
@@ -343,14 +375,20 @@ router.get('/api/users/:userId/profile', async (req, res) => {
     const user = await User.find({ _id: userId });
     if (!user) {
       res.status(200).json({
-        user: null
+        message: 'Error, profile not found',
+        success: false
       });
     }
     res.status(200).json({
-      user: user
+      user: user,
+      success: true
     });
   } catch (error) {
     console.log(error.message);
+    res.status(200).json({
+      message: error.toString(),
+      success: false
+    });
   }
 });
 

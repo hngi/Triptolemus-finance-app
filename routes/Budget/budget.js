@@ -74,15 +74,21 @@ router.post('/api/users/:userId/setWeeklyBudget', async (req, res) => {
       console.log(user);
       res.status(200).json({
         weekly_budget: user.weekly_budget,
-        message: 'Budget set successfully'
+        message: 'Budget set successfully',
+        success: true
       });
     } else {
-      return res.status(400).json({
-        error: 'Error setting budget'
+      return res.status(200).json({
+        message: 'Error setting budget',
+        success: false
       });
     }
   } catch (error) {
     console.log(error.message);
+    return res.status(200).json({
+      message: error.toString(),
+      success: false
+    });
   }
 });
 
@@ -101,18 +107,24 @@ router.post('/api/users/:userId/setYearlyBudget', async (req, res) => {
         { upsert: true }
       );
       const user = await User.findOne({ _id: userId });
-      console.log(user)
+      console.log(user);
       res.status(200).json({
         user: user.yearly_budget,
-        message: 'Budget set successfully'
+        message: 'Budget set successfully',
+        success: true
       });
     } else {
-      return res.status(400).json({
-        error: 'Error setting budget'
+      return res.status(200).json({
+        message: 'Error setting budget',
+        success: false
       });
     }
   } catch (error) {
     console.log(error.message);
+    return res.status(200).json({
+      message: error.toString(),
+      success: false
+    });
   }
 });
 router.post('/api/users/:userId/setMonthlyBudget', async (req, res) => {
@@ -129,19 +141,25 @@ router.post('/api/users/:userId/setMonthlyBudget', async (req, res) => {
         { monthly_budget: budget },
         { upsert: true }
       );
-      
+
       const user = await User.findOne({ _id: userId });
       res.status(200).json({
         user: user.monthly_budget,
-        message: 'Budget set successfully'
+        message: 'Budget set successfully',
+        success: true
       });
     } else {
-      return res.status(400).json({
-        error: 'Error setting budget'
+      return res.status(200).json({
+        message: 'Error setting budget',
+        success: false
       });
     }
   } catch (error) {
     console.log(error.message);
+    return res.status(200).json({
+      message: error.toString(),
+      success: false
+    });
   }
 });
 

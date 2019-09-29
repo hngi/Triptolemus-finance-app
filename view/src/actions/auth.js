@@ -22,8 +22,8 @@ import {
 import { setAlert } from './alert';
 
 import axios from 'axios';
-const base_url = 'https://finance-tracker-server.herokuapp.com';
-// const base_url = 'http://localhost:3500';
+// const base_url = 'https://finance-tracker-server.herokuapp.com';
+const base_url = 'http://localhost:3500';
 
 export const register = (
   username,
@@ -49,23 +49,23 @@ export const register = (
       body,
       config
     );
+    if (response.data.success) {
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: response.data
+      });
+      dispatch(setAlert('Registration was successful', 'success'));
+      loadData(dispatch, response.data.user._id);
+      history.push('/dashboard');
+    } else {
+      dispatch(setAlert(response.data.message, 'danger'));
+    }
+  } catch (error) {
+    dispatch(setAlert(error.toString(), 'danger'));
 
     dispatch({
-      type: REGISTER_SUCCESS,
-      payload: response.data
-    });
-    dispatch(setAlert('Registration was successful', 'success'));
-    loadData(dispatch, response.data.user._id);
-    history.push('/dashboard');
-  } catch (error) {
-    const errors = [];
-    errors.push(error.response.data.error);
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error, 'danger')));
-    }
-    dispatch({
       type: REGISTER_FAIL,
-      payload: error.response.data.error
+      payload: error.toString()
     });
   }
 };
@@ -89,32 +89,35 @@ export const login = (email, password, history) => async dispatch => {
       body,
       config
     );
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: response.data
-    });
-    dispatch(setAlert('Login was successful', 'success'));
-    loadData(dispatch, response.data.user._id);
-    history.push('/dashboard');
-  } catch (error) {
-    if (error.hasOwnProperty('response')) {
-      dispatch(setAlert(error.response.data.error, 'danger'));
+    if (response.data.success) {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: response.data
+      });
+      dispatch(setAlert('Login was successful', 'success'));
+      loadData(dispatch, response.data.user._id);
+      history.push('/dashboard');
     } else {
-      dispatch(setAlert('server error', 'danger'));
+      dispatch(setAlert(response.data.message, 'danger'));
     }
+  } catch (error) {
+    dispatch(setAlert(error.toString(), 'danger'));
+
     dispatch({
       type: LOGIN_FAIL,
-      payload: error.response
+      payload: error.toString()
     });
   }
 };
 export const fetchProfile = userId => async dispatch => {
   try {
     const response = await axios.get(base_url + `/api/users/${userId}/profile`);
-    dispatch({
-      type: FETCH_PROFILE_SUCCESS,
-      payload: response.data.user[0]
-    });
+    if (response.data.success) {
+      dispatch({
+        type: FETCH_PROFILE_SUCCESS,
+        payload: response.data.user[0]
+      });
+    }
   } catch (error) {
     dispatch({
       type: FETCH_PROFILE_FAIL,
