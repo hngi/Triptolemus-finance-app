@@ -35,7 +35,6 @@ router.post('/api/auth/reset', emailAuth, async (req, res) => {
       success: true
     });
   } catch (error) {
-    console.log(error);
     return res.status(200).json({ message: error, success: false });
   }
 });
@@ -51,7 +50,6 @@ router.post('/api/auth/reset', emailAuth, async (req, res) => {
 // });
 
 router.post('/api/auth/forgot', async (req, res) => {
-  console.log(tripHostEmailPass);
   const feUrl = 'https://financetracker-triptolemus.herokuapp.com';
   try {
     const { email } = req.body;
@@ -92,7 +90,6 @@ router.post('/api/auth/forgot', async (req, res) => {
     //mailgun.messages().send
     transporter.sendMail(msg, (error, body) => {
       if (error) {
-        console.log(error);
         res
           .status(200)
           .json({ message: 'Could not send Email', success: false });
@@ -105,11 +102,9 @@ router.post('/api/auth/forgot', async (req, res) => {
             ' expires in 15 minutes',
           success: true
         });
-        console.log(body);
       }
     });
   } catch (error) {
-    console.log(error);
     res.status(200).json({ message: error, success: false });
   }
 });

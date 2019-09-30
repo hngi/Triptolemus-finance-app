@@ -169,7 +169,6 @@ export const requestResetPassword = (email, history) => async dispatch => {
       });
     }
   } catch (error) {
-    console.log(error.response);
     dispatch(setAlert('Error resetting password', 'danger'));
     dispatch({
       type: REQUEST_PASSWORD_RESET_FAIL,
@@ -212,7 +211,6 @@ export const resetPassword = (token, password, history) => async dispatch => {
       });
     }
   } catch (error) {
-    console.log(error.response);
     if (error.hasOwnProperty('response')) {
       dispatch(setAlert(error.response.data.error, 'danger'));
     } else {
@@ -225,9 +223,3 @@ export const resetPassword = (token, password, history) => async dispatch => {
   }
 };
 
-// export const loadData = (dis, id) => {
-//   console.log('Loading update');
-//   getWeeklyInitial(dis, id);
-//   getMonthlyInitial(dis, id);
-//   getYearlyInitial(dis, id);
-// };

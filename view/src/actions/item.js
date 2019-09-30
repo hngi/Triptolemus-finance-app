@@ -68,7 +68,6 @@ export const addItem = (
       body,
       config
     );
-    console.log(response);
     if (response.data.success) {
       dispatch({
         type: ADD_ITEM_SUCCESS,

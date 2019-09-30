@@ -55,7 +55,6 @@ const Dashboard = ({
     getMonthlyExpense(userId);
     getYearlyExpense(userId);
   }, [fetchProfile]);
-  // console.log(expense);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -137,14 +136,14 @@ const Dashboard = ({
           <div className='row'>
             <div className='col-md-5 align-self-center'>
               <h1 className='msg'>
-                Calculate How You Have Spent Your Money So Far
+                Keep track of your expenses over an extended period of time{' '}
               </h1>
               <span>
                 <button
                   className='expenses mr-3'
                   data-toggle='modal'
                   data-target='#addExpense'>
-                  Record your expenses
+                  Add Expense
                 </button>
                 <div id='addExpense' className='modal fade' role='dialog'>
                   <div className='modal-dialog'>
@@ -385,7 +384,7 @@ const Dashboard = ({
                   </p>
                 </div>
               </div>
-              <h2>Total Expenses</h2>
+              <h2>Your Total Expenses</h2>
               <div className='total'>
                 <div className='week'>
                   <p className='big'>
@@ -434,7 +433,7 @@ const Dashboard = ({
           </div>
 
           <div className='row mt-4 track ml-1'>
-            <h2>Expense Tracking</h2>
+            <h2>Track your expenses</h2>
           </div>
           <div className='row ml-1 period'>
             <p>Specify Period</p>

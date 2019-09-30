@@ -71,7 +71,6 @@ router.post('/api/users/:userId/setWeeklyBudget', async (req, res) => {
         { upsert: true }
       );
       const user = await User.findOne({ _id: userId });
-      console.log(user);
       res.status(200).json({
         weekly_budget: user.weekly_budget,
         message: 'Budget set successfully',
@@ -84,7 +83,6 @@ router.post('/api/users/:userId/setWeeklyBudget', async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error.message);
     return res.status(200).json({
       message: error.toString(),
       success: false
@@ -107,7 +105,6 @@ router.post('/api/users/:userId/setYearlyBudget', async (req, res) => {
         { upsert: true }
       );
       const user = await User.findOne({ _id: userId });
-      console.log(user);
       res.status(200).json({
         user: user.yearly_budget,
         message: 'Budget set successfully',
@@ -120,7 +117,6 @@ router.post('/api/users/:userId/setYearlyBudget', async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error.message);
     return res.status(200).json({
       message: error.toString(),
       success: false
@@ -155,7 +151,6 @@ router.post('/api/users/:userId/setMonthlyBudget', async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error.message);
     return res.status(200).json({
       message: error.toString(),
       success: false

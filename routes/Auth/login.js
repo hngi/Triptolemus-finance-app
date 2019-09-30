@@ -15,7 +15,6 @@ router.post('/api/auth/login', async (req, res) => {
   try {
     User.findOne({ email: email }).then(user => {
       if (!user) {
-        console.log('..........');
         return res.status(200).json({
           message: 'Invalid credentials',
           success: false
@@ -41,7 +40,6 @@ router.post('/api/auth/login', async (req, res) => {
       });
     });
   } catch (error) {
-    console.log(error);
     return res.status(200).json({
       message: error.toString(),
       success: false

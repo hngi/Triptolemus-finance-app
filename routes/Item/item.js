@@ -50,7 +50,6 @@ router.post('/api/users/:userId/items', async (req, res) => {
       success: true
     });
   } catch (error) {
-    console.log(error.message);
     res.status(200).json({
       message: error.toString(),
       success: false
@@ -65,8 +64,7 @@ router.post('/api/users/:userId/allItems', async (req, res) => {
     const items = await Item.find({
       user_id: userId,
       date: { $gte: startDate, $lte: endDate }
-    });
-    console.log(items);
+    }).sort({ date: 1 });
     if (!items) {
       res.status(200).json({
         items: null,
@@ -78,7 +76,6 @@ router.post('/api/users/:userId/allItems', async (req, res) => {
       success: true
     });
   } catch (error) {
-    console.log(error.message);
     res.status(200).json({
       items: null,
       success: false,
@@ -91,7 +88,6 @@ router.post('/api/users/:userId/calculate/week', async (req, res) => {
     const { userId } = req.params;
     const id = req.user;
     let { startDate, endDate } = req.body;
-    console.log(req.body);
     if (
       startDate == '' ||
       startDate == null ||
@@ -175,7 +171,6 @@ router.post('/api/users/:userId/calculate/week', async (req, res) => {
         throw err;
       });
   } catch (error) {
-    console.log(error);
     res.status(200).json({
       message: error.toString(),
       success: false
@@ -258,7 +253,6 @@ router.post('/api/users/:userId/calculate/year', async (req, res) => {
         console.error(err.toString + ' in yearly expense ');
       });
   } catch (error) {
-    console.log(error);
     res.status(200).json({
       message: error.toString(),
       success: false
@@ -306,7 +300,6 @@ router.post('/api/users/:userId/calculate/daily', async (req, res) => {
         console.error(err);
       });
   } catch (error) {
-    console.log(error.message);
   }
 });
 
@@ -386,7 +379,6 @@ router.get('/api/users/:userId/profile', async (req, res) => {
       success: true
     });
   } catch (error) {
-    console.log(error.message);
     res.status(200).json({
       message: error.toString(),
       success: false

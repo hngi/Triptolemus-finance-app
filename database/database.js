@@ -11,7 +11,7 @@ class Database {
     mongoose
       .connect(server, { useNewUrlParser: true, useUnifiedTopology: true })
       .then(() => {
-        console.log('Database connection successful');
+        console.log('Database connected');
       })
       .catch(err => {
         console.error(err);

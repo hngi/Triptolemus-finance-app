@@ -99,7 +99,6 @@ export const setYearlyBudget = (duration, budget, userId) => async dispatch => {
       body,
       config
       );
-      console.log(response);
     if (response.data.success) {
       dispatch({
         type: SET_YEARLY_BUDGET_SUCCESS,

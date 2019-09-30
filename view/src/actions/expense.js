@@ -18,7 +18,6 @@ export const getWeeklyExpense = userId => async dispatch => {
     startDate: startOfWeek,
     endDate: endOfWeek
   });
-  console.log(body)
   const config = {
     headers: { 'Content-Type': 'application/json' }
   };
@@ -48,7 +47,6 @@ export const getMonthlyExpense = userId => async dispatch => {
     startDate: startOfMonth,
     endDate: endOfMonth
   });
-  console.log(body)
   const config = {
     headers: { 'Content-Type': 'application/json' }
   };
@@ -81,7 +79,6 @@ export const getYearlyExpense = userId => async dispatch => {
   const config = {
     headers: { 'Content-Type': 'application/json' }
   };
-  console.log(body)
   try {
     const response = await axios.post(
       base_url + `/api/users/${userId}/calculate/year`,

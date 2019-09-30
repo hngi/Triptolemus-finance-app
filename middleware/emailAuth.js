@@ -10,7 +10,6 @@ module.exports = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, jwtsecret);
     req.email = decoded.email;
-    console.log(req.email)
     next();
   } catch (error) {
     if (error.hasOwnProperty('name') && error.name == 'TokenExpiredError'){

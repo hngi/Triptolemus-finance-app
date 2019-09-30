@@ -29,10 +29,8 @@ router.post('/contact', (req, res) => {
 
   mailgun.messages().send(msg, (error, body) => {
     if (error) {
-      console.log(error);
     } else {
       res.status(200).json({ msg: msg, success: true });
-      console.log(body);
     }
   });
 });
