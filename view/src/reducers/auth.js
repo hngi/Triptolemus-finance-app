@@ -11,25 +11,28 @@ import {
   REQUEST_PASSWORD_RESET_FAIL,
   REQUEST_PASSWORD_RESET_SUCCESS,
   RESET_PASSWORD_FAIL,
-  RESET_PASSWORD_SUCCESS
+  RESET_PASSWORD_SUCCESS,
+  SET_WEEKLY_BUDGET_SUCCESS,
+  SET_MONTHLY_BUDGET_SUCCESS,
+  SET_YEARLY_BUDGET_SUCCESS
 } from '../actions/types';
-
 
 const initialState = {
   token: localStorage.getItem('token'),
   isAuthenticated: null,
   loading: false,
   user: null,
-  profile:{}
+  profile: {},
+  expenses: {}
 };
 export default function(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case REGISTER_SUCCESS:
-        return {
-          ...state,
-          loading: false
-        };
+      return {
+        ...state,
+        loading: false
+      };
     case LOGIN_SUCCESS:
       localStorage.setItem('token', payload.token);
       return {
@@ -57,17 +60,50 @@ export default function(state = initialState, action) {
         loading: false,
         profile: {}
       };
+    case SET_WEEKLY_BUDGET_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        profile: {
+          weekly_budget: payload.weekly_budget,
+          monthly_budget: state.profile.monthly_budget,
+          yearly_budget: state.profile.yearly_budget
+        }
+      };
+    case SET_MONTHLY_BUDGET_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        profile: {
+          weekly_budget: state.profile.weekly_budget,
+          monthly_budget: payload.user,
+          yearly_budget: state.profile.yearly_budget
+        }
+      };
+    case SET_YEARLY_BUDGET_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        profile: {
+          weekly_budget: state.profile.weekly_budget,
+          monthly_budget: state.profile.monthly_budget,
+          yearly_budget: payload.user
+        }
+      };
     case LOGIN_REQUIRED:
     case REGISTER_FAIL:
-        return {
-          ...state,
-          loading: false
-        };
+      return {
+        ...state,
+        loading: false
+      };
     case LOGIN_FAIL:
-        return {
-          ...state,
-          loading: false
-        };
+      return {
+        ...state,
+        loading: false
+      };
     case LOGOUT:
       localStorage.removeItem('token');
       return {
@@ -79,33 +115,33 @@ export default function(state = initialState, action) {
       };
 
     case LOADING:
-        return {
-          ...state,
-          loading: true
-        };
+      return {
+        ...state,
+        loading: true
+      };
     case REQUEST_PASSWORD_RESET_FAIL:
-        return {
-          ...state,
-          loading: false
-        };
+      return {
+        ...state,
+        loading: false
+      };
 
     case REQUEST_PASSWORD_RESET_SUCCESS:
-        return {
-          ...state,
-          loading: false
-        };
+      return {
+        ...state,
+        loading: false
+      };
 
     case RESET_PASSWORD_FAIL:
-        return {
-          ...state,
-          loading: false
-        };
+      return {
+        ...state,
+        loading: false
+      };
 
     case RESET_PASSWORD_SUCCESS:
-        return {
-          ...state,
-          loading: false
-        };
+      return {
+        ...state,
+        loading: false
+      };
 
     default:
       return state;

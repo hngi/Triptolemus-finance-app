@@ -17,35 +17,46 @@ export default function(state = initialState, action) {
 
   switch (type) {
     case FETCH_WEEKLY_EXPENSE_SUCCESS:
-      console.log(payload);
       return {
         ...state,
-        weeklyExpense: payload
+        weeklyExpense: payload,
+        monthlyExpense: state.monthlyExpense,
+        yearlyExpense: state.yearlyExpense
       };
     case FETCH_WEEKLY_EXPENSE_FAIL:
       return {
         ...state,
-        weeklyExpense: 0
+        weeklyExpense: state.weeklyExpense,
+        monthlyExpense: state.monthlyExpense,
+        yearlyExpense: state.yearlyExpense
       };
     case FETCH_MONTHLY_EXPENSE_SUCCESS:
       return {
         ...state,
-        monthlyExpense: payload
+        weeklyExpense: state.weeklyExpense,
+        monthlyExpense: payload,
+        yearlyExpense: state.yearlyExpense
       };
     case FETCH_MONTHLY_EXPENSE_FAIL:
       return {
         ...state,
-        monthlyExpense: 0
+        weeklyExpense: state.weeklyExpense,
+        monthlyExpense: state.monthlyExpense,
+        yearlyExpense: state.yearlyExpense
       };
     case FETCH_YEARLY_EXPENSE_SUCCESS:
       return {
         ...state,
+        weeklyExpense: state.weeklyExpense,
+        monthlyExpense: state.monthlyExpense,
         yearlyExpense: payload
       };
     case FETCH_YEARLY_EXPENSE_FAIL:
       return {
         ...state,
-        yearlyExpense: 0
+        weeklyExpense: state.weeklyExpense,
+        monthlyExpense: state.monthlyExpense,
+        yearlyExpense: state.yearlyExpense
       };
     default:
       return state;

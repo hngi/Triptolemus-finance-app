@@ -14,11 +14,6 @@ import {
   FETCH_PROFILE_SUCCESS,
   FETCH_PROFILE_FAIL
 } from './types';
-import {
-  getWeeklyInitial,
-  getMonthlyInitial,
-  getYearlyInitial
-} from './expense';
 import { setAlert } from './alert';
 
 import axios from 'axios';
@@ -55,8 +50,7 @@ export const register = (
         payload: response.data
       });
       dispatch(setAlert('Registration was successful', 'success'));
-      loadData(dispatch, response.data.user._id);
-      history.push('/dashboard');
+      history.push('/');
     } else {
       dispatch(setAlert(response.data.message, 'danger'));
     }
@@ -85,7 +79,7 @@ export const login = (email, password, history) => async dispatch => {
   };
   try {
     const response = await axios.post(
-      base_url + '/api/auth/login', //finance-tracker-server.herokuapp.com
+      base_url + '/api/auth/login',
       body,
       config
     );
@@ -95,7 +89,6 @@ export const login = (email, password, history) => async dispatch => {
         payload: response.data
       });
       dispatch(setAlert('Login was successful', 'success'));
-      loadData(dispatch, response.data.user._id);
       history.push('/dashboard');
     } else {
       dispatch(setAlert(response.data.message, 'danger'));
@@ -232,9 +225,9 @@ export const resetPassword = (token, password, history) => async dispatch => {
   }
 };
 
-export const loadData = (dis, id) => {
-  console.log('Loading update');
-  getWeeklyInitial(dis, id);
-  getMonthlyInitial(dis, id);
-  getYearlyInitial(dis, id);
-};
+// export const loadData = (dis, id) => {
+//   console.log('Loading update');
+//   getWeeklyInitial(dis, id);
+//   getMonthlyInitial(dis, id);
+//   getYearlyInitial(dis, id);
+// };

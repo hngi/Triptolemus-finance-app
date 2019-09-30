@@ -157,14 +157,12 @@ router.post('/api/users/:userId/calculate/week', async (req, res) => {
             }
           }
         }
-        console.log('week week week ');
         let weekly_track = {
           success: true,
           total_weekly_cost: totalCost,
           totalExpenses: totalCost,
           expensePerWeek: weeklies
         };
-        console.log(weekly_track);
         res.status(200).json(weekly_track);
         // } else {
         //   res

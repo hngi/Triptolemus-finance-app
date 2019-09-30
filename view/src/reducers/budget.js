@@ -20,7 +20,7 @@ export default function(state = initialState, action) {
     case SET_WEEKLY_BUDGET_SUCCESS:
       return {
         ...state,
-        weeklyBudget: payload.user
+        weeklyBudget: payload.weekly_budget
       };
     case SET_WEEKLY_BUDGET_FAIL:
       return {

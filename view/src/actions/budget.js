@@ -5,8 +5,7 @@ import {
   SET_WEEKLY_BUDGET_FAIL,
   SET_YEARLY_BUDGET_SUCCESS,
   SET_YEARLY_BUDGET_FAIL
-  // MODIFY_BUDGET_SUCCESS,
-  // MODIFY_BUDGET_FAIL
+
 } from './types';
 import { setAlert } from './alert';
 import axios from 'axios';
@@ -99,7 +98,8 @@ export const setYearlyBudget = (duration, budget, userId) => async dispatch => {
       base_url + `/api/users/${userId}/setYearlyBudget`,
       body,
       config
-    );
+      );
+      console.log(response);
     if (response.data.success) {
       dispatch({
         type: SET_YEARLY_BUDGET_SUCCESS,

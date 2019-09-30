@@ -33,6 +33,7 @@ const Dashboard = ({
   items
 }) => {
   const { isAuthenticated, user, profile } = auth;
+  const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
   useEffect(() => {
     if (
       isAuthenticated == null ||
@@ -40,17 +41,22 @@ const Dashboard = ({
       user == null ||
       !user ||
       items == null ||
-      !items
+      !items ||
+      profile == null ||
+      !profile ||
+      !expense == null ||
+      !expense
     ) {
-    } else {
-      const userId = auth.user.id;
-      fetchProfile(userId);
-      getWeeklyExpense(userId);
-      getMonthlyExpense(userId);
-      getYearlyExpense(userId);
+      return;
     }
-  }, []);
-  const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
+    const userId = auth.user.id;
+    fetchProfile(userId);
+    getWeeklyExpense(userId);
+    getMonthlyExpense(userId);
+    getYearlyExpense(userId);
+  }, [fetchProfile]);
+  // console.log(expense);
+
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -150,24 +156,7 @@ const Dashboard = ({
                         <form
                           onSubmit={e => {
                             e.preventDefault();
-                            addItem(
-                              name,
-                              description,
-                              amount,
-                              date,
-                              userId,
-                              history
-                            );
-                            // document.getElementById("addExpenseEffect").click()
-                            // let addExpense = document.getElementById('addExpense')
-                            // addExpense.style.display = "none";
-                            // addExpense.style.paddingRight = null;
-                            // addExpense.classList.remove("show");
-                            // addExpense.setAttribute("aria-hidden",true)
-                            // addExpense.removeAttribute("aria-modal")
-                            // document.getElementsByTagName("body")[0].removeChild(document.getElementsByClassName('modal-backdrop')[0])
-                            // document.body.classList.remove("modal-open")
-                            // document.body.style.paddingRight = "34px";
+                            addItem(name, description, amount, date, userId);
                           }}
                           className='form-horizontal'>
                           <div className='form-group'>
@@ -521,52 +510,6 @@ const Dashboard = ({
               </tbody>
             </table>
           </div>
-          {/* <div className='row'>
-            <div className='col-sm-10' />
-            <div className='col-sm-2 pages'>
-              <Link to='/'>
-                <i className='fa fa-angle-left first' />
-              </Link>
-              <Link to='/' className='current pl-2 pr-2'>
-                1
-              </Link>
-              <Link to='/' className='pl-2 pr-2'>
-                2
-              </Link>
-              <Link to='/' className='pl-2 pr-2'>
-                3
-              </Link>
-              <p>.</p>
-              <p>.</p>
-              <p>.</p>
-              <Link to='/' className='pl-2 pr-2'>
-                15
-              </Link>
-              <Link to='/'>
-                <i className='fa fa-angle-right' />
-              </Link>
-            </div>
-          </div>
-          <div className='row ml-1 mt-3 mb-3'>
-            <form className='form-inline'>
-              <div className='form-group'>
-                <label className='mr-4'>Download Format:</label>
-                <button
-                  type='submit'
-                  className='btn form-control pl-5 pr-5 mr-5 excelBtn dlFormat'
-                  value='excel'>
-                  Excel
-                </button>
-              </div>
-              <div className='form-group'>
-                <button
-                  type='submit'
-                  className='btn form-control pl-5 pr-5 exportBtn dlFormat'>
-                  Export
-                </button>
-              </div>
-            </form> */}
-          {/* </div> */}
         </div>
       </section>
     </>

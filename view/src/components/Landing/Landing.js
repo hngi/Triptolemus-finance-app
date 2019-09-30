@@ -13,7 +13,7 @@ const Landing = ({ isAuthenticated }) => {
                 A whole new way to manage your spending
               </p>
               <ul>
-                <li className='landing-list'>know how you spend</li>
+                <li className='landing-list'>Know how you spend</li>
                 <li className='landing-list'>Manage your finances</li>
               </ul>
               {isAuthenticated ? null : (
