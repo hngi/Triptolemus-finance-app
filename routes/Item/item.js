@@ -60,6 +60,17 @@ router.post('/api/users/:userId/allItems', async (req, res) => {
   try {
     const { userId } = req.params;
     const { startDate, endDate } = req.body;
+    if (startDate > endDate) {
+      return res.status(200).json({
+        message: 'Start Date cannot be greater than End Date',
+        success: false
+      });
+    } else if (endDate > new Date().toISOString()) {
+      return res.status(200).json({
+        message: 'End Date cannot be in the future',
+        success: false
+      });
+    }
 
     const items = await Item.find({
       user_id: userId,
@@ -88,6 +99,12 @@ router.post('/api/users/:userId/calculate/week', async (req, res) => {
     const { userId } = req.params;
     const id = req.user;
     let { startDate, endDate } = req.body;
+    if (startDate > endDate) {
+      return res.status(200).json({
+        message: 'Start Date cannot be greater than End Date',
+        success: false
+      });
+    }
     if (
       startDate == '' ||
       startDate == null ||
@@ -183,6 +200,12 @@ router.post('/api/users/:userId/calculate/year', async (req, res) => {
     const { userId } = req.params;
     const id = req.user;
     let { startDate, endDate } = req.body;
+    if (startDate > endDate) {
+      return res.status(200).json({
+        message: 'Start Date cannot be greater than End Date',
+        success: false
+      });
+    }
     let end_msec = Date.parse(endDate);
     end_date = new Date(end_msec);
     endDate = end_date.addDays(1);
@@ -265,6 +288,12 @@ router.post('/api/users/:userId/calculate/daily', async (req, res) => {
     const { userId } = req.params;
     const id = req.user;
     let { startDate, endDate } = req.body;
+    if (startDate > endDate) {
+      return res.status(200).json({
+        message: 'Start Date cannot be greater than End Date',
+        success: false
+      });
+    }
     let end_msec = Date.parse(endDate);
     end_date = new Date(end_msec);
     endDate = end_date.addDays(1);
@@ -299,8 +328,7 @@ router.post('/api/users/:userId/calculate/daily', async (req, res) => {
       .catch(err => {
         console.error(err);
       });
-  } catch (error) {
-  }
+  } catch (error) {}
 });
 
 // route for getting all items for month(s)
@@ -316,7 +344,7 @@ router.post('/api/users/:userId/calculate/month', async (req, res, next) => {
 
     if (startDate > endDate) {
       return res.status(200).json({
-        message: 'Invalid Request. Start Date is in the future',
+        message: 'Start Date cannot be greater than End Date',
         success: false
       });
     }

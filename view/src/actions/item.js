@@ -35,6 +35,8 @@ export const getItems = (
         type: GET_ITEMS_SUCCESS,
         payload: response.data
       });
+    } else {
+      dispatch(setAlert(response.data.message, 'danger'));
     }
   } catch (error) {
     dispatch({
