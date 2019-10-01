@@ -12,8 +12,9 @@ router.post('/api/auth/register', async (req, res) => {
       (email == '' || email == undefined) ||
       (password == '' || password == undefined)
     ) {
-      return res.status(401).json({
-        error: 'Input field is required'
+      return res.status(200).json({
+        message: 'Input field is required',
+        success: false
       });
     }
     let user = new UserModel({
@@ -30,18 +31,20 @@ router.post('/api/auth/register', async (req, res) => {
       },
       process.env.JWT_KEY
     );
-    res.status(200).json(userDocJson);
+    res.status(200).json({ user: userDocJson, success: true });
   } catch (error) {
     if (
       error.hasOwnProperty('errmsg') &&
       error.errmsg.includes('E11000 duplicate key error collection')
     ) {
-      return res.status(401).json({
-        error: 'User already exists'
+      return res.status(200).json({
+        message: 'User already exists',
+        success: false
       });
     } else {
-      res.status(400).json({
-        error: error.toString()
+      res.status(200).json({
+        message: error.toString(),
+        success: false
       });
     }
   }

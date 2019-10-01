@@ -14,7 +14,7 @@ const NotFound = () => {
             </div>
             <div className='mb-4 title'>You can go back to the Homepage</div>
             <div className='col'>
-              <img
+              <img id='imgg'
                 src='https://res.cloudinary.com/elijjaaahhhh/image/upload/v1569456145/Group_1_kdsaio.png'
                 alt={404}
               />

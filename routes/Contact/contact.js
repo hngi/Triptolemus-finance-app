@@ -7,7 +7,6 @@ const API = process.env.API_KEY;
 
 const mailgun = require('mailgun-js')({ apiKey: API, domain: DOMAIN });
 router.post('/contact', (req, res) => {
-  z;
   const { fullname, email, message } = req.body;
   if (
     fullname == '' ||
@@ -17,7 +16,9 @@ router.post('/contact', (req, res) => {
     message == '' ||
     message == null
   ) {
-    return res.status(400).json({ error: 'All input fields are required' });
+    return res
+      .status(200)
+      .json({ message: 'All input fields are required', success: false });
   }
   let msg = {
     from: email,
@@ -28,10 +29,8 @@ router.post('/contact', (req, res) => {
 
   mailgun.messages().send(msg, (error, body) => {
     if (error) {
-      console.log(error);
     } else {
-      res.send(msg);
-      console.log(body);
+      res.status(200).json({ msg: msg, success: true });
     }
   });
 });

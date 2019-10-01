@@ -1,10 +1,9 @@
-import {
-  SEND_MESSAGE_FAIL,
-  SEND_MESSAGE_SUCCESS
-} from './types';
+import { SEND_MESSAGE_FAIL, SEND_MESSAGE_SUCCESS } from './types';
 import { setAlert } from './alert';
 
 import axios from 'axios';
+const base_url = 'https://finance-tracker-server.herokuapp.com';
+// const base_url = 'http://localhost:3500';
 
 export const contact = (
   fullname,
@@ -21,27 +20,27 @@ export const contact = (
     headers: { 'Content-Type': 'application/json' }
   };
   try {
-    const response = await axios.post(
-      'https://3qllt.sse.codesandbox.io/contact',
-      body,
-      config
-    );
-
-    dispatch({
-      type: SEND_MESSAGE_SUCCESS,
-      payload: response.data
-    });
-    dispatch(setAlert('Thanks for contacting us,we will get back to you shortly', 'success'));
-    history.push('/');
-  } catch (error) {
-    const errors = [];
-    errors.push(error.response.data.error);
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error, 'danger')));
+    const response = await axios.post(base_url + '/contact', body, config);
+    if (response.data.success) {
+      dispatch({
+        type: SEND_MESSAGE_SUCCESS,
+        payload: response.data
+      });
+      dispatch(
+        setAlert(
+          'Thanks for contacting us,we will get back to you shortly',
+          'success'
+        )
+      );
+      history.push('/');
+    } else {
+      dispatch(setAlert(response.data.message, 'success'));
     }
+  } catch (error) {
+    dispatch(setAlert(error.toString(), 'danger'));
     dispatch({
       type: SEND_MESSAGE_FAIL,
-      payload: error.response.data.error
+      payload: error.toString()
     });
   }
 };

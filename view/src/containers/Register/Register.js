@@ -5,7 +5,7 @@ import { register } from '../../actions/auth';
 import { addItem } from '../../actions/item';
 
 import './Register.css';
-const Register = ({ isAuthenticated, register, history }) => {
+const Register = ({ auth, register, history }) => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -98,7 +98,8 @@ const Register = ({ isAuthenticated, register, history }) => {
                 <div className='form-group'>
                   <div className='sm-1' />
                   <div className='col-sm-11'>
-                    <button type='submit' className='btn form-control'>
+                    <button type='submit' className='btn custom-form-control'>
+                    {auth.loading?<i className="fa fa-circle-o-notch text-white spin-loader"></i>:null}
                       Sign up
                     </button>
                   </div>
@@ -118,7 +119,7 @@ const Register = ({ isAuthenticated, register, history }) => {
   );
 };
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  auth: state.auth
 });
 export default connect(
   mapStateToProps,

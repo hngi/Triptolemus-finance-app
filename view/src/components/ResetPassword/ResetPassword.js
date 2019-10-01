@@ -1,13 +1,16 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import {resetPassword} from '../../actions/auth';
-const ResetPassword = ({resetPassword,history}) => {
+
+
+const ResetPassword = ({auth,resetPassword,history,match}) => {
+  const {header, payload,signature}= match.params
   const [formData, setFormData] = useState({
-    token:'',
-    password:''
+     password:''
   });
-  const { token, password } = formData;
+  const {password } = formData;
+  const email_token = [header,payload,signature].join(".")
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -24,7 +27,11 @@ const ResetPassword = ({resetPassword,history}) => {
             <h2 className='text-center'>Reset Password</h2>
           </div>
           <p className='text-center'>Set a new password for your log in</p>
-          <form>
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              resetPassword(email_token,password,history)
+            }}>
             <div className='new_password'>
               <label htmlFor='password'>Enter new password</label>
               <input
@@ -33,23 +40,15 @@ const ResetPassword = ({resetPassword,history}) => {
                 className='form-control input1'
                 placeholder='************'
                 defaultValue
+                onChange={(e)=>{
+                  onChange(e);
+                }}
               />
             </div>
-            <div className='confirm_pass'>
-              <label htmlFor='password'>Confirm new password</label>
-              <input
-                type='password'
-                name='confirm_password'
-                className='form-control input1'
-                placeholder='************'
-                defaultValue
-              />
-            </div>
+
             {/* <div className='col-sm-11'> */}
-              <button type='submit' onClick={(e)=>{
-                    e.preventDefault();
-                    resetPassword(token,history)
-              }} className='btn form-control'>
+              <button type='submit' className='btn custom-form-control'>
+              {auth.loading?<i className="fa fa-circle-o-notch text-white spin-loader"></i>:null}
                 Submit
               </button>
             {/* </div> */}
@@ -61,7 +60,7 @@ const ResetPassword = ({resetPassword,history}) => {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  auth: state.auth
 });
 export default connect(
   mapStateToProps,

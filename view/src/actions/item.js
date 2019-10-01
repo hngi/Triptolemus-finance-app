@@ -4,34 +4,53 @@ import {
   GET_ITEMS_SUCCESS,
   GET_ITEMS_FAIL
 } from './types';
+import {
+  getWeeklyExpense,
+  getMonthlyExpense,
+  getYearlyExpense
+} from './expense';
 import { setAlert } from './alert';
 import axios from 'axios';
-
-export const getItems = (userId,history) => async dispatch => {
+const base_url = 'https://finance-tracker-server.herokuapp.com';
+// const base_url = 'http://localhost:3500';
+export const getItems = (startDate, endDate, userId) => async dispatch => {
   try {
-    const response = await axios.get(
-      `https://3qllt.sse.codesandbox.io/api/users/${userId}/items`
-    );
-    console.log(response)
-    dispatch({
-      type: GET_ITEMS_SUCCESS,
-      payload: response.data
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    const body = JSON.stringify({
+      startDate,
+      endDate
     });
-    history.push('/dashboard');
-    dispatch(setAlert('Items were fetched successfully', 'success'));
+    const response = await axios.post(
+      base_url + `/api/users/${userId}/allItems`,
+      body,
+      config
+    );
+    if (response.data.success) {
+      dispatch({
+        type: GET_ITEMS_SUCCESS,
+        payload: response.data
+      });
+    } else {
+      dispatch(setAlert(response.data.message, 'danger'));
+    }
   } catch (error) {
-    
     dispatch({
       type: GET_ITEMS_FAIL,
-      payload: error.response.data.error
+      payload: error.toString()
     });
-    dispatch(setAlert(error.response.data.error, 'danger'));
   }
 };
 
-export const addItem = (userId,
-  name,description,amount,
-  history
+export const addItem = (
+  name,
+  description,
+  amount,
+  date,
+  userId
 ) => async dispatch => {
   const config = {
     headers: {
@@ -41,27 +60,33 @@ export const addItem = (userId,
   const body = JSON.stringify({
     name,
     description,
-    amount
+    amount,
+    date
   });
   try {
     const response = await axios.post(
-      `https://3qllt.sse.codesandbox.io/api/users/${userId}/items`,
+      base_url + `/api/users/${userId}/items`,
       body,
       config
     );
-    console.log(response);
-    dispatch({
-      type: ADD_ITEM_SUCCESS,
-      payload: response.data
-    });
-    history.push('/dashboard');
-    dispatch(setAlert('A new Item was added successfully', 'success'));
-
+    if (response.data.success) {
+      dispatch({
+        type: ADD_ITEM_SUCCESS,
+        payload: response.data
+      });
+      dispatch(setAlert('A new Item was added successfully', 'success'));
+      dispatch(getWeeklyExpense(userId));
+      dispatch(getMonthlyExpense(userId));
+      dispatch(getYearlyExpense(userId));
+    } else {
+      dispatch(setAlert(response.data.message, 'danger'));
+    }
   } catch (error) {
+    dispatch(setAlert(error.toString(), 'danger'));
+
     dispatch({
       type: ADD_ITEM_FAIL,
-      payload: error.response.data.error
+      payload: error.toString()
     });
-    dispatch(setAlert(error.response.data.error, 'danger'));
   }
 };
