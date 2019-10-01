@@ -4,17 +4,16 @@ import {
   GET_ITEMS_SUCCESS,
   GET_ITEMS_FAIL
 } from './types';
-import {getWeeklyExpense,getMonthlyExpense,getYearlyExpense} from './expense'
+import {
+  getWeeklyExpense,
+  getMonthlyExpense,
+  getYearlyExpense
+} from './expense';
 import { setAlert } from './alert';
 import axios from 'axios';
 const base_url = 'https://finance-tracker-server.herokuapp.com';
 // const base_url = 'http://localhost:3500';
-export const getItems = (
-  startDate,
-  endDate,
-  userId
-  
-) => async dispatch => {
+export const getItems = (startDate, endDate, userId) => async dispatch => {
   try {
     const config = {
       headers: {
@@ -76,9 +75,9 @@ export const addItem = (
         payload: response.data
       });
       dispatch(setAlert('A new Item was added successfully', 'success'));
-        dispatch(getWeeklyExpense(userId))
-        dispatch(getMonthlyExpense(userId))
-        dispatch(getYearlyExpense(userId))
+      dispatch(getWeeklyExpense(userId));
+      dispatch(getMonthlyExpense(userId));
+      dispatch(getYearlyExpense(userId));
     } else {
       dispatch(setAlert(response.data.message, 'danger'));
     }

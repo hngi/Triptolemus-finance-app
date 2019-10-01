@@ -76,9 +76,12 @@ router.post('/api/users/:userId/allItems', async (req, res) => {
       user_id: userId,
       date: { $gte: startDate, $lte: endDate }
     }).sort({ date: 1 });
-    if (!items) {
-      res.status(200).json({
-        items: null,
+
+    if (items.length <= 0) {
+      return res.status(200).json({
+        message:
+          'There are no expenses recorded during the specified period,please choose another date',
+        items: [],
         success: false
       });
     }
@@ -88,7 +91,7 @@ router.post('/api/users/:userId/allItems', async (req, res) => {
     });
   } catch (error) {
     res.status(200).json({
-      items: null,
+      items: [],
       success: false,
       message: error.toString()
     });
