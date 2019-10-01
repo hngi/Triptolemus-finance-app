@@ -444,9 +444,9 @@ const Dashboard = ({
                 e.preventDefault();
                 getItems(startDate, endDate, userId);
               }}
-              className='form-inline'>
-              <div className='form-group'>
-                <label className='mr-2'>Start Date</label>
+              className='form-inline col-md-12'>
+              <div className='form-group col-md-4'>
+                <label className='mr-1'>Start Date</label>
                 <input
                   required
                   type='date'
@@ -454,12 +454,12 @@ const Dashboard = ({
                   id='startDate'
                   value={startDate}
                   onChange={e => onChange(e)}
-                  // className='form-control mr-1 specify'
+                  className='form-control mr-5 specify'
                 />
                 {/* <i className='fa fa-calendar-alt mr-3' /> */}
               </div>
-              <div className='form-group'>
-                <label className='ml-5'>End Date</label>
+              <div className='form-group col-md-4'>
+                <label className='mr-1'>End Date</label>
                 <input
                   required
                   type='date'
@@ -467,14 +467,14 @@ const Dashboard = ({
                   id='endDate'
                   value={endDate}
                   onChange={e => onChange(e)}
-                  className='form-control mr-1 specify'
+                  className='form-control mr-5 specify'
                 />
                 {/* <i className='fa fa-calendar-alt mr-3' /> */}
               </div>
-              <div className='form-group'>
+              <div className='form-group col-md-4'>
                 <button
                   type='submit'
-                  className='btn form-control specifyBtn pl-5 pr-5 specify'>
+                  className='btn form-control specifyBtn pl-5 pr-5 specify mb-1'>
                   Generate
                 </button>
               </div>
