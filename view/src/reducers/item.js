@@ -2,13 +2,14 @@ import {
   ADD_ITEM_SUCCESS,
   ADD_ITEM_FAIL,
   GET_ITEMS_SUCCESS,
-  GET_ITEMS_FAIL
+  GET_ITEMS_FAIL,
+  LOADING_ITEM
 } from '../actions/types';
 
 const initialState = {
   item: null,
   items: [],
-  loading: true
+  loading: false
 };
 export default function(state = initialState, action) {
   const { type, payload } = action;
@@ -34,10 +35,14 @@ export default function(state = initialState, action) {
     case GET_ITEMS_FAIL:
       return {
         ...state,
-        items:null,
+        items: null,
         loading: false
       };
-    
+    case LOADING_ITEM:
+      return {
+        ...state,
+        loading: true
+      };
     default:
       return state;
   }

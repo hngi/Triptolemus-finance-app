@@ -30,8 +30,10 @@ const Dashboard = ({
   setYearlyBudget,
   fetchProfile,
   getItems,
-  items
+  items,
+  loading
 }) => {
+  console.log(loading);
   const { isAuthenticated, user, profile } = auth;
   const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
   useEffect(() => {
@@ -446,7 +448,7 @@ const Dashboard = ({
               }}
               className='form-inline col-md-12'>
               <div className='form-group col-md-4'>
-                <label className='mr-1'>Start Date</label>
+                <label className='mr-1 medium'>Start Date</label>
                 <input
                   required
                   type='date'
@@ -459,7 +461,7 @@ const Dashboard = ({
                 {/* <i className='fa fa-calendar-alt mr-3' /> */}
               </div>
               <div className='form-group col-md-4'>
-                <label className='mr-1'>End Date</label>
+                <label className='mr-1 medium'>End Date</label>
                 <input
                   required
                   type='date'
@@ -475,6 +477,9 @@ const Dashboard = ({
                 <button
                   type='submit'
                   className='btn form-control specifyBtn pl-5 pr-5 specify mb-1'>
+                  {loading ? (
+                    <i className='fa fa-circle-o-notch text-white spin-loader' />
+                  ) : null}
                   Generate
                 </button>
               </div>
@@ -492,7 +497,7 @@ const Dashboard = ({
                 </tr>
               </thead>
               <tbody>
-                {items.items === undefined
+                {items === null || items.items === undefined
                   ? null
                   : items.items.map(item => {
                       return (
@@ -518,7 +523,8 @@ const Dashboard = ({
 const mapStateToProps = state => ({
   auth: state.auth,
   expense: state.expense,
-  items: state.item.items
+  items: state.item.items,
+  loading: state.item.loading
 });
 export default connect(
   mapStateToProps,

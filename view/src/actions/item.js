@@ -2,7 +2,8 @@ import {
   ADD_ITEM_SUCCESS,
   ADD_ITEM_FAIL,
   GET_ITEMS_SUCCESS,
-  GET_ITEMS_FAIL
+  GET_ITEMS_FAIL,
+  LOADING_ITEM
 } from './types';
 import {
   getWeeklyExpense,
@@ -14,16 +15,19 @@ import axios from 'axios';
 const base_url = 'https://finance-tracker-server.herokuapp.com';
 // const base_url = 'http://localhost:3500';
 export const getItems = (startDate, endDate, userId) => async dispatch => {
+  dispatch({
+    type: LOADING_ITEM
+  });
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  const body = JSON.stringify({
+    startDate,
+    endDate
+  });
   try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    };
-    const body = JSON.stringify({
-      startDate,
-      endDate
-    });
     const response = await axios.post(
       base_url + `/api/users/${userId}/allItems`,
       body,
@@ -36,6 +40,10 @@ export const getItems = (startDate, endDate, userId) => async dispatch => {
       });
     } else {
       dispatch(setAlert(response.data.message, 'danger'));
+      dispatch({
+        type: GET_ITEMS_FAIL,
+        payload:response.data.message
+      });
     }
   } catch (error) {
     dispatch({

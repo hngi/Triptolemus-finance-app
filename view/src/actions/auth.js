@@ -53,6 +53,10 @@ export const register = (
       history.push('/');
     } else {
       dispatch(setAlert(response.data.message, 'danger'));
+      dispatch({
+        type: REGISTER_FAIL,
+        payload: response.data.message
+      });
     }
   } catch (error) {
     dispatch(setAlert(error.toString(), 'danger'));
@@ -88,10 +92,15 @@ export const login = (email, password, history) => async dispatch => {
         type: LOGIN_SUCCESS,
         payload: response.data
       });
+      
       dispatch(setAlert('Login was successful', 'success'));
       history.push('/dashboard');
     } else {
       dispatch(setAlert(response.data.message, 'danger'));
+      dispatch({
+        type: LOGIN_FAIL,
+        payload:response.data.message
+      });
     }
   } catch (error) {
     dispatch(setAlert(error.toString(), 'danger'));
@@ -222,4 +231,3 @@ export const resetPassword = (token, password, history) => async dispatch => {
     });
   }
 };
-

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Contact.css';
 import { connect } from 'react-redux';
 import { contact } from '../../actions/contact';
-const Contact = ({ contact, history }) => {
+const Contact = ({ contact, history,loading }) => {
   const [formData, setFormData] = useState({
     fullname: '',
     email: '',
@@ -15,7 +15,7 @@ const Contact = ({ contact, history }) => {
 
   return (
     <div>
-      <section id='info' className='py-0' style={{marginTop:"40px"}}>
+      <section id='info' className='py-0' style={{ marginTop: '40px' }}>
         <div className='contact-container'>
           <div className='row'>
             <div
@@ -36,7 +36,9 @@ const Contact = ({ contact, history }) => {
                 </p>
               </div>
             </div>
-<div className='col-md-6 col-sm-6 contact-col-md-6' style={{ marginTop: '95px' }}>
+            <div
+              className='col-md-6 col-sm-6 contact-col-md-6'
+              style={{ marginTop: '95px' }}>
               <form
                 onSubmit={e => {
                   e.preventDefault();
@@ -82,6 +84,9 @@ const Contact = ({ contact, history }) => {
                   />
                   <div className='col-sm-11'>
                     <button type='submit' className='btn form-control'>
+                      {loading ? (
+                        <i className='fa fa-circle-o-notch text-white spin-loader' />
+                      ) : null}
                       Send
                     </button>
                   </div>
@@ -95,7 +100,11 @@ const Contact = ({ contact, history }) => {
   );
 };
 
+const mapStateToProps=state=>({
+  loading: state.contact.loading
+})
+
 export default connect(
-  null,
+  mapStateToProps,
   { contact }
 )(Contact);
