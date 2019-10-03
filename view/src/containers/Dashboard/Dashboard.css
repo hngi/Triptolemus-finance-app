@@ -137,6 +137,32 @@ form i{
     padding: 0.5em;
     border-radius: 15px;
 }
+.dashboard-table{
+    table-layout: fixed;
+}
+.dashboard-table td{
+    word-wrap:break-word
+}
+.dashboard-table .dashboardAction{
+    border-radius: 50px;
+    background-color:transparent;
+    border-width: 0px
+}
+.dashboard-table .delItemBtn{
+    background: red;
+    font-weight: 500
+}
+.dashboard-table tr:nth-child(even){background-color: #f2f2f2;}
+.dashboard-table tr:hover{background-color: rgba(117, 117, 117, 0.849);}
+.dashboard-table .dashboard-del-icon:hover {color: red;}
+.dashboard-table .dashboard-edit-icon:hover {color: blue;}
+.dashboard-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: blue;
+    color: white;
+  }
 @media screen and (max-width: 350px){
     .logo img{
         width: 80%;

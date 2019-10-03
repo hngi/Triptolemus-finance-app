@@ -417,4 +417,20 @@ router.get('/api/users/:userId/profile', async (req, res) => {
   }
 });
 
+router.delete('/api/users/:userId/items/:itemId', async (req, res)=>{
+  console.log(req)
+  try{
+    const {userId,itemId} = req.params
+    Item.findOneAndDelete({_id:itemId},(err,res)=>{
+      console.log(res)
+      console.log(err)
+    })
+    
+    return res.status(200).json({success:true,message:"Item Deleted",itemId:itemId})
+  } catch(error){
+    return res.status(200).json({success:false,message:"Could not Delete Item"})
+
+  }
+});
+
 module.exports = router;

@@ -84,6 +84,14 @@ const Login = ({ login, history, auth }) => {
                   Sign in
                 </button>
               </div>
+              <div className='col-sm-11' style={{ margin: '0px auto' }}>
+                <div className='btn custom-form-control' style={{backgroundColor:"red"}}>
+                  {auth.loading ? (
+                    <i className='fa fa-circle-o-notch text-white spin-loader' />
+                  ) : null}
+                  Sign in with Google
+                </div>
+              </div>
             </form>
             <p
               className='my-1'

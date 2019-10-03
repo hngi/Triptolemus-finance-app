@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { showLoginAlert, logout } from '../../actions/auth';
-import { addItem, getItems } from '../../actions/item';
+import { addItem, getItems, deleteItem } from '../../actions/item';
 import { connect } from 'react-redux';
 import './Dashboard.css';
 import {
@@ -31,7 +31,8 @@ const Dashboard = ({
   fetchProfile,
   getItems,
   items,
-  loading
+  loading,
+  deleteItem
 }) => {
   console.log(loading);
   const { isAuthenticated, user, profile } = auth;
@@ -113,7 +114,7 @@ const Dashboard = ({
                   {' '}
                   {user
                     ? user.username.charAt(0).toUpperCase() +
-                      user.username.slice(1)
+                    user.username.slice(1)
                     : null}{' '}
                 </span>
               </Link>
@@ -487,30 +488,167 @@ const Dashboard = ({
           </div>
 
           <div className='row ml-1 mt-3'>
-            <table className='table transTable col-sm-12'>
+            <table className='table transTable col-sm-12 dashboard-table'>
               <thead>
                 <tr>
                   <th>Transaction Date</th>
                   <th>Item</th>
                   <th>Description</th>
                   <th>Amount</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {items === null || items.items === undefined
                   ? null
-                  : items.items.map(item => {
-                      return (
-                        <tr key={item === undefined ? null : item._id}>
-                          <td>{item === undefined ? null : item.date}</td>
-                          <td>{item === undefined ? null : item.name}</td>
-                          <td>
-                            {item === undefined ? null : item.description}
-                          </td>
-                          <td>{item === undefined ? 0 : item.amount}</td>
-                        </tr>
-                      );
-                    })}
+                  : items.items.map((item,index) => {
+                    return (
+                      <tr key={item === undefined ? null : item._id}>
+                        <td>{item === undefined ? null : formatDate(item.date)}</td>
+                        <td>{item === undefined ? null : item.name}</td>
+                        <td>
+                          {item === undefined ? null : item.description}
+                        </td>
+                        <td>{item === undefined ? 0 : item.amount}</td>
+                        <td>
+                          <button className="dashboardAction"><i className="fa fa-trash dashboard-del-icon" data-toggle='modal'
+                            data-target={'#deleteItem'+index} aria-hidden="true" /></button>
+                          <div className='modal fade' role='dialog' id={'deleteItem'+index}>
+                            <div className='modal-dialog'>
+                              <div className='modal-content'>
+                                <div className='modal-body'>
+                                  <h1 style={{ color: '#022EC1' }} className='ml-3'>
+                                    Delete Item
+                        </h1>
+
+                                  <div className='col-sm-11'>Are you sure you want to delete,this action is irreversible</div>
+                                  <div className='form-group'>
+
+                                    <div className='col-sm-11'>
+                                      <button
+                                      onClick={()=>{
+                                        deleteItem(userId, item._id);
+                                      }}
+                                        data-toggle='modal'
+                                        data-target={'#deleteItem'+index}
+                                        className='btn form-control delItemBtn'>
+                                        Delete Item
+                              </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <button className="dashboardAction" data-toggle='modal'
+                            data-target={'#editExpense'+index}><i className="fa fa-pencil-square-o dashboard-edit-icon" aria-hidden="true" />
+                          </button>
+                          <div id={'editExpense' + index} className='modal fade' role='dialog'>
+                            <div className='modal-dialog'>
+                              <div className='modal-content'>
+                                <div className='modal-body'>
+                                  <h1 style={{ color: '#022EC1' }} className='ml-3'>
+                                    Edit Expense
+                                  </h1>
+                                  <form
+                                    onSubmit={e => {
+                                      e.preventDefault();
+                                    }}
+                                    className='form-horizontal'>
+                                    <div className='form-group'>
+                                      <label className='control-label sm-1 ml-3'>
+                                        Item Name
+                            </label>
+                                      <div className='col-sm-11'>
+                                        <input
+                                          required
+                                          type='text'
+                                          name='name'
+                                          value={item.name}
+                                          onChange={e => onChange(e)}
+                                          //id='expenseName'
+                                          className='form-control'
+                                          placeholder='Enter Item Name'
+                                        />
+
+                                      </div>
+                                    </div>
+                                    <div className='form-group'>
+                                      <label className='control-label sm-1 ml-3'>
+                                        Item Description
+                            </label>
+                                      <div className='col-sm-11'>
+                                        <input
+                                          required
+                                          type='text'
+                                          name='description'
+                                          value={item.description}
+                                          onChange={e => onChange(e)}
+                                          //id='expenseDescription'
+                                          className='form-control'
+                                          placeholder='Enter Item Description'
+                                        />
+                                      </div>
+                                    </div>
+
+                                    <div className='form-group'>
+                                      <label className='control-label sm-1 ml-3'>
+                                        Amount
+                            </label>
+                                      <div className='col-sm-11'>
+                                        <input
+                                          required
+                                          type='number'
+                                          name='amount'
+                                          value={item.amount}
+                                          onChange={e => onChange(e)}
+                                          //id='expenseAmount'
+                                          className='form-control'
+                                          placeholder='Enter Amount'
+                                        />
+                                      </div>
+                                    </div>
+                                    <div className='form-group'>
+                                      <label className='control-label sm-1 ml-3'>
+                                        Date of purchase
+                            </label>
+                                      <div className='col-sm-11'>
+                                        <input
+                                          required
+                                          type='date'
+                                          name='date'
+                                          //id='date'
+                                          value={item.date}
+                                          onChange={e => onChange(e)}
+                                          className='form-control mr-1 specify'
+                                        />
+                                      </div>
+                                    </div>
+                                    <div className='form-group'>
+                                      <div className='sm-1' />
+                                      <div className='col-sm-11'>
+                                        <button
+                                          type='submit'
+                                          data-toggle='modal'
+                                          data-target={'#deleteItem'+index}
+                                          className='btn form-control expenseBtn'>
+                                          Save Expense
+                              </button>
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </td>
+                        {/* <td><input type="checkbox" /></td> */}
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>
@@ -519,6 +657,24 @@ const Dashboard = ({
     </>
   );
 };
+// Accepts a Date object or date string that is recognized by the Date.parse() method
+const formatDate = (date) => {
+  var item_date = new Date(date);
+  console.log(date)
+  const ddd = isNaN(item_date.getDay()) ? null : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][item_date.getDay()];
+  const mmm = isNaN(item_date.getMonth()) ? null:['Jan','Feb', 'Mar', 'Apr', 'May','Jun','Jul','Aug','Sep', 'Oct', 'Nov','Dec'][item_date.getMonth()]
+  return ddd + " " + item_date.getDate()+nth(item_date.getDate()) + " "+ mmm + " " + item_date.getFullYear()
+}
+
+const nth = (d) => {
+  if (d > 3 && d < 21) return 'th';
+  switch (d % 10) {
+    case 1:  return "st";
+    case 2:  return "nd";
+    case 3:  return "rd";
+    default: return "th";
+  }
+}
 
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -539,6 +695,7 @@ export default connect(
     setYearlyBudget,
     fetchProfile,
     getItems,
-    logout
+    logout,
+    deleteItem
   }
 )(Dashboard);
