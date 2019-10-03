@@ -503,24 +503,24 @@ router.put('/api/users/:userId/Item/:itemId', async (req, res) => {
         name: req.body.name || item.name,
         description: req.body.description || item.description,
         amount: req.body.amount || item.amount,
-        date: Date.now()
+        date: req.body.date
       }
     })
     if (!updatedItem) {
-      return res.json({
-        message: 'update Failed item not found',
+      return res.status(200).json({
+        message: 'Update Failed Item Not Found',
         success: false
       })
     } else {
       return res.status(200).json({
-        message: 'update successfull',
+        message: 'Update Successfull',
         success: true
       })
     }
 
   } catch {
-    return res.json({
-      message: 'update Failed',
+    return res.status(200).json({
+      message: 'Update Failed',
       success: false
     })
   }
