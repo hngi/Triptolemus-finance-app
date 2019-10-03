@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import './Login.css';
-
+import GoogleAuth from '../../components/GoogleAuth/GoogleAuth';
 const Login = ({ login, history, auth }) => {
   const [formData, setFormData] = useState({
     email: '',
@@ -13,10 +13,6 @@ const Login = ({ login, history, auth }) => {
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
-  // if (isAuthenticated){
-  //   return <Redirect push to="/dashboard"/>
-  // }
 
   return (
     <section className='login-container'>
@@ -84,15 +80,22 @@ const Login = ({ login, history, auth }) => {
                   Sign in
                 </button>
               </div>
-              <div className='col-sm-11' style={{ margin: '0px auto' }}>
-                <div className='btn custom-form-control' style={{backgroundColor:"red"}}>
-                  {auth.loading ? (
-                    <i className='fa fa-circle-o-notch text-white spin-loader' />
-                  ) : null}
-                  Sign in with Google
-                </div>
+              <div
+                className='col-sm-11'
+                style={{
+                  margin: '0px auto',
+                  width: '100%',
+                  textAlign: 'center',
+                  fontWeight: '800',
+                  padding: '5px'
+                }}>
+                OR
+              </div>
+              <div className='col-sm-11 gooogle-auth' style={{ margin: '0px auto' }}>
+                <GoogleAuth />
               </div>
             </form>
+
             <p
               className='my-1'
               style={{ margin: '0 auto', textAlign: 'center' }}>

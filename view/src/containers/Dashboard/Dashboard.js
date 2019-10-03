@@ -3,6 +3,8 @@ import { Redirect, Link } from 'react-router-dom';
 import { showLoginAlert, logout } from '../../actions/auth';
 import { addItem, getItems, deleteItem } from '../../actions/item';
 import { connect } from 'react-redux';
+import { GoogleLogout } from 'react-google-login';
+
 import './Dashboard.css';
 import {
   getWeeklyExpense,
@@ -34,8 +36,8 @@ const Dashboard = ({
   loading,
   deleteItem
 }) => {
-  console.log(loading);
   const { isAuthenticated, user, profile } = auth;
+  console.log(auth.isSignedInWithGoogle);
   const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
   useEffect(() => {
     if (
@@ -118,9 +120,25 @@ const Dashboard = ({
                     : null}{' '}
                 </span>
               </Link>
+
               <div className='dropdown-menu dropNav'>
+                <div style={{ display: 'none' }}>
+                  <GoogleLogout
+                    id='googleLogOutBtn'
+                    clientId='97829381082-c0ai7rdhuh92m5g6g0qeh4ek9f7e9fm3.apps.googleusercontent.com'
+                    buttonText='Logout'
+                    onLogoutSuccess={logout}
+                    onFailure={() => logout()}
+                  />
+                </div>
                 <Link
-                  onClick={logout}
+                  onClick={() => {
+                    if (auth.isSignedInWithGoogle) {
+                      document.getElementById('googleLogOutBtn');
+                    }
+
+                    logout();
+                  }}
                   to='/login'
                   className='dropdown-item'
                   style={{ margin: '0px auto', textAlign: 'center' }}>
