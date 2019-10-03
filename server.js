@@ -45,11 +45,12 @@ app.get('swagger.json', (req, res) => {
 });
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(cors());
+app.options('*', cors());
 app.use(express.json({ extended: false }));
 app.use(require('./routes/Auth/login'));
 app.use(require('./routes/Auth/register'));
-app.use(require('./routes/Item/getItems'));
-app.use(require('./routes/Item/addItems'));
+// app.use(require('./routes/Item/getItems'));
+// app.use(require('./routes/Item/addItems'));
 
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
