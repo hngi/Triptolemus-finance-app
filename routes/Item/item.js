@@ -494,16 +494,7 @@ router.put('/api/users/:userId/Item/:itemId', async (req, res) => {
       userId,
       itemId
     } = req.params;
-    const item = await Item.findOne({
-      user_id: userId,
-      _id: itemId
-    })
-    if (!item) {
-      return res.status(400).json({
-        message: 'No item with with that id',
-        success: false
-      });
-    }
+
     const updatedItem = await Item.updateOne({
       user_id: userId,
       _id: itemId
@@ -517,7 +508,7 @@ router.put('/api/users/:userId/Item/:itemId', async (req, res) => {
     })
     if (!updatedItem) {
       return res.json({
-        message: 'update Failed',
+        message: 'update Failed item not found',
         success: false
       })
     } else {
