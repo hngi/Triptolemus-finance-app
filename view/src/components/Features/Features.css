@@ -87,10 +87,12 @@ ul {
     width: 485px;
     font-size: 20px;
     font-family: 'Raleway';
+    margin-left: 60px;
 }
 .know{
     font-size: 40px;
     font-family: 'Raleway';
+    margin-left: 60px;
 }
 .standingman{
     margin-left: 280px;
@@ -126,4 +128,188 @@ ul {
 }
 .expenses:hover{
     cursor:pointer;
+}
+button.expenses{
+    margin-left: 50px;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  
+    .text-center{
+        font-size: 30px;
+        margin-left: 180px;
+        margin-top: 15px;
+    }
+    .standingman{
+        margin-top: 70px;
+    }
+    img.standingman{
+        margin-left: 220px;
+    }
+    h2.know{
+        margin-left: 10px;
+    }
+    .with{
+        margin-left: 10px;
+        padding-right: 10px;
+    }
+    img.sittingman{
+        margin-top: 30px;
+    }
+    button.expenses{
+    margin-left: -2px;
+    }
+  }
+
+  @media (min-width: 425px)  {
+
+      .text-center{
+        font-size: 30px;
+        margin-left: 100px;
+        margin-top: 20px;
+    }
+  
+}
+
+  @media (min-width: 481px) and (max-width: 768px) {
+
+    .text-center{
+        margin-left: 130px;
+        margin-top: 20px;
+    }
+    h2.know{
+        margin-left: 5px;
+    }
+    .with{
+        margin-left: 5px;
+        padding-right: 50px;
+    }
+
+    img.sittingman{
+        margin-top: 20px;
+    }
+
+    img.standingman{
+    margin-left: 220px;
+    }
+    button.expenses{
+    margin-left: 65px;
+    }
+    #know1{
+        margin-left: 80px;
+    }
+
+    #with1{
+        margin-left: 80px;
+        padding-right: 80px;
+    }
+  
+}
+@media (min-width: 500px) and (max-width: 768px) {
+
+    #know1{
+        margin-left: 10px;
+    }
+
+    #with1{
+        margin-left: 10px;
+        padding-right: 80px;
+    }
+
+    button.expenses{
+    margin-left: 2px;
+    }
+
+    .text-center{
+        margin-left: 30px;
+        margin-top: 20px;
+    }
+    img.standingman{
+        height:250px;
+        width: 250px;
+        margin-left: 210px;
+    }
+    .container{
+        margin-left: 10px;
+    }
+
+  
+
+}
+
+@media (min-width: 768px) and (max-width: 1020px) and (orientation: landscape) {
+  
+  .text-center{
+        margin-left: 130px;
+        margin-top: 20px;
+    }
+    h2.know{
+        margin-left: 0px;
+    }
+    .with{
+        margin-left: 0px;
+        padding-right: 50px;
+    }
+
+    img.sittingman{
+        margin-top: 20px;
+    }
+
+    img.standingman{
+    margin-left: 220px;
+    }
+    button.expenses{
+    margin-left: 65px;
+    }
+    #know1{
+        margin-left: 80px;
+    }
+
+    #with1{
+        margin-left: 80px;
+        padding-right: 80px;
+    }
+
+}
+
+@media (min-width: 1024px) and (max-width: 1450px) {
+  
+    .text-center{
+        margin-left: 100px;
+        margin-top: 20px;
+    }
+    h2.know{
+        margin-left: 5px;
+    }
+    .with{
+        margin-left: 5px;
+        padding-right: 50px;
+    }
+
+    img.sittingman{
+        margin-top: 20px;
+    }
+
+    img.standingman{
+    margin-left: 160px;
+    }
+    button.expenses{
+    margin-left: 30px;
+    }
+    #know1{
+        margin-left: 40px;
+    }
+
+    #with1{
+        margin-left: 40px;
+        padding-right: 80px;
+    }
+ 
+}
+
+@media (min-width: 992px){
+    .container {
+    max-width: 960px;
+}
+
 }
