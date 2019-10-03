@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import './Features.css';
-// import { setAlert } from '../../actions/alert';
-const Features = ({ isAuthenticated }) => {
+const Features = () => {
   return (
     <>
       <section
@@ -37,19 +35,19 @@ const Features = ({ isAuthenticated }) => {
                 alt='image1'
                 className='standingman'
               />
-              {/* style={{ marginLeft: '60px' }} */}
+              
               <h2 className='know' id="know1">
                 Manage Your Finances
               </h2>
-              {/* style={{ marginLeft: '60px' }} */}
+              
               <p className='with' id="with1">
                 {' '}
                 TriptoTracker helps you Manage your finances using the “set
                 budget” feature
               </p>
               <Link to='/add-expense' className='nav-link'>
-              {/* style={{ marginLeft: '50px' }} */}
-                <button className='expenses'>
+              
+                <button className='dashboard'>
                   Add expenses
                 </button>
               </Link>
@@ -61,10 +59,5 @@ const Features = ({ isAuthenticated }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
-});
-export default connect(
-  mapStateToProps,
-  null
-)(Features);
+
+export default Features;
