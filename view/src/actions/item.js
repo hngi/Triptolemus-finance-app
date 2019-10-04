@@ -1,159 +1,64 @@
 import {
-  FETCH_PROFILES_SUCCESS,
-  FETCH_PROFILES_FAIL,
-  FETCH_PROFILE_SUCCESS,
-  FETCH_PROFILE_FAIL,
-  CREATE_PROFILE_SUCCESS,
-  CREATE_PROFILE_FAIL,
-  ADD_EXPERIENCE_SUCCESS,
-  ADD_EXPERIENCE_FAIL,
-  ADD_EDUCATION_SUCCESS,
-  ADD_EDUCATION_FAIL,
-  FETCH_CURRENT_PROFILE_SUCCESS,
-  FETCH_CURRENT_PROFILE_FAIL,
-  DELETE_ACCOUNT,CLEAR_PROFILE,
-  EDIT_PROFILE_SUCCESS
+  ADD_ITEM_SUCCESS,
+  ADD_ITEM_FAIL,
+  GET_ITEMS_SUCCESS,
+  GET_ITEMS_FAIL,
+  LOADING_ITEM
 } from './types';
+import {
+  getWeeklyExpense,
+  getMonthlyExpense,
+  getYearlyExpense
+} from './expense';
 import { setAlert } from './alert';
 import axios from 'axios';
-
-export const getCurrentProfile = () => async dispatch => {
-  try {
-    const response = await axios.get('/profile/me');
-    dispatch({
-      type: FETCH_CURRENT_PROFILE_SUCCESS,
-      payload: response.data
-    });
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
-    dispatch({
-      type: FETCH_CURRENT_PROFILE_FAIL,
-      payload: error
-    });
-  }
-};
-export const fetchProfiles = () => async dispatch => {
-  try {
-    const response = await axios.get('/profile');
-    dispatch({
-      type: FETCH_PROFILES_SUCCESS,
-      payload: response.data
-    });
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
-    dispatch({
-      type: FETCH_PROFILES_FAIL,
-      payload: error
-    });
-  }
-};
-export const createProfile = (
-  avatar,company,
-  website,
-  location,
-  status,
-  skills,
-  githubusername,
-  bio,
-  twitter,
-  facebook,
-  linkedin,
-  github,
-  youtube,
-  instagram,
-  history
-) => async dispatch => {
+const base_url = 'https://finance-tracker-server.herokuapp.com';
+// const base_url = 'http://localhost:3500';
+export const getItems = (startDate, endDate, userId) => async dispatch => {
+  dispatch({
+    type: LOADING_ITEM
+  });
   const config = {
     headers: {
       'Content-Type': 'application/json'
     }
   };
   const body = JSON.stringify({
-    avatar,
-    company,
-    website,
-    location,
-    status,
-    skills,
-    githubusername,
-    bio,
-    twitter,
-    facebook,
-    linkedin,
-    github,
-    youtube,
-    instagram
+    startDate,
+    endDate
   });
   try {
-    const response = await axios.post(`/profile`, body, config);
+    const response = await axios.post(
+      base_url + `/api/users/${userId}/allItems`,
+      body,
+      config
+    );
+    if (response.data.success) {
+      dispatch({
+        type: GET_ITEMS_SUCCESS,
+        payload: response.data
+      });
+    } else {
+      dispatch(setAlert(response.data.message, 'danger'));
+      dispatch({
+        type: GET_ITEMS_FAIL,
+        payload:response.data.message
+      });
+    }
+  } catch (error) {
     dispatch({
-      type: CREATE_PROFILE_SUCCESS,
-      payload: response.data
+      type: GET_ITEMS_FAIL,
+      payload: error.toString()
     });
-    history.push('/dashboard');
-    dispatch(setAlert('Profile creation/update was successful', 'success'));
+  }
+};
 
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
-    dispatch({
-      type: CREATE_PROFILE_FAIL,
-      payload: error
-    });
-  }
-};
-export const deleteAccount=(history)=>async dispatch=>{
-  if (window.confirm("Are you sure? This CANNOT be undone!")) {
-  try {
-    const response=await axios.delete('/profile')
-    dispatch({
-      type: DELETE_ACCOUNT
-    });
-    dispatch({
-      type: CLEAR_PROFILE
-    });
-    dispatch(setAlert('User successfully deleted', 'success'));
-    history.push('/login')
-  } catch (error) {dispatch(setAlert(error.message, 'danger'))
-    
-  }
-  }
-}
-export const fetchProfile = user_id => async dispatch => {
-  try {
-    const response = await axios.get(`/profile/${user_id}`);
-    dispatch({
-      type: FETCH_PROFILE_SUCCESS,
-      payload: response.data
-    });
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
-    dispatch({
-      type: FETCH_PROFILE_FAIL,
-      payload: error
-    });
-  }
-};
-export const addExperience = (
-  company,
-  title,
-  location,
-  from,
-  to,
-  current,
+export const addItem = (
+  name,
   description,
-  history
+  amount,
+  date,
+  userId
 ) => async dispatch => {
   const config = {
     headers: {
@@ -161,105 +66,35 @@ export const addExperience = (
     }
   };
   const body = JSON.stringify({
-    company,
-    title,
-    location,
-    from,
-    to,
-    current,
-    description
+    name,
+    description,
+    amount,
+    date
   });
   try {
-    const response = await axios.post(`/profile/experience`, body, config);
-    dispatch({
-      type: ADD_EXPERIENCE_SUCCESS,
-      payload: response.data
-    });
-    dispatch(setAlert('Experience was added successfully', 'success'));
-    history.push('/dashboard');
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
+    const response = await axios.post(
+      base_url + `/api/users/${userId}/items`,
+      body,
+      config
+    );
+    if (response.data.success) {
+      dispatch({
+        type: ADD_ITEM_SUCCESS,
+        payload: response.data
+      });
+      dispatch(setAlert('A new Item was added successfully', 'success'));
+      dispatch(getWeeklyExpense(userId));
+      dispatch(getMonthlyExpense(userId));
+      dispatch(getYearlyExpense(userId));
+    } else {
+      dispatch(setAlert(response.data.message, 'danger'));
     }
-    dispatch({
-      type: ADD_EXPERIENCE_FAIL,
-      payload: error
-    });
-  }
-};
-export const deleteExperience = (exp_id) => async dispatch => {
-  try {
-    const response = await axios.delete(`/profile/experience/${exp_id}`);
-    dispatch({
-      type: EDIT_PROFILE_SUCCESS,
-      payload: response.data
-    });
-    dispatch(setAlert('Experience successfully removed', 'success'));
   } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
-  }
-};
+    dispatch(setAlert(error.toString(), 'danger'));
 
-export const addEducation = (
-  school,
-  degree,
-  fieldofstudy,
-  from,
-  to,
-  current,
-  description,
-  history
-) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-  const body = JSON.stringify({
-    school,
-    degree,
-    fieldofstudy,
-    from,
-    to,
-    current,
-    description
-  });
-  try {
-    const response = await axios.post(`/profile/education`, body, config);
     dispatch({
-      type: ADD_EDUCATION_SUCCESS,
-      payload: response.data
+      type: ADD_ITEM_FAIL,
+      payload: error.toString()
     });
-    dispatch(setAlert('Education was added successfully', 'success'));
-    history.push('/dashboard');
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
-    dispatch({
-      type: ADD_EDUCATION_FAIL,
-      payload: error
-    });
-  }
-};
-
-export const deleteEducation = (edu_id) => async dispatch => {
-  try {
-    const response = await axios.delete(`/profile/education/${edu_id}`);
-    dispatch({
-      type: EDIT_PROFILE_SUCCESS,
-      payload: response.data
-    });
-    dispatch(setAlert('Education successfully removed', 'success'));
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
   }
 };

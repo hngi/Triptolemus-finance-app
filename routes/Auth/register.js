@@ -43,12 +43,7 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/api/auth/register', async (req, res) => {
-
-  let {
-    username,
-    email,
-    password
-  } = req.body;
+  let { username, email, password } = req.body;
   try {
     if (
       username == '' ||
@@ -56,8 +51,9 @@ router.post('/api/auth/register', async (req, res) => {
       (email == '' || email == undefined) ||
       (password == '' || password == undefined)
     ) {
-      return res.status(401).json({
-        error: "Input Fields can't be empty"
+      return res.status(200).json({
+        message: 'Input field is required',
+        success: false
       });
     }
     let user = new UserModel({
@@ -68,18 +64,26 @@ router.post('/api/auth/register', async (req, res) => {
     let userDoc = await user.save();
     userDocJson = userDoc.toJSON();
     delete userDocJson.password;
-    userDocJson['token'] = jwt.sign({
-      _id: user._id
-    }, process.env.JWT_KEY);
-    res.status(200).json(userDocJson);
+    userDocJson['token'] = jwt.sign(
+      {
+        _id: user._id
+      },
+      process.env.JWT_KEY
+    );
+    res.status(200).json({ user: userDocJson, success: true });
   } catch (error) {
-    if (error.errmsg.includes('E11000 duplicate key error collection')) {
-      return res.status(401).json({
-        error: 'User already exists'
+    if (
+      error.hasOwnProperty('errmsg') &&
+      error.errmsg.includes('E11000 duplicate key error collection')
+    ) {
+      return res.status(200).json({
+        message: 'User already exists',
+        success: false
       });
     } else {
-      res.status(400).json({
-        error: error.toString()
+      res.status(200).json({
+        message: error.toString(),
+        success: false
       });
     }
   }

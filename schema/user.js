@@ -13,6 +13,26 @@
  *    password:
  *      type: string
  *      format: password
+ *    profile_img:
+ *      type: string
+ *    first_name:
+ *      type: string
+ *    last_name: 
+ *      type: string
+ *    phone_number:
+ *      type: string
+ *    gender:
+ *      type: string
+ *    date_of_birth:
+ *      type: date
+ *    daily_budget:
+ *      type: integer
+ *    weekly_budget:
+ *      type: integer
+ *    monthly_budget:
+ *      type: integer
+ *    yearly_budget:
+ *      type: integer
  *    required:
  *      - username
  *      - email
@@ -47,7 +67,58 @@ let userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: false,
+  },
+  profile_img:{
+    type: String,
+    required: false,
+    unique: false,
+  },
+  first_name:{
+    type: String,
+    required: false,
+    unique: false,
+  },
+  last_name:{
+    type: String,
+    required: false,
+    unique: false,
+  },
+  phone_number:{
+    type: String,
+    required: false,
+    unique: false,
+  },
+  gender:{
+    type: String,
+    required: false,
+    unique: false,
+  },
+  date_of_birth:{
+    type: Date,
+    required: false,
+    unique: false,
+  },
+  daily_budget:{
+    type: Number,
+    required: false,
+    unique: false,
+  },
+  weekly_budget:{
+    type: Number,
+    required: false,
+    unique: false,
+  },
+  monthly_budget:{
+    type: Number,
+    required: false,
+    unique: false,
+  },
+  yearly_budget:{
+    type: Number,
+    required: false,
+    unique: false,
   }
+
 })
 
 userSchema.pre('save', function (next) {

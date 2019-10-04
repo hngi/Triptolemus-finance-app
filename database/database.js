@@ -2,7 +2,6 @@ let mongoose = require('mongoose');
 require('dotenv').config();
 
 const server = process.env.DATABASEURL;
-// console.log(server);
 class Database {
   constructor() {
     this._connect();
@@ -12,10 +11,10 @@ class Database {
     mongoose
       .connect(server, { useNewUrlParser: true, useUnifiedTopology: true })
       .then(() => {
-        console.log('Database connection successful');
+        console.log('Database connected');
       })
       .catch(err => {
-        console.error('Database connection error');
+        console.error(err);
       });
   }
 }
