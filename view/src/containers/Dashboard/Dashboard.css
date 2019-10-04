@@ -138,6 +138,94 @@ form i{
     padding: 0.5em;
     border-radius: 15px;
 }
+.dashboard-table{
+    table-layout: fixed;
+}
+.dashboard-table td{
+    word-wrap:break-word
+}
+.dashboard-table .dashboardAction{
+    border-radius: 50px;
+    background-color:transparent;
+    border-width: 0px
+}
+.dashboard-table .delItemBtn{
+    background: red;
+    font-weight: 500
+}
+.dashboard-table tr:nth-child(even){background-color: #f2f2f2;}
+.dashboard-table tr:hover{background-color: rgba(117, 117, 117, 0.849);}
+.dashboard-table .dashboard-del-icon:hover {color: red;}
+.dashboard-table .dashboard-edit-icon:hover {color: #022EC1;}
+.dashboard-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #022EC1;
+    color: white;
+  }
+  .dashboard-table input{
+    background-color: white;
+    border: 1.5px solid #022EC1;
+    color: #022EC1;
+    font-size: 0.8em;
+    font-weight: 700;
+    border-radius: 5px;
+  }
+  /* .dashboard-table .db-filter-btn-clear{
+    margin: 0px;
+    padding: 0px;
+    transform: translateX(-20px);
+    color:white;
+    font-weight: 100;
+    display: none
+  } */
+  
+  .dashboard-table div:hover .db-filter-btn-clear{
+    margin: 0px;
+    padding: 0px;
+    transform: translateX(-20px);
+    color:white;
+    font-weight: 100;
+      display: inline;
+  }
+
+  .dashboard-table button i{
+    margin: 0px;
+    padding: 0px;
+    transform: translateX(-20px);
+    color:#022EC1;
+    font-weight: 100;
+    display: block
+  }
+.dashboard-table i{
+    margin: 0px;
+    padding: 0px;
+    transform: translateX(-20px);
+    color:#022EC1;
+    background: transparent;
+    border-radius: 50px;
+    display:none;
+
+}
+.dashboard-table i:hover{
+    margin: 0px;
+    padding: 0px;
+    transform: translateX(-20px);
+    color:white;
+    font-weight: 100;
+    
+}
+
+.db-delete-selected{
+    background-color: white;
+    border: 1.5px solid #022EC1;
+    color: #022EC1;
+    font-size: 0.8em;
+    font-weight: 700;
+    border-radius: 5px;
+}
+
 @media screen and (max-width: 350px){
     .logo img{
         width: 80%;

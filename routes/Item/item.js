@@ -526,4 +526,44 @@ router.put('/api/users/:userId/Item/:itemId', async (req, res) => {
   }
 })
 
+router.delete('/api/users/:userId/items/:itemId', async (req, res)=>{
+  console.log(req)
+  try{
+    const {userId,itemId} = req.params
+    Item.findOneAndDelete({_id:itemId},(err,res)=>{
+      console.log(res)
+      console.log(err)
+    })
+    
+    return res.status(200).json({success:true,message:"Item Deleted",itemId:itemId})
+  } catch(error){
+    return res.status(200).json({success:false,message:"Could not Delete Item"})
+
+  }
+});
+
+router.post('/api/users/:userId/items/delete', async (req, res)=>{
+  console.log(req.body)
+  try{
+    const {userId} = req.params
+    const {items} = req.body
+    console.log(items)
+    if (items == undefined || items==null || items.length == 0){
+      return res.status(200).json({success:false,message:"Empty Request"})
+    }
+      items.forEach(element => {
+         Item.findOneAndDelete({_id:element},(err,res)=>{
+        console.log(res)
+        console.log(err)
+    })
+      });
+     return res.status(200).json({success:true,message:items.length + " Item(s) Deleted"})
+    
+  } catch(error){
+    console.log(error)
+    return res.status(200).json({success:false,message:"Could not Delete Items"})
+
+  }
+});
+
 module.exports = router;
