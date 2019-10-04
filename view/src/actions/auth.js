@@ -14,6 +14,7 @@ import {
   RESET_PASSWORD_SUCCESS,
   FETCH_PROFILE_SUCCESS,
   FETCH_PROFILE_FAIL,
+  CLEAR_ITEMS
   
 } from './types';
 import { setAlert } from './alert';
@@ -138,6 +139,9 @@ export const logout = () => dispatch => {
   dispatch({
     type: LOGOUT
   });
+  dispatch({
+    type:CLEAR_ITEMS
+  })
   dispatch(setAlert('Logout was successful', 'success'));
 };
 

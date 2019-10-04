@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { showLoginAlert, logout } from '../../actions/auth';
-import { addItem, getItems, deleteItem } from '../../actions/item';
+import { addItem, getItems, deleteItem ,deleteSelectedItems} from '../../actions/item';
 import { connect } from 'react-redux';
 import { GoogleLogout } from 'react-google-login';
 
@@ -34,7 +34,8 @@ const Dashboard = ({
   getItems,
   items,
   loading,
-  deleteItem
+  deleteItem,
+  deleteSelectedItems
 }) => {
   const { isAuthenticated, user, profile } = auth;
   console.log(auth.isSignedInWithGoogle);
@@ -72,6 +73,37 @@ const Dashboard = ({
     endDate: ''
   });
 
+  const [filters,setFilters]= useState({
+    nameFilter: '',
+    descriptionFilter: '',
+    minimumPriceFilter: 0,
+    maximumPriceFilter: Infinity,
+    //itemsToFilter: items
+  })
+
+const onFilterChange = e => {
+  if (e.target.name.includes('PriceFilter') && e.target.value === ''){
+    if (e.target.name==='minimumPriceFilter'){
+      setFilters({...filters, [e.target.name]: 0})
+    } else if (e.target.name==='maximumPriceFilter'){
+      setFilters({...filters, [e.target.name]: Infinity})
+    }
+  } else {
+  setFilters({...filters, [e.target.name]: e.target.value})
+  }
+}
+const clearFilter = (name) => {
+    document.getElementsByName(name)[0].value='';
+    if (name.includes('PriceFilter')){
+      if (name==='minimumPriceFilter'){
+        setFilters({...filters, [name]: 0})
+      } else if (name==='maximumPriceFilter'){
+        setFilters({...filters, [name]: Infinity})
+      }
+    } else{
+    setFilters({...filters,[name]:''})
+    }
+  }
   if (isAuthenticated == null || !isAuthenticated || user == null || !user) {
     showLoginAlert('You need to be logged in to do that', 'danger', history);
     return <Redirect to='/login' />;
@@ -90,6 +122,9 @@ const Dashboard = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const userId = auth.user.id;
+
+  
+
 
   return (
     <>
@@ -504,22 +539,46 @@ const Dashboard = ({
               </div>
             </form>
           </div>
+          
 
           <div className='row ml-1 mt-3'>
             <table className='table transTable col-sm-12 dashboard-table'>
               <thead>
                 <tr>
                   <th>Transaction Date</th>
-                  <th>Item</th>
-                  <th>Description</th>
-                  <th>Amount</th>
+                  {/* nameFilter: '',
+    descriptionFilter: '',
+    minimumPriceFilter: null,
+    maximumPriceFilter: null */}
+                  <th><div>Item</div><div><input name="nameFilter" onChange={(e)=>{onFilterChange(e)}} placeholder="Filter by Item name.." style={{width:"60%", borderRadius:"10px"}}></input><i className="btn fa fa-close db-filter-btn-clear" onClick={()=>{
+                    clearFilter("nameFilter")
+                  }}></i></div></th>
+                  <th><div>Description</div><div><input name="descriptionFilter" onChange={(e)=>{onFilterChange(e)}} placeholder="Filter by Item description.." style={{width:"60%", borderRadius:"10px"}}></input><i className="btn fa fa-close db-filter-btn-clear" onClick={()=>{
+                    clearFilter("descriptionFilter")
+                  }}></i></div></th>
+                  <th><div>Amount</div><div><input name="minimumPriceFilter" type="number" onChange={(e)=>{onFilterChange(e)}} placeholder="minimum.." style={{width:"60%", borderRadius:"10px"}}></input><i className="btn fa fa-close db-filter-btn-clear" onClick={()=>{
+                    clearFilter("minimumPriceFilter")
+                  }}></i></div>
+                  <div><input name="maximumPriceFilter" type="number" onChange={(e)=>{onFilterChange(e)}} placeholder="maximum.." style={{width:"60%", borderRadius:"10px"}}></input><i className="btn fa fa-close db-filter-btn-clear" onClick={()=>{
+                    clearFilter("maximumPriceFilter")
+                  }}></i></div></th>
+
                   <th>Actions</th>
+                  <th><button onClick={()=>{
+                    console.log("deleting selected")
+                    let selectedItemsId = Array.from(document.getElementsByClassName('db-item-checkbox')).filter(checkBox=>checkBox.checked===true).map(checkBox=>{return checkBox.getAttribute("data-id")})
+                    console.log(selectedItemsId)
+                    deleteSelectedItems(userId,selectedItemsId)
+                  }} className="db-delete-selected">Delete Selected</button></th>
                 </tr>
               </thead>
               <tbody>
-                {items === null || items.items === undefined
+                {items === null || items===undefined || items.items === null || items.items === undefined
                   ? null
-                  : items.items.map((item,index) => {
+                  : items.items.filter(item=>
+                    item.name.toLowerCase().includes(filters.nameFilter.toLowerCase())
+                ).filter(item=>item.description.toLowerCase().includes(filters.descriptionFilter.toLowerCase()))
+                .filter(item=>item.amount>=filters.minimumPriceFilter && item.amount<=filters.maximumPriceFilter).map((item,index) => {
                     return (
                       <tr key={item === undefined ? null : item._id}>
                         <td>{item === undefined ? null : formatDate(item.date)}</td>
@@ -663,7 +722,7 @@ const Dashboard = ({
                           </div>
 
                         </td>
-                        {/* <td><input type="checkbox" /></td> */}
+                        <td><input className="db-item-checkbox" type="checkbox" data-id={item._id}/></td>
                       </tr>
                     );
                   })}
@@ -714,6 +773,7 @@ export default connect(
     fetchProfile,
     getItems,
     logout,
-    deleteItem
+    deleteItem,
+    deleteSelectedItems
   }
 )(Dashboard);

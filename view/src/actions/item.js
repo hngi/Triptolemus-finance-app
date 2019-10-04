@@ -14,8 +14,8 @@ import {
 } from './expense';
 import { setAlert } from './alert';
 import axios from 'axios';
-//const base_url = 'https://finance-tracker-server.herokuapp.com';
-const base_url = 'http://localhost:3500';
+const base_url = 'https://finance-tracker-server.herokuapp.com';
+//const base_url = 'http://localhost:3500';
 export const getItems = (startDate, endDate, userId) => async dispatch => {
   dispatch({
     type: LOADING_ITEM
@@ -41,6 +41,7 @@ export const getItems = (startDate, endDate, userId) => async dispatch => {
         payload: response.data
       });
     } else {
+      console.log(response)
       dispatch(setAlert(response.data.message, 'danger'));
       dispatch({
         type: GET_ITEMS_FAIL,
@@ -48,6 +49,7 @@ export const getItems = (startDate, endDate, userId) => async dispatch => {
       });
     }
   } catch (error) {
+    console.log(error)
     dispatch({
       type: GET_ITEMS_FAIL,
       payload: error.toString()
@@ -131,6 +133,49 @@ export const deleteItem = (userId,itemId) => async (dispatch,getState) => {
     dispatch({
       type: DELETE_ITEM_FAIL,
     })
+  }
+
+}
+
+export const deleteSelectedItems = (userId,items) => async (dispatch,getState)=> {
+ 
+  console.log('trying to delete selected items')
+  console.log(items)
+  const body = JSON.stringify({
+    "items":items
+  });
+  console.log(body)
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  const response = await axios.post(
+    base_url + `/api/users/${userId}/items/delete`,
+    body,
+    config
+  )
+
+  if (response.data.success){
+    dispatch(setAlert(response.data.message,'success'))
+    let new_items = getState().item.items.items.filter(function(item){
+      console.log(item)
+      return !items.includes(item._id)
+    })
+    dispatch({
+      type: DELETE_ITEM_SUCCESS,
+      payload: {items:new_items,success:true}
+    })
+    dispatch(getWeeklyExpense(userId));
+    dispatch(getMonthlyExpense(userId));
+    dispatch(getYearlyExpense(userId));
+
+  } else {
+    dispatch({
+      type: DELETE_ITEM_FAIL,
+    })
+    dispatch(setAlert(response.data.message,'danger'))
+    
   }
 
 }

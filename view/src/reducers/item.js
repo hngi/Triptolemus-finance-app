@@ -5,7 +5,8 @@ import {
   GET_ITEMS_FAIL,
   LOADING_ITEM,
   DELETE_ITEM_SUCCESS,
-  DELETE_ITEM_FAIL
+  DELETE_ITEM_FAIL,
+  CLEAR_ITEMS
 
 } from '../actions/types';
 import { stat } from 'fs';
@@ -48,10 +49,18 @@ export default function(state = initialState, action) {
         loading: true
       };
     case DELETE_ITEM_FAIL:
+      return {
+        ...state
+      }
     case DELETE_ITEM_SUCCESS:
       return {
           ...state,
           items: payload
+      }
+    case CLEAR_ITEMS:
+      return {
+        ...state,
+        items: []
       }
     default:
       return state;
