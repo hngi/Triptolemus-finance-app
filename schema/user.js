@@ -26,7 +26,58 @@ let userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: false,
+  },
+  profile_img:{
+    type: String,
+    required: false,
+    unique: false,
+  },
+  first_name:{
+    type: String,
+    required: false,
+    unique: false,
+  },
+  last_name:{
+    type: String,
+    required: false,
+    unique: false,
+  },
+  phone_number:{
+    type: String,
+    required: false,
+    unique: false,
+  },
+  gender:{
+    type: String,
+    required: false,
+    unique: false,
+  },
+  date_of_birth:{
+    type: Date,
+    required: false,
+    unique: false,
+  },
+  daily_budget:{
+    type: Number,
+    required: false,
+    unique: false,
+  },
+  weekly_budget:{
+    type: Number,
+    required: false,
+    unique: false,
+  },
+  monthly_budget:{
+    type: Number,
+    required: false,
+    unique: false,
+  },
+  yearly_budget:{
+    type: Number,
+    required: false,
+    unique: false,
   }
+
 })
 
 userSchema.pre('save', function (next) {

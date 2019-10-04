@@ -1,63 +1,34 @@
-<<<<<<< HEAD
-import React, { Fragment } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
-import './App.css';
-import Landing from './components/Landing/Landing';
 import Routes from './components/routing/Routes';
-// import { loadUser } from './actions/auth';
-// import setAuthToken from './utils/setAuthToken';
-
-// if (localStorage.token) {
-//   setAuthToken(localStorage.token);
-// }
+import Register from './containers/Register/Register';
+import Login from './containers/Login/Login';
+import Alert from './components/Alert/Alert';
+import Dashboard from './containers/Dashboard/Dashboard';
+import ResetPassword from './components/ResetPassword/ResetPassword';
+import Forgot from './components/Forgot/Forgot';
+import CheckEmail from './components/CheckEmail/CheckEmail';
 const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <Fragment>
-          {/* <Navbar /> */}
-          <Switch>
-            <Route exact path='/' component={Landing} />
-            <Route component={Routes} />
-          </Switch>
-        </Fragment>
+        <Alert />
+        <Switch>
+          <Route path='/register' component={Register} />
+          <Route path='/login' component={Login} />
+          <Route path='/dashboard' component={Dashboard} />
+          <Route exact path='/add-expense' component={Dashboard} />
+          <Route exact path='/forgot' component={Forgot} />
+          <Route exact path='/check-email' component={CheckEmail}/>
+        <Route exact path='/reset-password/:header/:payload/:signature' component={ResetPassword} />
+        
+          <Routes />
+        </Switch>
       </Router>
     </Provider>
   );
 };
 
 export default App;
-=======
-import React, { Fragment } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './store';
-import './App.css';
-import Landing from './components/Landing/Landing';
-import Routes from './components/routing/Routes';
-// import { loadUser } from './actions/auth';
-// import setAuthToken from './utils/setAuthToken';
-
-// if (localStorage.token) {
-//   setAuthToken(localStorage.token);
-// }
-const App = () => {
-  return (
-    <Provider store={store}>
-      <Router>
-        <Fragment>
-          {/* <Navbar /> */}
-          <Switch>
-            <Route exact path='/' component={Landing} />
-            <Route component={Routes} />
-          </Switch>
-        </Fragment>
-      </Router>
-    </Provider>
-  );
-};
-
-export default App;
->>>>>>> develop
