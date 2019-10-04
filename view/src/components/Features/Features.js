@@ -47,7 +47,7 @@ const Features = () => {
               </p>
               <Link to='/add-expense' className='nav-link'>
               
-                <button className='dashboard'>
+                <button id='expensess' className='dashboard'>
                   Add expenses
                 </button>
               </Link>

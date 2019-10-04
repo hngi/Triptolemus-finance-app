@@ -195,7 +195,7 @@ const clearFilter = (name) => {
                 Keep track of your expenses over an extended period of time{' '}
               </h1>
               <span>
-                <button
+                <button id='expns'
                   className='expenses mr-3'
                   data-toggle='modal'
                   data-target='#addExpense'>
