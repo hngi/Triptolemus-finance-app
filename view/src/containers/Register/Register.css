@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body{
     max-width: 100%;
     height: auto;
@@ -167,3 +168,147 @@ form{
         margin: auto;
     }
 }
+=======
+body{
+    max-width: 100%;
+    height: auto;
+    font-family: 'Raleway Regular', arial;
+    color: #373737;
+    font-size: 70%;
+}
+h1 img{
+    display: none; /*will prevent  this image from displaying*/
+    margin-top: 1em;
+    width: 60%;
+}
+h1{
+    font-size: 2.5em;
+    text-align: center;
+    font-weight: 500;
+}
+p{
+    text-align: center;
+    font-size: 1em;
+    font-weight: 500;
+}
+a{
+    text-transform: capitalize;
+    color: #022EC1;
+}
+a:hover, a:focus{
+    text-decoration: none;
+    color: rgb(33, 82, 243);
+}
+form{
+    margin-top: 4em;
+}
+.btn{
+    text-transform: uppercase;
+    background: #022EC1;
+    color: #FFFFFF;
+    font-size: 1em;
+    padding: 1em;
+    font-weight: 600;
+    margin-top: 1em;
+}
+.btn:hover, .btn:focus{
+    cursor: pointer;
+    background: rgb(33, 82, 243);
+}
+.pattern{ /*the side image should show now*/
+    background: url('https://res.cloudinary.com/taofeeq/image/upload/v1569272984/TriptoTracker/pattern_xfwn22.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.signup-input-label{
+    margin-left: 1.5em;
+}
+.signup-container{
+    width: 100%;
+    height: 100%;
+    margin-left: 0px; 
+    margin-right: 0px;
+
+}
+
+.signup-row{
+    width: 100%;
+    height: 100%;
+}
+
+
+.signup-label{
+    margin: 0 auto;
+    text-align: center;
+}
+.signup-button{
+    border-radius: 0px;
+    height: 3.5em;
+
+}
+.signup-input-label{
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.signup-form-container{
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+@media only screen and (max-width: 570px) {
+    .signup-row{
+        width: 100%;
+        height: 100%;
+    }
+    .signup-form-container{
+        position: relative;
+        top: 50%;
+        margin-left: 18px;
+        transform: translateY(-50%);
+
+      }
+  }
+@media screen and (min-width: 47.5em){
+    body{
+        font-size: 100%;
+    }
+    .mobile{
+        display: none;
+    }
+    h1{
+        text-align: unset;
+        margin-left: 25%;
+        margin-top: 1.5em;
+    }
+    .pattern{
+        background: url('https://res.cloudinary.com/taofeeq/image/upload/v1569272984/TriptoTracker/pattern_xfwn22.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    form{
+        margin: 3em auto;
+        font-size: 80%;
+    }
+    .btn{
+        font-weight: 400;
+        font-size: 0.8em
+    }
+}
+@media screen and (min-width:64em){
+    body{
+        font-size: 120%;
+    }
+    h1{
+        margin-left: 30%;
+    }
+    .tab-pc{
+        max-width: 90em;
+        margin: auto;
+    }
+}
+>>>>>>> develop

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react'
 
 const Dashboard = () => {
@@ -9,3 +10,16 @@ const Dashboard = () => {
 }
 
 export default Dashboard
+=======
+import React from 'react'
+
+const Dashboard = () => {
+  return (
+    <div>
+      Dashboard
+    </div>
+  )
+}
+
+export default Dashboard
+>>>>>>> develop
