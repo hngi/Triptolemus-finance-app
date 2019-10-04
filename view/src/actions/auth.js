@@ -20,8 +20,8 @@ import {
 import { setAlert } from './alert';
 
 import axios from 'axios';
-const base_url = 'https://finance-tracker-server.herokuapp.com';
-// const base_url = 'http://localhost:3500';
+// const base_url = 'https://finance-tracker-server.herokuapp.com';
+const base_url = 'http://localhost:3500';
 
 export const register = (
   username,
@@ -117,7 +117,7 @@ export const login = (email, password, history) => async dispatch => {
 
 export const fetchProfile = userId => async dispatch => {
   try {
-    const response = await axios.get(base_url + `/api/users/${userId}/profile`);
+    const response = await axios.get(base_url + `/api/users/${userId}`);
     if (response.data.success) {
       dispatch({
         type: FETCH_PROFILE_SUCCESS,

@@ -461,33 +461,6 @@ router.post('/api/users/:userId/calculate/month', async (req, res, next) => {
   }
 });
 
-router.get('/api/users/:userId/profile', async (req, res) => {
-  try {
-    const {
-      userId
-    } = req.params;
-    const id = req.user;
-
-    const user = await User.find({
-      _id: userId
-    });
-    if (!user) {
-      res.status(200).json({
-        message: 'Error, profile not found',
-        success: false
-      });
-    }
-    res.status(200).json({
-      user: user,
-      success: true
-    });
-  } catch (error) {
-    res.status(200).json({
-      message: error.toString(),
-      success: false
-    });
-  }
-});
 router.put('/api/users/:userId/Item/:itemId', async (req, res) => {
   try {
     const {
