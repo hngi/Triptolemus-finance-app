@@ -6,7 +6,7 @@ let Item = require('../../schema/item');
 const mongoose = require('mongoose');
 const User = require('../../schema/user');
 
-Date.prototype.addDays = function(days) {
+Date.prototype.addDays = function (days) {
   var date = new Date(this.valueOf());
   date.setDate(date.getDate() + days);
   return date;
@@ -14,14 +14,21 @@ Date.prototype.addDays = function(days) {
 
 router.post('/api/users/:userId/items', async (req, res) => {
   try {
-    const { userId } = req.params;
+    const {
+      userId
+    } = req.params;
     const id = req.user;
     // if (userId !== id) {
     //   return res.status(401).json({
     //     error: 'Unauthorized user'
     //   });
     // }
-    const { name, description, amount, date } = req.body;
+    const {
+      name,
+      description,
+      amount,
+      date
+    } = req.body;
     if (
       name == '' ||
       name == null ||
@@ -58,8 +65,13 @@ router.post('/api/users/:userId/items', async (req, res) => {
 });
 router.post('/api/users/:userId/allItems', async (req, res) => {
   try {
-    const { userId } = req.params;
-    const { startDate, endDate } = req.body;
+    const {
+      userId
+    } = req.params;
+    const {
+      startDate,
+      endDate
+    } = req.body;
     if (startDate > endDate) {
       return res.status(200).json({
         message: 'Start Date cannot be greater than End Date',
@@ -74,13 +86,17 @@ router.post('/api/users/:userId/allItems', async (req, res) => {
 
     const items = await Item.find({
       user_id: userId,
-      date: { $gte: startDate, $lte: endDate }
-    }).sort({ date: 1 });
+      date: {
+        $gte: startDate,
+        $lte: endDate
+      }
+    }).sort({
+      date: 1
+    });
 
     if (items.length <= 0) {
       return res.status(200).json({
-        message:
-          'There are no expenses recorded during the specified period,please choose another date',
+        message: 'There are no expenses recorded during the specified period,please choose another date',
         items: [],
         success: false
       });
@@ -99,9 +115,14 @@ router.post('/api/users/:userId/allItems', async (req, res) => {
 });
 router.post('/api/users/:userId/calculate/week', async (req, res) => {
   try {
-    const { userId } = req.params;
+    const {
+      userId
+    } = req.params;
     const id = req.user;
-    let { startDate, endDate } = req.body;
+    let {
+      startDate,
+      endDate
+    } = req.body;
     if (startDate > endDate) {
       return res.status(200).json({
         message: 'Start Date cannot be greater than End Date',
@@ -126,10 +147,15 @@ router.post('/api/users/:userId/calculate/week', async (req, res) => {
     //   return res.status(401).json({ error: 'Unauthorized user' });
     // }
     Item.find({
-      user_id: userId,
-      date: { $gte: startDate, $lte: endDate }
-    })
-      .sort({ date: 1 })
+        user_id: userId,
+        date: {
+          $gte: startDate,
+          $lte: endDate
+        }
+      })
+      .sort({
+        date: 1
+      })
       .then(doc => {
         //if (doc.length > 0) {
         let docCount = doc.length;
@@ -200,9 +226,14 @@ router.post('/api/users/:userId/calculate/week', async (req, res) => {
 
 router.post('/api/users/:userId/calculate/year', async (req, res) => {
   try {
-    const { userId } = req.params;
+    const {
+      userId
+    } = req.params;
     const id = req.user;
-    let { startDate, endDate } = req.body;
+    let {
+      startDate,
+      endDate
+    } = req.body;
     if (startDate > endDate) {
       return res.status(200).json({
         message: 'Start Date cannot be greater than End Date',
@@ -216,10 +247,15 @@ router.post('/api/users/:userId/calculate/year', async (req, res) => {
     //   return res.status(401).json({ error: 'Unauthorized user' });
     // }
     Item.find({
-      user_id: userId,
-      date: { $gte: startDate, $lte: endDate }
-    })
-      .sort({ date: 1 })
+        user_id: userId,
+        date: {
+          $gte: startDate,
+          $lte: endDate
+        }
+      })
+      .sort({
+        date: 1
+      })
       .then(doc => {
         //if (doc.length > 0) {
         let docCount = doc.length;
@@ -288,9 +324,14 @@ router.post('/api/users/:userId/calculate/year', async (req, res) => {
 
 router.post('/api/users/:userId/calculate/daily', async (req, res) => {
   try {
-    const { userId } = req.params;
+    const {
+      userId
+    } = req.params;
     const id = req.user;
-    let { startDate, endDate } = req.body;
+    let {
+      startDate,
+      endDate
+    } = req.body;
     if (startDate > endDate) {
       return res.status(200).json({
         message: 'Start Date cannot be greater than End Date',
@@ -304,10 +345,15 @@ router.post('/api/users/:userId/calculate/daily', async (req, res) => {
     //   return res.status(401).json({ error: 'Unauthorized user' });
     // }
     Item.find({
-      user_id: userId,
-      date: { $gte: startDate, $lte: endDate }
-    })
-      .sort({ date: 1 })
+        user_id: userId,
+        date: {
+          $gte: startDate,
+          $lte: endDate
+        }
+      })
+      .sort({
+        date: 1
+      })
       .then(doc => {
         if (doc.length > 0) {
           let docCount = doc.length;
@@ -337,8 +383,13 @@ router.post('/api/users/:userId/calculate/daily', async (req, res) => {
 // route for getting all items for month(s)
 router.post('/api/users/:userId/calculate/month', async (req, res, next) => {
   try {
-    const { userId } = req.params;
-    let { startDate, endDate } = req.body;
+    const {
+      userId
+    } = req.params;
+    let {
+      startDate,
+      endDate
+    } = req.body;
 
     const id = req.user;
     // if (userId !== id) {
@@ -354,16 +405,20 @@ router.post('/api/users/:userId/calculate/month', async (req, res, next) => {
 
     startDate = new Date(startDate);
     endDate = new Date(endDate).addDays(1);
-    const filteredItems = await Item.aggregate([
-      {
+    const filteredItems = await Item.aggregate([{
         $match: {
           user_id: mongoose.Types.ObjectId(userId),
-          date: { $gte: startDate, $lte: endDate }
+          date: {
+            $gte: startDate,
+            $lte: endDate
+          }
         }
       },
       {
         $project: {
-          month: { $month: '$date' },
+          month: {
+            $month: '$date'
+          },
           user_id: 1,
           amount: 1
         }
@@ -372,7 +427,9 @@ router.post('/api/users/:userId/calculate/month', async (req, res, next) => {
       {
         $group: {
           _id: '$month',
-          total: { $sum: '$amount' }
+          total: {
+            $sum: '$amount'
+          }
         }
       },
       {
@@ -385,20 +442,35 @@ router.post('/api/users/:userId/calculate/month', async (req, res, next) => {
     ]);
 
     if (!filteredItems) {
-      res.status(200).json({ items: [{ totalExpenses: 0 }], success: true });
+      res.status(200).json({
+        items: [{
+          totalExpenses: 0
+        }],
+        success: true
+      });
     }
-    res.status(200).json({ items: filteredItems, success: true });
+    res.status(200).json({
+      items: filteredItems,
+      success: true
+    });
   } catch (error) {
-    res.status(200).json({ message: error.toString(), success: false });
+    res.status(200).json({
+      message: error.toString(),
+      success: false
+    });
   }
 });
 
 router.get('/api/users/:userId/profile', async (req, res) => {
   try {
-    const { userId } = req.params;
+    const {
+      userId
+    } = req.params;
     const id = req.user;
 
-    const user = await User.find({ _id: userId });
+    const user = await User.find({
+      _id: userId
+    });
     if (!user) {
       res.status(200).json({
         message: 'Error, profile not found',
@@ -416,5 +488,42 @@ router.get('/api/users/:userId/profile', async (req, res) => {
     });
   }
 });
+router.put('/api/users/:userId/Item/:itemId', async (req, res) => {
+  try {
+    const {
+      userId,
+      itemId
+    } = req.params;
+
+    const updatedItem = await Item.updateOne({
+      user_id: userId,
+      _id: itemId
+    }, {
+      $set: {
+        name: req.body.name || item.name,
+        description: req.body.description || item.description,
+        amount: req.body.amount || item.amount,
+        date: req.body.date
+      }
+    })
+    if (!updatedItem) {
+      return res.status(200).json({
+        message: 'Update Failed Item Not Found',
+        success: false
+      })
+    } else {
+      return res.status(200).json({
+        message: 'Update Successfull',
+        success: true
+      })
+    }
+
+  } catch {
+    return res.status(200).json({
+      message: 'Update Failed',
+      success: false
+    })
+  }
+})
 
 module.exports = router;
