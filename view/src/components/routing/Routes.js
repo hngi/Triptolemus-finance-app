@@ -7,6 +7,7 @@ import Contact from '../../containers/Contact/Contact';
 import Landing from '../Landing/Landing';
 import Navbar from '../Navbar/Navbar';
 import NotFound from '../NotFound/NotFound';
+import Testimonial from '../Testimonial/Testimonial';
 
 const Routes = () => {
   return (
@@ -17,6 +18,7 @@ const Routes = () => {
         <Route exact path='/features' component={Features} />
         <Route exact path='/faqs' component={Faqs} />
         <Route exact path='/contact' component={Contact} />
+        <Route exact path='/testimonial' component={Testimonial} />
         <Route component={NotFound} />
       </Switch>
     </>
