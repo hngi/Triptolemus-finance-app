@@ -1,0 +1,283 @@
+body {
+  font-family: 'Raleway', sans-serif;
+  color: #373737;
+}
+.navbar {
+  margin-left: 0px;
+  opacity: 1.5;
+  background-color: #022ec1;
+}
+.list {
+  color: white;
+}
+.nav-link {
+  color: white;
+}
+.py- {
+  padding-top: 140px;
+}
+#expns {
+  margin-left: 1px;
+}
+.msg {
+  font-size: 30px;
+  font-family: 'Raleway';
+  display: flex;
+  color: #000000;
+  text-align: left;
+  font-weight: bold;
+  margin-left: -5%;
+}
+.expenses {
+  background-color: white;
+  border: 1.5px solid #022ec1;
+  color: #022ec1;
+  width: 187px;
+  height: 50px;
+  /* margin-left: -10px; */
+  font-size: 0.8em;
+  font-weight: 700;
+  border-radius: 5px;
+}
+.dropNav {
+  box-shadow: 0 0 5px 0.5px rgb(39, 38, 38);
+}
+.expenses,
+.budget:hover {
+  cursor: pointer;
+}
+.expenseBtn,
+.budgetBtn,
+.specifyBtn,
+.exportBtn {
+  background: #022ec1;
+  color: #ffff;
+}
+.excelBtn {
+  border: 0.5px inset #373737;
+}
+.expenseCat,
+.budgetScheme {
+  font-size: 80%;
+}
+.budget {
+  background-color: white;
+  border: 1.5px solid #4bc102;
+  color: #4bc102;
+  border-radius: 5px;
+  width: 187px;
+  height: 50px;
+  /* margin-left: 10px; */
+  font-size: 0.8em;
+  font-weight: 700;
+}
+.col-md-7 {
+  border-radius: 8px;
+}
+.totalExp h2 {
+  color: white;
+  margin-top: 10px;
+  font-family: 'Raleway';
+  /* font-weight: bold; */
+  /* font-size: 18px; */
+}
+
+.total {
+  color: #ffff;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+.big {
+  font-size: 160%;
+  font-weight: 800;
+}
+.medium {
+  font-size: 100%;
+  font-weight: 800;
+}
+.week,
+.month,
+.year {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+}
+.track h2 {
+  color: #022ec1;
+  font-size: 170%;
+  font-weight: 600;
+}
+.period p {
+  font-weight: 700;
+}
+form i {
+  color: #022ec1;
+}
+.transTable tbody td {
+  border: none;
+}
+.transTable thead th {
+  border-top: none;
+}
+.transTable {
+  background: rgb(250, 250, 250);
+  box-shadow: 0 2px 2px -2px rgb(39, 38, 38);
+}
+.pages {
+  display: flex;
+  flex-flow: row;
+  color: #022ec1;
+  justify-content: space-evenly;
+}
+.pages .current {
+  color: #ffff;
+  background: #022ec1;
+}
+.pages .first {
+  color: rgb(209, 207, 207);
+}
+.pages a,
+.pages p {
+  padding-bottom: 0em;
+  margin-bottom: -0.3em;
+}
+.expTotal {
+  padding: 0.5em;
+  border-radius: 15px;
+}
+.dashboard-table {
+  table-layout: fixed;
+}
+.dashboard-table td {
+  word-wrap: break-word;
+}
+.dashboard-table .dashboardAction {
+  border-radius: 50px;
+  background-color: transparent;
+  border-width: 0px;
+}
+.dashboard-table .delItemBtn {
+  background: red;
+  font-weight: 500;
+}
+.dashboard-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.dashboard-table tr:hover {
+  background-color: rgba(117, 117, 117, 0.849);
+}
+.dashboard-table .dashboard-del-icon:hover {
+  color: red;
+}
+.dashboard-table .dashboard-edit-icon:hover {
+  color: #022ec1;
+}
+.dashboard-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #022ec1;
+  color: white;
+}
+.dashboard-table input {
+  background-color: white;
+  border: 1.5px solid #022ec1;
+  color: #022ec1;
+  font-size: 0.8em;
+  font-weight: 700;
+  border-radius: 5px;
+}
+/* .dashboard-table .db-filter-btn-clear{
+    margin: 0px;
+    padding: 0px;
+    transform: translateX(-20px);
+    color:white;
+    font-weight: 100;
+    display: none
+  } */
+
+.dashboard-table div:hover .db-filter-btn-clear {
+  margin: 0px;
+  padding: 0px;
+  transform: translateX(-20px);
+  color: white;
+  font-weight: 100;
+  display: inline;
+}
+
+.dashboard-table button i {
+  margin: 0px;
+  padding: 0px;
+  transform: translateX(-20px);
+  color: #022ec1;
+  font-weight: 100;
+  display: block;
+}
+.dashboard-table i {
+  margin: 0px;
+  padding: 0px;
+  transform: translateX(-20px);
+  color: #022ec1;
+  background: transparent;
+  border-radius: 50px;
+  display: none;
+}
+.dashboard-table i:hover {
+  margin: 0px;
+  padding: 0px;
+  transform: translateX(-20px);
+  color: white;
+  font-weight: 100;
+}
+
+.db-delete-selected {
+  background-color: white;
+  border: 1.5px solid #022ec1;
+  color: #022ec1;
+  font-size: 0.8em;
+  font-weight: 700;
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 350px) {
+  .logo img {
+    width: 80%;
+  }
+  .sideNav {
+    margin-top: -15%;
+  }
+  .totalExp {
+    margin-left: 5%;
+  }
+  .expenses {
+    margin-left: 0.5%;
+  }
+}
+@media screen and (max-width: 580px) {
+  .excelBtn {
+    width: 150px;
+  }
+  .msg {
+    margin-left: -2%;
+  }
+}
+@media screen and (min-width: 370px) and (max-width: 1000px) {
+  .expenses {
+    margin-left: 0.2%;
+  }
+}
+@media screen and (min-width: 580px) and (max-width: 767px) {
+  .specify {
+    margin: 0.5em;
+  }
+  .specifyBtn {
+    margin-left: 15%;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .expenses,
+  .budget {
+    width: 150px;
+  }
+}

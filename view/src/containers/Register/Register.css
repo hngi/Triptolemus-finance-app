@@ -15,12 +15,12 @@ h1{
     text-align: center;
     font-weight: 500;
 }
-p{
+.register p{
     text-align: center;
     font-size: 1em;
     font-weight: 500;
 }
-a{
+.register a{
     text-transform: capitalize;
     color: #022EC1;
 }
@@ -54,11 +54,13 @@ form{
     margin-left: 1.5em;
 }
 .signup-container{
-    width: 100%;
-    height: 100%;
-    margin-left: 0px; 
-    margin-right: 0px;
-
+    width: 85%;
+    height: 85%;
+    margin: 0 auto;
+    position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  
 }
 
 .signup-row{
@@ -96,11 +98,48 @@ form{
     .signup-form-container{
         position: relative;
         top: 50%;
-        margin-left: 18px;
         transform: translateY(-50%);
 
       }
   }
+  
+  @media screen and (min-width: 581px){
+   
+    .signup-pattern {
+        background: url(https://res.cloudinary.com/taofeeq/image/upload/v1569272984/TriptoTracker/pattern_xfwn22.jpg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    }
+    @media screen and (max-width: 580px){ 
+        .signup-row{
+        margin-left: 0px;
+        margin-right: 15px;
+    }
+        .signup-pattern {
+            background: url(https://res.cloudinary.com/taofeeq/image/upload/v1569272984/TriptoTracker/pattern_xfwn22.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            }
+        .signup-pattern-container{
+        position: relative;
+        height: 18%;
+        width: 100%;
+        
+    
+    
+        }
+        .signup-container{
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+        }
 @media screen and (min-width: 47.5em){
     body{
         font-size: 100%;

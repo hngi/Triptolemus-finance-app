@@ -1,73 +1,68 @@
 import {
-  FETCH_PROFILES_SUCCESS,
-  FETCH_PROFILES_FAIL,
-  FETCH_PROFILE_SUCCESS,
-  FETCH_PROFILE_FAIL,
-  CREATE_PROFILE_SUCCESS,
-  CREATE_PROFILE_FAIL,
-  ADD_EXPERIENCE_SUCCESS,
-  ADD_EXPERIENCE_FAIL,
-  ADD_EDUCATION_SUCCESS,
-  ADD_EDUCATION_FAIL,
-  FETCH_CURRENT_PROFILE_SUCCESS,
-  FETCH_CURRENT_PROFILE_FAIL,
-  DELETE_ACCOUNT,CLEAR_PROFILE,
-  EDIT_PROFILE_SUCCESS
+  ADD_ITEM_SUCCESS,
+  ADD_ITEM_FAIL,
+  GET_ITEMS_SUCCESS,
+  GET_ITEMS_FAIL,
+  LOADING_ITEM,
+  DELETE_ITEM_FAIL,
+  DELETE_ITEM_SUCCESS
 } from './types';
+import {
+  getWeeklyExpense,
+  getMonthlyExpense,
+  getYearlyExpense
+} from './expense';
 import { setAlert } from './alert';
 import axios from 'axios';
+const base_url = 'https://finance-tracker-server.herokuapp.com';
+//const base_url = 'http://localhost:3500';
+export const getItems = (startDate, endDate, userId) => async dispatch => {
+  dispatch({
+    type: LOADING_ITEM
+  });
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  const body = JSON.stringify({
+    startDate,
+    endDate
+  });
+  try {
+    const response = await axios.post(
+      base_url + `/api/users/${userId}/allItems`,
+      body,
+      config
+    );
+    if (response.data.success) {
+      dispatch({
+        type: GET_ITEMS_SUCCESS,
+        payload: response.data
+      });
+    } else {
+      console.log(response)
+      dispatch(setAlert(response.data.message, 'danger'));
+      dispatch({
+        type: GET_ITEMS_FAIL,
+        payload:response.data.message
+      });
+    }
+  } catch (error) {
+    console.log(error)
+    dispatch({
+      type: GET_ITEMS_FAIL,
+      payload: error.toString()
+    });
+  }
+};
 
-export const getCurrentProfile = () => async dispatch => {
-  try {
-    const response = await axios.get('/profile/me');
-    dispatch({
-      type: FETCH_CURRENT_PROFILE_SUCCESS,
-      payload: response.data
-    });
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
-    dispatch({
-      type: FETCH_CURRENT_PROFILE_FAIL,
-      payload: error
-    });
-  }
-};
-export const fetchProfiles = () => async dispatch => {
-  try {
-    const response = await axios.get('/profile');
-    dispatch({
-      type: FETCH_PROFILES_SUCCESS,
-      payload: response.data
-    });
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
-    dispatch({
-      type: FETCH_PROFILES_FAIL,
-      payload: error
-    });
-  }
-};
-export const createProfile = (
-  avatar,company,
-  website,
-  location,
-  status,
-  skills,
-  githubusername,
-  bio,
-  twitter,
-  facebook,
-  linkedin,
-  github,
-  youtube,
-  instagram,
-  history
+export const addItem = (
+  name,
+  description,
+  amount,
+  date,
+  userId
 ) => async dispatch => {
   const config = {
     headers: {
@@ -75,191 +70,112 @@ export const createProfile = (
     }
   };
   const body = JSON.stringify({
-    avatar,
-    company,
-    website,
-    location,
-    status,
-    skills,
-    githubusername,
-    bio,
-    twitter,
-    facebook,
-    linkedin,
-    github,
-    youtube,
-    instagram
+    name,
+    description,
+    amount,
+    date
   });
   try {
-    const response = await axios.post(`/profile`, body, config);
-    dispatch({
-      type: CREATE_PROFILE_SUCCESS,
-      payload: response.data
-    });
-    history.push('/dashboard');
-    dispatch(setAlert('Profile creation/update was successful', 'success'));
-
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
+    const response = await axios.post(
+      base_url + `/api/users/${userId}/items`,
+      body,
+      config
+    );
+    if (response.data.success) {
+      dispatch({
+        type: ADD_ITEM_SUCCESS,
+        payload: response.data
+      });
+      dispatch(setAlert('A new Item was added successfully', 'success'));
+      dispatch(getWeeklyExpense(userId));
+      dispatch(getMonthlyExpense(userId));
+      dispatch(getYearlyExpense(userId));
+    } else {
+      dispatch(setAlert(response.data.message, 'danger'));
     }
+  } catch (error) {
+    dispatch(setAlert(error.toString(), 'danger'));
+
     dispatch({
-      type: CREATE_PROFILE_FAIL,
-      payload: error
+      type: ADD_ITEM_FAIL,
+      payload: error.toString()
     });
   }
 };
-export const deleteAccount=(history)=>async dispatch=>{
-  if (window.confirm("Are you sure? This CANNOT be undone!")) {
-  try {
-    const response=await axios.delete('/profile')
+
+export const deleteItem = (userId,itemId) => async (dispatch,getState) => {
+  console.log('trying to delete ' + itemId)
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  const response = await axios.delete(
+    base_url + `/api/users/${userId}/items/${itemId}`,
+    config
+  )
+
+  if (response.data.success){
+    dispatch(setAlert(response.data.message,'success'))
+    let new_items = getState().item.items.items.filter(function(value){
+      console.log(value)
+      return value._id !== itemId
+    })
     dispatch({
-      type: DELETE_ACCOUNT
-    });
+      type: DELETE_ITEM_SUCCESS,
+      payload: {items:new_items,success:true}
+    })
+    dispatch(getWeeklyExpense(userId));
+    dispatch(getMonthlyExpense(userId));
+    dispatch(getYearlyExpense(userId));
+  } else {
+    dispatch(setAlert(response.data.message,'danger'))
     dispatch({
-      type: CLEAR_PROFILE
-    });
-    dispatch(setAlert('User successfully deleted', 'success'));
-    history.push('/login')
-  } catch (error) {dispatch(setAlert(error.message, 'danger'))
+      type: DELETE_ITEM_FAIL,
+    })
+  }
+
+}
+
+export const deleteSelectedItems = (userId,items) => async (dispatch,getState)=> {
+ 
+  console.log('trying to delete selected items')
+  console.log(items)
+  const body = JSON.stringify({
+    "items":items
+  });
+  console.log(body)
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  const response = await axios.post(
+    base_url + `/api/users/${userId}/items/delete`,
+    body,
+    config
+  )
+
+  if (response.data.success){
+    dispatch(setAlert(response.data.message,'success'))
+    let new_items = getState().item.items.items.filter(function(item){
+      console.log(item)
+      return !items.includes(item._id)
+    })
+    dispatch({
+      type: DELETE_ITEM_SUCCESS,
+      payload: {items:new_items,success:true}
+    })
+    dispatch(getWeeklyExpense(userId));
+    dispatch(getMonthlyExpense(userId));
+    dispatch(getYearlyExpense(userId));
+
+  } else {
+    dispatch({
+      type: DELETE_ITEM_FAIL,
+    })
+    dispatch(setAlert(response.data.message,'danger'))
     
   }
-  }
+
 }
-export const fetchProfile = user_id => async dispatch => {
-  try {
-    const response = await axios.get(`/profile/${user_id}`);
-    dispatch({
-      type: FETCH_PROFILE_SUCCESS,
-      payload: response.data
-    });
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
-    dispatch({
-      type: FETCH_PROFILE_FAIL,
-      payload: error
-    });
-  }
-};
-export const addExperience = (
-  company,
-  title,
-  location,
-  from,
-  to,
-  current,
-  description,
-  history
-) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-  const body = JSON.stringify({
-    company,
-    title,
-    location,
-    from,
-    to,
-    current,
-    description
-  });
-  try {
-    const response = await axios.post(`/profile/experience`, body, config);
-    dispatch({
-      type: ADD_EXPERIENCE_SUCCESS,
-      payload: response.data
-    });
-    dispatch(setAlert('Experience was added successfully', 'success'));
-    history.push('/dashboard');
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
-    dispatch({
-      type: ADD_EXPERIENCE_FAIL,
-      payload: error
-    });
-  }
-};
-export const deleteExperience = (exp_id) => async dispatch => {
-  try {
-    const response = await axios.delete(`/profile/experience/${exp_id}`);
-    dispatch({
-      type: EDIT_PROFILE_SUCCESS,
-      payload: response.data
-    });
-    dispatch(setAlert('Experience successfully removed', 'success'));
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
-  }
-};
-
-export const addEducation = (
-  school,
-  degree,
-  fieldofstudy,
-  from,
-  to,
-  current,
-  description,
-  history
-) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-  const body = JSON.stringify({
-    school,
-    degree,
-    fieldofstudy,
-    from,
-    to,
-    current,
-    description
-  });
-  try {
-    const response = await axios.post(`/profile/education`, body, config);
-    dispatch({
-      type: ADD_EDUCATION_SUCCESS,
-      payload: response.data
-    });
-    dispatch(setAlert('Education was added successfully', 'success'));
-    history.push('/dashboard');
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
-    dispatch({
-      type: ADD_EDUCATION_FAIL,
-      payload: error
-    });
-  }
-};
-
-export const deleteEducation = (edu_id) => async dispatch => {
-  try {
-    const response = await axios.delete(`/profile/education/${edu_id}`);
-    dispatch({
-      type: EDIT_PROFILE_SUCCESS,
-      payload: response.data
-    });
-    dispatch(setAlert('Education successfully removed', 'success'));
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
-  }
-};
