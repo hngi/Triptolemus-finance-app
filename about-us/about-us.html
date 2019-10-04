@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>About Us</title>
+		<link rel="shortcut icon" href="">
+		<link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/v4-shims.css">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div>
+			<header class="center mb-2"><h1>TriptoTracker helps hundreds of thousands people <br >worldwide to get their money into shape.</h1></header>
+		</div>
+		<div style="text-align:center">
+		  <span class="dot" onclick="currentSlide(1)"></span>
+		  <span class="dot" onclick="currentSlide(2)"></span>
+		</div>
+		<div class="slideshow-container">
+				<div class="mySlides fade">
+						<div class="testimonial mb-2">
+							<div class="testimonial__info vision">
+								<h1 class="testimonial__name">"Our vision</h1>
+								<p class="testimonial__text">to be the world's most respected african bank.
+								</p>
+							</div>
+							<div class="testimonial__image-container">
+								<center><img src="img/Group 3.png" class="testimonial__icon"></center>
+							</div>
+						</div>
+						<div class="testimonial mb-2">
+							<div class="testimonial__image-container">
+								<center><img src="img/Group2.png" class="testimonial__icon"></center>
+							</div>
+							<div class="testimonial__info right">
+								<h1 class="testimonial__name">"Our Mission</h1>
+								<p class="testimonial__text mission">setting standards for sustainable business practices that unleash the talents of our employees, deliver superior value to our customers and provide innovative solutions for the markets and communities we serve.</p>
+							</div>
+						</div>
+				</div>
+
+				<div class="mySlides fade">
+					<header class="center mb-2 team"><h1>Meet the Team</h1></header>
+					<div class="team-members">
+							<div class="card">
+									<div id="image-container">
+											<img src="img/vicky.jpg" width="130px" height="150px" style="border-radius: 50%;">
+											<h2>Vicky</h2>
+											<span>CEO & CoFounder</span>
+											<div class="media-icon">
+													<i class="fab fa-twitter fa-lg icons"></i>
+													<i class="fas fa-envelope fa-lg icons"></i>
+											</div>
+									</div>
+							</div>
+							<div class="card">
+									<div id="image-container">
+											<img src="img/wale.jpg" class="image">
+											<h2>Dekiller_j</h2>
+											<span>CEO & CoFounder</span>
+											<div class="media-icon">
+													<i class="fab fa-twitter fa-lg icons"></i>
+													<i class="fas fa-envelope fa-lg icons"></i>
+											</div>
+									</div>
+							</div>
+							<div class="card">
+									<div id="image-container">
+											<img src="img/wale.jpg" class="image">
+											<h2>Vicky</h2>
+											<span>CEO & CoFounder</span>
+											<div class="media-icon">
+													<i class="fab fa-twitter fa-lg icons"></i>
+													<i class="fas fa-envelope fa-lg icons"></i>
+											</div>
+									</div>
+							</div>
+							<div class="card">
+									<div id="image-container">
+											<img src="img/wale.jpg" class="image">
+											<h2>Vicky</h2>
+											<span>CEO & CoFounder</span>
+											<div class="media-icon">
+													<i class="fab fa-twitter fa-lg icons"></i>
+													<i class="fas fa-envelope fa-lg icons"></i>
+											</div>
+									</div>
+						</div>
+					</div>
+				</div>
+		</div>
+
+		<script type="text/javascript">
+			var slideIndex = 1;
+			showSlides(slideIndex);
+
+			// Next/previous controls
+			function plusSlides(n) {
+			  showSlides(slideIndex += n);
+			}
+
+			// Thumbnail image controls
+			function currentSlide(n) {
+			  showSlides(slideIndex = n);
+			}
+
+			function showSlides(n) {
+			  var i;
+			  var slides = document.getElementsByClassName("mySlides");
+			  var dots = document.getElementsByClassName("dot");
+			  if (n > slides.length) {slideIndex = 1}
+			  if (n < 1) {slideIndex = slides.length}
+			  for (i = 0; i < slides.length; i++) {
+			      slides[i].style.display = "none";
+			  }
+			  for (i = 0; i < dots.length; i++) {
+			      dots[i].className = dots[i].className.replace(" active", "");
+			  }
+			  slides[slideIndex-1].style.display = "block";
+			  dots[slideIndex-1].className += " active";			  
+			}
+		</script>
+	</body>
+</html>
