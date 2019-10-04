@@ -50,7 +50,7 @@ router.put('/api/users/edit' , async (req, res) => {
     const { user_id, first_name, last_name, email, phone_number, gender, date_of_birth } = req.body;
     await User.find({ _id: user_id }).then( user =>{
         if(!user){
-            return res.status(400).json({
+            return res.status(200).json({
               message: "No User found",
               success: false
             });
@@ -64,7 +64,7 @@ router.put('/api/users/edit' , async (req, res) => {
                             success: true
                           });
                      } else {
-                        return res.status(400).json({
+                        return res.status(200).json({
                             message: "No User found",
                             success: false
                           });
@@ -72,11 +72,9 @@ router.put('/api/users/edit' , async (req, res) => {
                  });
         }
     });
-    // res.json({ items: items });
   } catch (error) {
-    console.log(error.message);
-    return res.status(400).json({
-      message : error.message,
+    return res.status(200).json({
+      message : error,
       success: false
     });
   }

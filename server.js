@@ -67,13 +67,10 @@ app.use(require('./routes/Auth/login'));
 app.use(require('./routes/Auth/register'));
 app.use(require('./routes/Users/getUsersById'));
 app.use(require('./routes/Users/editUser'));
-// app.use(require('./routes/Item/getItems'));
-// app.use(require('./routes/Item/addItems'));
 app.use(require('./routes/Auth/forgot_password'));
-// app.use(require('./routes/Auth/resetpass'));
-// app.use(require('./routes/Contact/contact'));
+app.use(require('./routes/Contact/contact'));
 app.use(require('./routes/Item/item'));
-// app.use(require('./routes/Budget/budget'));
+app.use(require('./routes/Budget/budget'));
 
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);

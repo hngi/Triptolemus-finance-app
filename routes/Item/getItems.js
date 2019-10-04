@@ -27,12 +27,12 @@ let userAuth = require('../../middleware/userAuth');
 let User = require('../../schema/user');
 let Item = require('../../schema/item');
 
-router.get('/api/items/:userId',userAuth.verifyToken , async (req, res) => {
+router.get('/api/items/:userId' , async (req, res) => {
   try {
     const { userId } = req.params;
     await Item.find({ user_id: userId }).then( items =>{
         if(!items){
-            return res.status(400).json({error: "No item found"});
+            return res.status(200).json({error: "No item found"});
         }else {
             return res.status(200).json({items: items});
         }

@@ -44,7 +44,7 @@ let userAuth = require('../../middleware/userAuth');
 let User = require('../../schema/user');
 let Item = require('../../schema/item');
 
-router.post('/api/items',userAuth.verifyToken, async (req, res) => {
+router.post('/api/items', async (req, res) => {
   try {
     // const { userId } = req.params;
     // const { userId, name, description, amount } = req.body;
@@ -56,9 +56,15 @@ router.post('/api/items',userAuth.verifyToken, async (req, res) => {
     // });
     const newItem = new Item(req.body);
     const item = await newItem.save();
-    res.json({ item: item });
+    res.json({
+      item: item,
+      success: true
+    });
   } catch (error) {
-    res.status(401).json({error: error.message});
+    res.status(200).json({
+      message: error.message,
+      success: false
+    });
   }
 });
 
