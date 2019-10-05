@@ -8,6 +8,7 @@ import {
 } from './types';
 import axios from 'axios';
 import moment from 'moment';
+import FileDownload from 'js-file-download';
 const base_url = 'https://finance-tracker-server.herokuapp.com';
 // const base_url = 'http://localhost:3500';
 
@@ -96,5 +97,38 @@ export const getYearlyExpense = userId => async dispatch => {
       type: FETCH_YEARLY_EXPENSE_FAIL,
       payload: error.toString()
     });
+  }
+};
+
+export const getExpenseReport = (innerHTML, userId) => async dispatch => {
+  try {
+    const body = JSON.stringify({
+      innerHTML
+    });
+
+    const config = {
+      headers: { 'Content-Type': 'application/json' }
+    };
+
+    const response = await axios.post(
+      base_url + `/api/users/${userId}/expense/report`,
+      body,
+      config
+    );
+    console.log(response.data);
+
+    if (response.data.success) {
+      console.log('successful');
+      let win = window.open(
+        base_url +
+          `/api/users/${userId}/expense/report/${response.data.fileName}`,
+        '_blank'
+      );
+      win.focus();
+    } else {
+      console.log('was not successful');
+    }
+  } catch (error) {
+    console.log('was not successful');
   }
 };

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { signInWithGoogle, getGoogle } from '../../actions/auth';
+import { signInWithGoogle } from '../../actions/auth';
 import { withRouter } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 

@@ -1,12 +1,17 @@
 let express = require('express');
 let router = express.Router();
 let moment = require('moment');
+let pdfcrowd = require('pdfcrowd');
+let path = require('path');
+let mime = require('mime');
+let fs = require('fs');
+
 // let userAuth = require('../../middleware/userAuth');
 let Item = require('../../schema/item');
 const mongoose = require('mongoose');
 const User = require('../../schema/user');
 
-Date.prototype.addDays = function (days) {
+Date.prototype.addDays = function(days) {
   var date = new Date(this.valueOf());
   date.setDate(date.getDate() + days);
   return date;
@@ -14,21 +19,14 @@ Date.prototype.addDays = function (days) {
 
 router.post('/api/users/:userId/items', async (req, res) => {
   try {
-    const {
-      userId
-    } = req.params;
+    const { userId } = req.params;
     const id = req.user;
     // if (userId !== id) {
     //   return res.status(401).json({
     //     error: 'Unauthorized user'
     //   });
     // }
-    const {
-      name,
-      description,
-      amount,
-      date
-    } = req.body;
+    const { name, description, amount, date } = req.body;
     if (
       name == '' ||
       name == null ||
@@ -65,13 +63,8 @@ router.post('/api/users/:userId/items', async (req, res) => {
 });
 router.post('/api/users/:userId/allItems', async (req, res) => {
   try {
-    const {
-      userId
-    } = req.params;
-    const {
-      startDate,
-      endDate
-    } = req.body;
+    const { userId } = req.params;
+    const { startDate, endDate } = req.body;
     if (startDate > endDate) {
       return res.status(200).json({
         message: 'Start Date cannot be greater than End Date',
@@ -96,7 +89,8 @@ router.post('/api/users/:userId/allItems', async (req, res) => {
 
     if (items.length <= 0) {
       return res.status(200).json({
-        message: 'There are no expenses recorded during the specified period,please choose another date',
+        message:
+          'There are no expenses recorded during the specified period,please choose another date',
         items: [],
         success: false
       });
@@ -115,14 +109,9 @@ router.post('/api/users/:userId/allItems', async (req, res) => {
 });
 router.post('/api/users/:userId/calculate/week', async (req, res) => {
   try {
-    const {
-      userId
-    } = req.params;
+    const { userId } = req.params;
     const id = req.user;
-    let {
-      startDate,
-      endDate
-    } = req.body;
+    let { startDate, endDate } = req.body;
     if (startDate > endDate) {
       return res.status(200).json({
         message: 'Start Date cannot be greater than End Date',
@@ -147,12 +136,12 @@ router.post('/api/users/:userId/calculate/week', async (req, res) => {
     //   return res.status(401).json({ error: 'Unauthorized user' });
     // }
     Item.find({
-        user_id: userId,
-        date: {
-          $gte: startDate,
-          $lte: endDate
-        }
-      })
+      user_id: userId,
+      date: {
+        $gte: startDate,
+        $lte: endDate
+      }
+    })
       .sort({
         date: 1
       })
@@ -226,14 +215,9 @@ router.post('/api/users/:userId/calculate/week', async (req, res) => {
 
 router.post('/api/users/:userId/calculate/year', async (req, res) => {
   try {
-    const {
-      userId
-    } = req.params;
+    const { userId } = req.params;
     const id = req.user;
-    let {
-      startDate,
-      endDate
-    } = req.body;
+    let { startDate, endDate } = req.body;
     if (startDate > endDate) {
       return res.status(200).json({
         message: 'Start Date cannot be greater than End Date',
@@ -247,12 +231,12 @@ router.post('/api/users/:userId/calculate/year', async (req, res) => {
     //   return res.status(401).json({ error: 'Unauthorized user' });
     // }
     Item.find({
-        user_id: userId,
-        date: {
-          $gte: startDate,
-          $lte: endDate
-        }
-      })
+      user_id: userId,
+      date: {
+        $gte: startDate,
+        $lte: endDate
+      }
+    })
       .sort({
         date: 1
       })
@@ -324,14 +308,9 @@ router.post('/api/users/:userId/calculate/year', async (req, res) => {
 
 router.post('/api/users/:userId/calculate/daily', async (req, res) => {
   try {
-    const {
-      userId
-    } = req.params;
+    const { userId } = req.params;
     const id = req.user;
-    let {
-      startDate,
-      endDate
-    } = req.body;
+    let { startDate, endDate } = req.body;
     if (startDate > endDate) {
       return res.status(200).json({
         message: 'Start Date cannot be greater than End Date',
@@ -345,12 +324,12 @@ router.post('/api/users/:userId/calculate/daily', async (req, res) => {
     //   return res.status(401).json({ error: 'Unauthorized user' });
     // }
     Item.find({
-        user_id: userId,
-        date: {
-          $gte: startDate,
-          $lte: endDate
-        }
-      })
+      user_id: userId,
+      date: {
+        $gte: startDate,
+        $lte: endDate
+      }
+    })
       .sort({
         date: 1
       })
@@ -383,13 +362,8 @@ router.post('/api/users/:userId/calculate/daily', async (req, res) => {
 // route for getting all items for month(s)
 router.post('/api/users/:userId/calculate/month', async (req, res, next) => {
   try {
-    const {
-      userId
-    } = req.params;
-    let {
-      startDate,
-      endDate
-    } = req.body;
+    const { userId } = req.params;
+    let { startDate, endDate } = req.body;
 
     const id = req.user;
     // if (userId !== id) {
@@ -405,7 +379,8 @@ router.post('/api/users/:userId/calculate/month', async (req, res, next) => {
 
     startDate = new Date(startDate);
     endDate = new Date(endDate).addDays(1);
-    const filteredItems = await Item.aggregate([{
+    const filteredItems = await Item.aggregate([
+      {
         $match: {
           user_id: mongoose.Types.ObjectId(userId),
           date: {
@@ -443,9 +418,11 @@ router.post('/api/users/:userId/calculate/month', async (req, res, next) => {
 
     if (!filteredItems) {
       res.status(200).json({
-        items: [{
-          totalExpenses: 0
-        }],
+        items: [
+          {
+            totalExpenses: 0
+          }
+        ],
         success: true
       });
     }
@@ -463,79 +440,134 @@ router.post('/api/users/:userId/calculate/month', async (req, res, next) => {
 
 router.put('/api/users/:userId/Item/:itemId', async (req, res) => {
   try {
-    const {
-      userId,
-      itemId
-    } = req.params;
+    const { userId, itemId } = req.params;
 
-    const updatedItem = await Item.updateOne({
-      user_id: userId,
-      _id: itemId
-    }, {
-      $set: {
-        name: req.body.name || item.name,
-        description: req.body.description || item.description,
-        amount: req.body.amount || item.amount,
-        date: req.body.date
+    const updatedItem = await Item.updateOne(
+      {
+        user_id: userId,
+        _id: itemId
+      },
+      {
+        $set: {
+          name: req.body.name || item.name,
+          description: req.body.description || item.description,
+          amount: req.body.amount || item.amount,
+          date: req.body.date
+        }
       }
-    })
+    );
     if (!updatedItem) {
       return res.status(200).json({
         message: 'Update Failed Item Not Found',
         success: false
-      })
+      });
     } else {
       return res.status(200).json({
         message: 'Update Successfull',
         success: true
-      })
+      });
     }
-
   } catch {
     return res.status(200).json({
       message: 'Update Failed',
       success: false
-    })
-  }
-})
-
-router.delete('/api/users/:userId/items/:itemId', async (req, res)=>{
-  console.log(req)
-  try{
-    const {userId,itemId} = req.params
-    Item.findOneAndDelete({_id:itemId},(err,res)=>{
-      console.log(res)
-      console.log(err)
-    })
-    
-    return res.status(200).json({success:true,message:"Item Deleted",itemId:itemId})
-  } catch(error){
-    return res.status(200).json({success:false,message:"Could not Delete Item"})
-
+    });
   }
 });
 
-router.post('/api/users/:userId/items/delete', async (req, res)=>{
-  console.log(req.body)
-  try{
-    const {userId} = req.params
-    const {items} = req.body
-    console.log(items)
-    if (items == undefined || items==null || items.length == 0){
-      return res.status(200).json({success:false,message:"Empty Request"})
-    }
-      items.forEach(element => {
-         Item.findOneAndDelete({_id:element},(err,res)=>{
-        console.log(res)
-        console.log(err)
-    })
-      });
-     return res.status(200).json({success:true,message:items.length + " Item(s) Deleted"})
-    
-  } catch(error){
-    console.log(error)
-    return res.status(200).json({success:false,message:"Could not Delete Items"})
+router.delete('/api/users/:userId/items/:itemId', async (req, res) => {
+  console.log(req);
+  try {
+    const { userId, itemId } = req.params;
+    Item.findOneAndDelete({ _id: itemId }, (err, res) => {
+      console.log(res);
+      console.log(err);
+    });
 
+    return res
+      .status(200)
+      .json({ success: true, message: 'Item Deleted', itemId: itemId });
+  } catch (error) {
+    return res
+      .status(200)
+      .json({ success: false, message: 'Could not Delete Item' });
+  }
+});
+
+router.post('/api/users/:userId/items/delete', async (req, res) => {
+  console.log(req.body);
+  try {
+    const { userId } = req.params;
+    const { items } = req.body;
+    console.log(items);
+    if (items == undefined || items == null || items.length == 0) {
+      return res.status(200).json({ success: false, message: 'Empty Request' });
+    }
+    items.forEach(element => {
+      Item.findOneAndDelete({ _id: element }, (err, res) => {
+        console.log(res);
+        console.log(err);
+      });
+    });
+    return res
+      .status(200)
+      .json({ success: true, message: items.length + ' Item(s) Deleted' });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(200)
+      .json({ success: false, message: 'Could not Delete Items' });
+  }
+});
+
+router.post('/api/users/:userId/expense/report', async (req, res) => {
+  try {
+    const { innerHTML } = req.body;
+    const { userId } = req.params;
+    console.log(innerHTML);
+    var client = new pdfcrowd.HtmlToPdfClient(
+      'triptolemus',
+      'bfb9e262e4fcf3096b5adffbadffd62e'
+    );
+
+    // run the conversion and write the result to a file
+    client.convertStringToFile(innerHTML, userId + '_expense.pdf', function(
+      err,
+      fileName
+    ) {
+      if (err) {
+        console.error('Pdfcrowd Error: ' + err);
+      }
+      console.log('Success: the file was created ' + fileName);
+    });
+    res.status(200).json({
+      success: true,
+      message: 'Succesful',
+      fileName: userId + '_expense.pdf'
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(200).json({ success: false, message: error.toString() });
+  }
+});
+
+router.get('/api/users/:userId/expense/report/:fileName', async (req, res) => {
+  try {
+    const { fileName } = req.params;
+    var file = './' + fileName;
+
+    var filename = path.basename(file);
+    var mimetype = mime.lookup(file);
+
+    res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+    res.setHeader('Content-type', mimetype);
+    res.status(200);
+   
+    res.download(file);
+  } catch (error) {
+    res
+      .status(200)
+      .json({ success: false, message: 'could not download file' });
   }
 });
 

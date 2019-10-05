@@ -21,7 +21,7 @@ const Testimonial = () => {
             <img
               src='https://res.cloudinary.com/elijjaaahhhh/image/upload/v1570178696/image_1_bvgru7.png'
               className='img-fluid bg'
-              alt='background image'
+              alt='backgr'
             />
           </div>
         </div>
