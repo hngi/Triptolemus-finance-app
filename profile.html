@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ <link href="https://fonts.googleapis.com/css?family=Raleway:400,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="profile.css">
+  <link rel="shortcut icon" href="https://res.cloudinary.com/taofeeq/image/upload/v1569271378/TriptoTracker/WhatsApp_Image_2019-09-23_at_9.41.16_PM_v3k0k9.jpg" type="image/x-icon">
+  <title>Profile</title>
+ </head>
+ <body>
+  <nav class="navbar navbar-expand-md navbar-light fixed-top py-4" id="main-nav">
+    <div class="container">
+      <a href="#home" class="navbar-brand logo"> 
+        <img src="https://res.cloudinary.com/taofeeq/image/upload/v1569508859/TriptoTracker/icon-white_l40nxz.png" width="210" height="30" alt="TriptoTracker logo"> 
+      </a> 
+      <ul class="navbar-nav ml-auto sideNav">
+          <li class="nav-item dropdown mr-3"> 
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+              <img src="404image" onerror="this.src='https://res.cloudinary.com/taofeeq/image/upload/v1569581525/TriptoTracker/avi3_bji60s.png'" alt="" width="23x" height="23x" style="border-radius: 100%">
+              <span class="list"> miz- kas </span>
+            </a>
+            <div class="dropdown-menu dropNav">
+               <a href="#" class="dropdown-item">
+               <i class="fas fa-user-circle"></i> Profile </a>
+               <a href="#" class="dropdown-item">
+               <i class="fa fa-sign-out"></i> Log out </a>
+           </div>
+         </li>
+       </ul>
+     </div>
+   </nav>
+   <section class="py-">
+    <div class="container">
+     <div class="row profile ml-2">
+      <a href="dashboard.html">
+       <i class="fa fa-arrow-left"></i>
+      </a>
+       <h1 class="ml-2 proHead">
+        Profile
+       </h1>
+     </div>
+     <div class="row ml-2">
+      <div id="proAccount" class="col-sm-12">
+       <h1>Personal Profile</h1>
+       <div class="row mt-2">
+        <div class="col-sm-6">
+         <h3>full name</h3>
+        </div>
+        <div class="col-sm-6 proName">
+         <p>
+          <!--codes to pull user's first name that'll be entered in the edit porofile modal-->
+         </p>
+         <p>
+          <!--codes to pull user's lasst name that'll be entered in the edit porofile modal-->
+         </p>
+        </div>
+       </div>
+      <div class="row mt-2">
+       <div class="col-sm-6">
+        <h3>email address</h3>
+       </div>
+       <div class="col-sm-6">
+        <p>
+         <!--codes to pull user's email that'll be entered in the edit porofile modal-->
+        </p>
+       </div>
+      </div>
+      <div class="row mt-2">
+       <div class="col-sm-6">
+        <h3>phone number</h3>
+       </div>
+       <div class="col-sm-6">
+        <p>
+         <!--codes to pull user's phonenumber that'll be entered in the edit porofile modal-->
+        </p>
+       </div>
+      </div>
+      <div class="row mt-2">
+       <div class="col-sm-6">
+        <h3>gender</h3>
+       </div>
+       <div class="col-sm-6">
+        <p>
+         <!--codes to pull user's gender that'll be entered in the edit porofile modal-->
+        </p>
+       </div>
+      </div>
+      <div class="row mt-2">
+       <div class="col-sm-6">
+        <h3>date of birth</h3>
+       </div>
+       <div class="col-sm-6">
+        <p>
+         <!--codes to pull user's dae of birth that'll be entered in the edit porofile modal-->
+        </p>
+       </div>
+      </div>
+      <div class="row mt-2">
+       <div class="col-sm-6"></div>
+       <div class="col-sm-6">
+        <button class="btn editBtn" data-toggle="modal" data-target="#editDetails">
+         Edit Profile
+        </button>
+        <div id="editDetails" class="modal fade" role="dialog">
+         <div class="modal-dialog">
+          <div class="modal-content">
+           <div class="modal-head">
+            <h1 class="ml-3">Edit Profile</h1>
+           </div>
+           <div class="modal-body">
+           <forml role="form" class="form-horizontal">
+            <div class="row mt-1">
+             <div class="col-sm-6">
+              <h4>enter full name</h4>
+              <p>Your full name</p>
+             </div>
+             <div class="col-sm-6">
+              <div class="form-group">
+               <label class="control-label sm-1 ml-3">First Name</label>
+               <div class="col-sm-11">
+                <input type="text" name="name" class="form-control" placeholder="James"/>
+               </div>
+              </div>
+              <div class="form-group">
+               <label class="control-label sm-1 ml-3">Last Name</label>
+               <div class="col-sm-11">
+                <input type="text" name="name" class="form-control" placeholder="Doe"/>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="row mt-1">
+             <div class="col-sm-6">
+              <h4>email address</h4>
+              <p>Enter your email address</p>
+             </div>
+             <div class="col-sm-6">
+              <div class="form-group">
+               <label class="control-label sm-1 ml-3">Email Address</label>
+               <div class="col-sm-11">
+                <input type="email" name="email" class="form-control" placeholder="johndoe@hotmail.com"/>
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="row mt-1">
+             <div class="col-sm-6">
+              <h4>phone number</h4>
+              <p>Enter your phone number</p>
+             </div>
+             <div class="col-sm-6">
+             <div class="form-group">
+              <label class="control-label sm-1 ml-3">Phone number</label>
+              <div class="col-sm-11">
+               <input type="tel" name="tel" class="form-control" placeholder="+2348031284857"/>
+              </div>               
+             </div>
+            </div>
+           </div>
+           <div class="row mt-1">
+            <div class="col-sm-6">
+             <h4>gender</h4>
+             <p>What is your gender?</p>
+            </div>
+            <div class="col-sm-6">
+            <div class="form-group">
+             <label class="control-label sm-1 ml-3">Gender</label>
+            <div class="col-sm-11">
+             <input type="text" name="gender" class="form-control" placeholder="Male/Female/Other"/>
+            </div>
+           </div>
+          </div>
+         </div>
+         <div class="row mt-1">
+          <div class="col-sm-6">
+           <h4>date of birth</h4>
+           <p>What is your date of birth?</p>
+          </div>
+          <div class="col-sm-6">
+           <div class="form-group">
+            <label class="control-label sm-1 ml-3">Date of birth</label>
+            <div class="col-sm-11">
+             <input type="date" name="date" class="form-control"/>
+            </div>
+           </div>
+          </div>
+         </div>
+         <div class="row mt-1">
+          <div class="col-sm-6"></div>
+          <div class="col-sm-6">
+           <div class="form-group">
+            <div class="sm-1"></div>
+             <div class="col-sm-11">
+              <button type="submit"
+                                                                    class="btn form-control proBtn">Update Profile</button>
+             </div>
+            </div>
+           </div>
+          </div>
+         </form>
+        </div>
+       </div>
+      </div>
+     </div>  
+    </div>
+   </div>
+  </div>
+  </div>
+ </div>
+</section>
+<script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script> 
+</body>
+</html>
