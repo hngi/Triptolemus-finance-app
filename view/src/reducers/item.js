@@ -6,10 +6,10 @@ import {
   LOADING_ITEM,
   DELETE_ITEM_SUCCESS,
   DELETE_ITEM_FAIL,
-  CLEAR_ITEMS
-
+  CLEAR_ITEMS,
+  EDIT_ITEM_SUCCESS,
+  EDIT_ITEM_FAIL
 } from '../actions/types';
-import { stat } from 'fs';
 
 const initialState = {
   item: null,
@@ -26,6 +26,18 @@ export default function(state = initialState, action) {
         loading: false
       };
     case ADD_ITEM_FAIL:
+      return {
+        ...state,
+        item: null,
+        loading: false
+      };
+    case EDIT_ITEM_SUCCESS:
+      return {
+        ...state,
+        item: payload,
+        loading: false
+      };
+    case EDIT_ITEM_FAIL:
       return {
         ...state,
         item: null,

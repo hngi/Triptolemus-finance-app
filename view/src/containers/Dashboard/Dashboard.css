@@ -181,14 +181,14 @@ form i {
   background-color: #022ec1;
   color: white;
 }
-.dashboard-table input {
+/* .dashboard-table input {
   background-color: white;
   border: 1.5px solid #022ec1;
   color: #022ec1;
   font-size: 0.8em;
   font-weight: 700;
   border-radius: 5px;
-}
+} */
 /* .dashboard-table .db-filter-btn-clear{
     margin: 0px;
     padding: 0px;

@@ -438,7 +438,7 @@ router.post('/api/users/:userId/calculate/month', async (req, res, next) => {
   }
 });
 
-router.put('/api/users/:userId/Item/:itemId', async (req, res) => {
+router.put('/api/users/:userId/item/:itemId', async (req, res) => {
   try {
     const { userId, itemId } = req.params;
 
@@ -562,7 +562,7 @@ router.get('/api/users/:userId/expense/report/:fileName', async (req, res) => {
     res.setHeader('Content-disposition', 'attachment; filename=' + filename);
     res.setHeader('Content-type', mimetype);
     res.status(200);
-   
+
     res.download(file);
   } catch (error) {
     res

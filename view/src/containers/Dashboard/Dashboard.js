@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { showLoginAlert, logout } from '../../actions/auth';
-import html2pdf from 'html2pdf.js';
+import moment from 'moment';
 import {
   addItem,
   getItems,
   deleteItem,
-  deleteSelectedItems
+  deleteSelectedItems,
+  editItem
 } from '../../actions/item';
 import { connect } from 'react-redux';
 import { GoogleLogout } from 'react-google-login';
@@ -23,7 +24,7 @@ import {
   setYearlyBudget
 } from '../../actions/budget';
 import { fetchProfile } from '../../actions/auth';
-import pdfcrowd from 'pdfcrowd';
+
 const Dashboard = ({
   showLoginAlert,
   logout,
@@ -43,10 +44,10 @@ const Dashboard = ({
   loading,
   deleteItem,
   deleteSelectedItems,
-  getExpenseReport
+  getExpenseReport,
+  editItem
 }) => {
   const { isAuthenticated, user, profile } = auth;
-  console.log(auth.isSignedInWithGoogle);
   const { weeklyExpense, monthlyExpense, yearlyExpense } = expense;
   useEffect(() => {
     if (
@@ -945,7 +946,9 @@ const Dashboard = ({
                                   <div className='modal-content'>
                                     <div className='modal-body'>
                                       <h1
-                                        style={{ color: '#022EC1' }}
+                                        style={{
+                                          color: '#022EC1'
+                                        }}
                                         className='ml-3'>
                                         Delete Item
                                       </h1>
@@ -974,6 +977,31 @@ const Dashboard = ({
 
                               <button
                                 className='dashboardAction'
+                                onClick={() => {
+                                  document.getElementsByClassName(
+                                    'description' + index
+                                  )[0].value = item.description;
+                                  setFormData({
+                                    ...formData,
+                                    name: item.name,
+                                    description: item.description,
+                                    amount: item.amount,
+                                    date: moment(item.date).format('YYYY-MM-DD')
+                                  });
+
+                                  document.getElementsByClassName(
+                                    'name' + index
+                                  )[0].value = item.name;
+
+                                  document.getElementsByClassName(
+                                    'amount' + index
+                                  )[0].value = item.amount;
+                                  document.getElementsByClassName(
+                                    'date' + index
+                                  )[0].value = moment(item.date).format(
+                                    'YYYY-MM-DD'
+                                  );
+                                }}
                                 data-toggle='modal'
                                 data-target={'#editExpense' + index}>
                                 <i
@@ -989,13 +1017,23 @@ const Dashboard = ({
                                   <div className='modal-content'>
                                     <div className='modal-body'>
                                       <h1
-                                        style={{ color: '#022EC1' }}
+                                        style={{
+                                          color: '#022EC1'
+                                        }}
                                         className='ml-3'>
                                         Edit Expense
                                       </h1>
                                       <form
                                         onSubmit={e => {
                                           e.preventDefault();
+                                          editItem(
+                                            name,
+                                            description,
+                                            amount,
+                                            date,
+                                            userId,
+                                            item._id
+                                          );
                                         }}
                                         className='form-horizontal'>
                                         <div className='form-group'>
@@ -1007,10 +1045,12 @@ const Dashboard = ({
                                               required
                                               type='text'
                                               name='name'
-                                              value={item.name}
+                                              // value={item.name}
                                               onChange={e => onChange(e)}
                                               //id='expenseName'
-                                              className='form-control'
+                                              className={
+                                                'form-control name' + index
+                                              }
                                               placeholder='Enter Item Name'
                                             />
                                           </div>
@@ -1024,10 +1064,15 @@ const Dashboard = ({
                                               required
                                               type='text'
                                               name='description'
-                                              value={item.description}
+                                              // value={
+                                              //   item.description
+                                              // }
                                               onChange={e => onChange(e)}
                                               //id='expenseDescription'
-                                              className='form-control'
+                                              className={
+                                                'form-control description' +
+                                                index
+                                              }
                                               placeholder='Enter Item Description'
                                             />
                                           </div>
@@ -1042,10 +1087,12 @@ const Dashboard = ({
                                               required
                                               type='number'
                                               name='amount'
-                                              value={item.amount}
+                                              // value={item.amount}
                                               onChange={e => onChange(e)}
                                               //id='expenseAmount'
-                                              className='form-control'
+                                              className={
+                                                'form-control amount' + index
+                                              }
                                               placeholder='Enter Amount'
                                             />
                                           </div>
@@ -1060,9 +1107,14 @@ const Dashboard = ({
                                               type='date'
                                               name='date'
                                               //id='date'
-                                              value={item.date}
+                                              // value={moment(item.date).format(
+                                              //   'YYYY-MM-DD'
+                                              // )}
                                               onChange={e => onChange(e)}
-                                              className='form-control mr-1 specify'
+                                              className={
+                                                'form-control mr-1 specify date' +
+                                                index
+                                              }
                                             />
                                           </div>
                                         </div>
@@ -1073,7 +1125,7 @@ const Dashboard = ({
                                               type='submit'
                                               data-toggle='modal'
                                               data-target={
-                                                '#deleteItem' + index
+                                                '#editExpense' + index
                                               }
                                               className='btn form-control expenseBtn'>
                                               Save Expense
@@ -1167,8 +1219,9 @@ const Dashboard = ({
                   items.items === undefined
                     ? null
                     : items.items.map(item => {
+                        console.log(item);
                         return (
-                          <tr>
+                          <tr key={item._id}>
                             <td
                               style={{
                                 padding: '10px'
@@ -1227,6 +1280,7 @@ const Dashboard = ({
 
 // Accepts a Date object or date string that is recognized by the Date.parse() method
 const formatDate = date => {
+  console.log(date);
   var item_date = new Date(date);
   const ddd = isNaN(item_date.getDay())
     ? null
@@ -1303,6 +1357,7 @@ export default connect(
     logout,
     deleteItem,
     deleteSelectedItems,
-    getExpenseReport
+    getExpenseReport,
+    editItem
   }
 )(Dashboard);

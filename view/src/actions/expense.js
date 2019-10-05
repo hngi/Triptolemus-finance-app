@@ -8,7 +8,7 @@ import {
 } from './types';
 import axios from 'axios';
 import moment from 'moment';
-import FileDownload from 'js-file-download';
+
 const base_url = 'https://finance-tracker-server.herokuapp.com';
 // const base_url = 'http://localhost:3500';
 

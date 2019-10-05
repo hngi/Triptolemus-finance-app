@@ -5,7 +5,9 @@ import {
   GET_ITEMS_FAIL,
   LOADING_ITEM,
   DELETE_ITEM_FAIL,
-  DELETE_ITEM_SUCCESS
+  DELETE_ITEM_SUCCESS,
+  EDIT_ITEM_SUCCESS,
+  EDIT_ITEM_FAIL
 } from './types';
 import {
   getWeeklyExpense,
@@ -15,7 +17,7 @@ import {
 import { setAlert } from './alert';
 import axios from 'axios';
 const base_url = 'https://finance-tracker-server.herokuapp.com';
-//const base_url = 'http://localhost:3500';
+// const base_url = 'http://localhost:3500';
 export const getItems = (startDate, endDate, userId) => async dispatch => {
   dispatch({
     type: LOADING_ITEM
@@ -98,6 +100,52 @@ export const addItem = (
 
     dispatch({
       type: ADD_ITEM_FAIL,
+      payload: error.toString()
+    });
+  }
+};
+export const editItem = (
+  name,
+  description,
+  amount,
+  date,
+  userId,itemId
+) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  const body = JSON.stringify({
+    name,
+    description,
+    amount,
+    date
+  });
+  try {
+    const response = await axios.put(
+      base_url + `/api/users/${userId}/item/${itemId}`,
+      body,
+      config
+    );
+    console.log(response)
+    if (response.data.success) {
+      dispatch({
+        type: EDIT_ITEM_SUCCESS,
+        payload: response.data
+      });
+      dispatch(setAlert('A new Item was modified successfully', 'success'));
+      dispatch(getWeeklyExpense(userId));
+      dispatch(getMonthlyExpense(userId));
+      dispatch(getYearlyExpense(userId));
+    } else {
+      dispatch(setAlert(response.data.message, 'danger'));
+    }
+  } catch (error) {
+    dispatch(setAlert(error.toString(), 'danger'));
+
+    dispatch({
+      type: EDIT_ITEM_FAIL,
       payload: error.toString()
     });
   }
