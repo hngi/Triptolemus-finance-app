@@ -179,9 +179,10 @@ const clearFilter = (name) => {
                   style={{ margin: '0px auto', textAlign: 'center' }}>
                   <i className='fas fa-sign-out-alt' /> Logout
                 </Link>
-                {/* <Link to='/' className='dropdown-item'>
-                  <i className='fas fa-cog' /> Settings
-                </Link> */}
+                <Link to='/userProfile' className='dropdown-item'
+                  style={{ margin: '0px auto', textAlign: 'center' }}>
+                  <i className='fas fa-cog' /> Profile
+                </Link>
               </div>
             </li>
           </ul>
