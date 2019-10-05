@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './NotFound.css'
+import './NotFound.css';
 const NotFound = () => {
   return (
     <div className='page-wrap d-flex flex-row align-items-center'>
@@ -14,7 +14,8 @@ const NotFound = () => {
             </div>
             <div className='mb-4 title'>You can go back to the Homepage</div>
             <div className='col'>
-              <img id='imgg'
+              <img
+                id='imgg'
                 src='https://res.cloudinary.com/elijjaaahhhh/image/upload/v1569456145/Group_1_kdsaio.png'
                 alt={404}
               />

@@ -1,4 +1,8 @@
-import { SEND_MESSAGE_FAIL, SEND_MESSAGE_SUCCESS } from './types';
+import {
+  SEND_MESSAGE_FAIL,
+  SEND_MESSAGE_SUCCESS,
+  LOADING_CONTACT
+} from './types';
 import { setAlert } from './alert';
 
 import axios from 'axios';
@@ -11,6 +15,9 @@ export const contact = (
   message,
   history
 ) => async dispatch => {
+  dispatch({
+    type: LOADING_CONTACT
+  });
   const body = JSON.stringify({
     fullname,
     email,
@@ -34,7 +41,11 @@ export const contact = (
       );
       history.push('/');
     } else {
-      dispatch(setAlert(response.data.message, 'success'));
+      dispatch(setAlert(response.data.message, 'danger'));
+      dispatch({
+        type: SEND_MESSAGE_FAIL,
+        payload: response.data.message
+      });
     }
   } catch (error) {
     dispatch(setAlert(error.toString(), 'danger'));

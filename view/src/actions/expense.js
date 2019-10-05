@@ -7,13 +7,13 @@ import {
   FETCH_YEARLY_EXPENSE_FAIL
 } from './types';
 import axios from 'axios';
-import moment from 'moment'
+import moment from 'moment';
 const base_url = 'https://finance-tracker-server.herokuapp.com';
 // const base_url = 'http://localhost:3500';
 
 export const getWeeklyExpense = userId => async dispatch => {
-  const startOfWeek=moment().startOf('week')
-  const endOfWeek=moment().endOf('week')
+  const startOfWeek = moment().startOf('week');
+  const endOfWeek = moment().endOf('week');
   const body = JSON.stringify({
     startDate: startOfWeek,
     endDate: endOfWeek
@@ -26,7 +26,7 @@ export const getWeeklyExpense = userId => async dispatch => {
       base_url + `/api/users/${userId}/calculate/week`,
       body,
       config
-      );
+    );
     if (response.data.success) {
       dispatch({
         type: FETCH_WEEKLY_EXPENSE_SUCCESS,

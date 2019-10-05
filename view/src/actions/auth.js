@@ -4,6 +4,7 @@ import {
   REGISTER_SUCCESS,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
+  SIGN_IN_GOOGLE,
   CLEAR_PROFILE,
   LOGOUT,
   LOGIN_REQUIRED,
@@ -12,7 +13,9 @@ import {
   RESET_PASSWORD_FAIL,
   RESET_PASSWORD_SUCCESS,
   FETCH_PROFILE_SUCCESS,
-  FETCH_PROFILE_FAIL
+  FETCH_PROFILE_FAIL,
+  CLEAR_ITEMS
+  
 } from './types';
 import { setAlert } from './alert';
 
@@ -53,6 +56,10 @@ export const register = (
       history.push('/');
     } else {
       dispatch(setAlert(response.data.message, 'danger'));
+      dispatch({
+        type: REGISTER_FAIL,
+        payload: response.data.message
+      });
     }
   } catch (error) {
     dispatch(setAlert(error.toString(), 'danger'));
@@ -88,10 +95,15 @@ export const login = (email, password, history) => async dispatch => {
         type: LOGIN_SUCCESS,
         payload: response.data
       });
+
       dispatch(setAlert('Login was successful', 'success'));
       history.push('/dashboard');
     } else {
       dispatch(setAlert(response.data.message, 'danger'));
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: response.data.message
+      });
     }
   } catch (error) {
     dispatch(setAlert(error.toString(), 'danger'));
@@ -102,6 +114,7 @@ export const login = (email, password, history) => async dispatch => {
     });
   }
 };
+
 export const fetchProfile = userId => async dispatch => {
   try {
     const response = await axios.get(base_url + `/api/users/${userId}/profile`);
@@ -126,6 +139,9 @@ export const logout = () => dispatch => {
   dispatch({
     type: LOGOUT
   });
+  dispatch({
+    type:CLEAR_ITEMS
+  })
   dispatch(setAlert('Logout was successful', 'success'));
 };
 
@@ -223,3 +239,55 @@ export const resetPassword = (token, password, history) => async dispatch => {
   }
 };
 
+export const signInWithGoogle = (
+  username,
+  email,
+  password,
+  history
+) => async dispatch => {
+  dispatch({
+    type: LOADING
+  });
+
+  const body = JSON.stringify({
+    username,
+    email,
+    password
+  });
+  const config = {
+    headers: { 'Content-Type': 'application/json' }
+  };
+  try {
+    const response = await axios.post(
+      base_url + '/api/auth/register',
+      body,
+      config
+    );
+    if (response.data.success) {
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: response.data
+      });
+      // dispatch(setAlert('Registration was successful', 'success'));
+      // history.push('/');
+    } else if (response.data.message === 'User already exists') {
+      dispatch(login(email, password, history));
+      dispatch({
+        type: SIGN_IN_GOOGLE
+      });
+    } else {
+      dispatch(setAlert(response.data.message, 'danger'));
+      dispatch({
+        type: REGISTER_FAIL,
+        payload: response.data.message
+      });
+    }
+  } catch (error) {
+    dispatch(setAlert(error.toString(), 'danger'));
+
+    dispatch({
+      type: REGISTER_FAIL,
+      payload: error.toString()
+    });
+  }
+};

@@ -104,7 +104,7 @@ export const setYearlyBudget = (duration, budget, userId) => async dispatch => {
         type: SET_YEARLY_BUDGET_SUCCESS,
         payload: response.data
       });
-      dispatch(setAlert('Weekly Budget Set', 'success'));
+      dispatch(setAlert('Yearly Budget Set', 'success'));
     } else {
       dispatch(setAlert(response.data.message, 'danger'));
     }

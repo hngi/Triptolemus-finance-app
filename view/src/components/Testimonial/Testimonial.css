@@ -1,0 +1,57 @@
+
+body {
+  background: #f4f8fc;
+  overflow-x: hidden;
+}
+
+.first-section {
+    min-height: 40vh;
+}
+
+.bg {
+    width: 650px;
+    height: 350px;
+}
+
+
+.two {
+    background: rgba(2, 225, 184, 0.05);
+}
+
+.item {
+    position: relative;
+    left:100px
+}
+
+.m1,
+.m2 {
+    width: 200px;
+    height: 200px;
+    margin:30px 30px;
+
+}
+
+.btn {
+    background-color: #022CE1;
+}
+
+.desc {
+    color: #022CE1;
+}
+
+.pad{
+    padding: 0 100px;
+}
+
+footer {
+    background-color: #022CE1;
+}
+
+footer ul li {
+    list-style-type: none;
+    color: rgb(184, 178, 178);
+}
+
+footer p {
+    margin-left: 38px;
+}

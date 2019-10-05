@@ -14,7 +14,8 @@ import {
   RESET_PASSWORD_SUCCESS,
   SET_WEEKLY_BUDGET_SUCCESS,
   SET_MONTHLY_BUDGET_SUCCESS,
-  SET_YEARLY_BUDGET_SUCCESS
+  SET_YEARLY_BUDGET_SUCCESS,
+  SIGN_IN_GOOGLE
 } from '../actions/types';
 
 const initialState = {
@@ -23,7 +24,8 @@ const initialState = {
   loading: false,
   user: null,
   profile: {},
-  expenses: {}
+  expenses: {},
+  isSignedInWithGoogle: false
 };
 export default function(state = initialState, action) {
   const { type, payload } = action;
@@ -141,6 +143,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: false
+      };
+    case SIGN_IN_GOOGLE:
+      return {
+        ...state,
+        loading: false,
+        isSignedInWithGoogle:true
       };
 
     default:
