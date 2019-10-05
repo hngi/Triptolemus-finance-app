@@ -10,17 +10,18 @@ html {
     font-family: 'Raleway', sans-serif;
 }
 
-.mini-form {
+.expens-mini-form {
     display: flex;
     flex-flow: row wrap;
 }
 
-.mini-form>div>label {
+
+.expens-mini-form>div>label {
     margin: 2.5px 5px;
     font-size: 16px;
 }
 
-.mini-form>div>input {
+.expens-mini-form>div>input {
     margin: 2.5px 5px;
     vertical-align: middle;
     padding: 5px 7px;
@@ -28,8 +29,7 @@ html {
     color: #000;
     background-color: #fff;
 }
-
-button {
+.expense-mini-btn {
     margin: 0 5px;
     padding: 5px 7px;
     width: 130px;
@@ -41,32 +41,30 @@ button {
     outline: none;
     border-radius: 3px;
 }
-
-button:last-child {
+.expense-mini-btn:last-child {
     background-color: red;
 }
 
 
 /* RESPOSIVENESS */
 
-@media (max-width: 1330px) {
-    .mini-form>input {
+@media (min-width: 1330px) {
+    .expens-mini-form>input {
         width: 170px;
     }
 }
 
-@media (max-width: 1260px) {
-    .mini-form>input {
+@media (min-width: 1260px) {
+    .expens-mini-form>input {
         width: 150px;
     }
 }
-
-@media (max-width: 600px) {
-    .mini-form {
+@media only screen and (max-width: 600px) {
+    .expens-mini-form {
         align-items: center;
         padding: 2em;
     }
-    .button {
+    .expense-mini-btn {
         margin: 1em auto;
     }
 }
