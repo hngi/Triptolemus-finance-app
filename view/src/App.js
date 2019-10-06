@@ -23,6 +23,7 @@ const App = () => {
           <Route exact path='/forgot' component={Forgot} />
           <Route exact path='/check-email' component={CheckEmail}/>
         <Route exact path='/reset-password/:header/:payload/:signature' component={ResetPassword} />
+        <Route exact path='/userProfile' component={userProfile}/>
         
           <Routes />
         </Switch>
