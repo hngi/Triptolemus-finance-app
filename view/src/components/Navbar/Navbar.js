@@ -47,6 +47,11 @@ https://res.cloudinary.com/busola/image/upload/c_scale,h_35,w_175/v1569398282/Lo
             </Link>
           </li>
           <li className='nav-item'>
+            <Link className='nav-link' to='/about'>
+              About
+            </Link>
+          </li>
+          <li className='nav-item'>
             <Link className='nav-link' to='/contact'>
               Contact
             </Link>
