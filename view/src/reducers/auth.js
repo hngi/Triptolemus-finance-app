@@ -8,6 +8,8 @@ import {
   LOGIN_REQUIRED,
   FETCH_PROFILE_SUCCESS,
   FETCH_PROFILE_FAIL,
+  EDIT_PROFILE_SUCCESS,
+  EDIT_PROFILE_FAIL,
   REQUEST_PASSWORD_RESET_FAIL,
   REQUEST_PASSWORD_RESET_SUCCESS,
   RESET_PASSWORD_FAIL,
@@ -56,6 +58,29 @@ export default function(state = initialState, action) {
         profile: payload
       };
     case FETCH_PROFILE_FAIL:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        profile: {}
+      };
+    case EDIT_PROFILE_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: true,
+        loading: false,
+        profile: {
+          weekly_budget: state.profile.weekly_budget,
+          monthly_budget: state.profile.monthly_budget,
+          yearly_budget: state.profile.yearly_budget,
+          firstname: payload.first_name,
+          lastname: payload.last_name,
+          phoneNumber: payload.phone_number,
+          gender: payload.gender,
+          dateOfBirth: payload.date_of_birth
+        }
+      };
+    case EDIT_PROFILE_FAIL:
       return {
         ...state,
         isAuthenticated: true,
@@ -148,7 +173,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        isSignedInWithGoogle:true
+        isSignedInWithGoogle: true
       };
 
     default:

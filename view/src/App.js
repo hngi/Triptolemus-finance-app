@@ -10,6 +10,7 @@ import Dashboard from './containers/Dashboard/Dashboard';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import Forgot from './components/Forgot/Forgot';
 import CheckEmail from './components/CheckEmail/CheckEmail';
+import Profile from './containers/Profile/Profile';
 const App = () => {
   return (
     <Provider store={store}>
@@ -23,7 +24,7 @@ const App = () => {
           <Route exact path='/forgot' component={Forgot} />
           <Route exact path='/check-email' component={CheckEmail}/>
         <Route exact path='/reset-password/:header/:payload/:signature' component={ResetPassword} />
-        <Route exact path='/userProfile' component={userProfile}/>
+        <Route exact path='/profile' component={Profile}/>
         
           <Routes />
         </Switch>

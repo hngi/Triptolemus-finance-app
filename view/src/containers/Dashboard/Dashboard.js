@@ -419,9 +419,9 @@ const Dashboard = ({
                   style={{ margin: '0px auto', textAlign: 'center' }}>
                   <i className='fas fa-sign-out-alt' /> Logout
                 </Link>
-                <Link to='/userProfile' className='dropdown-item'
+                <Link to='/profile' className='dropdown-item'
                   style={{ margin: '0px auto', textAlign: 'center' }}>
-                  <i className='fas fa-cog' /> Profile
+                  <i className='fas fa-user' /> Profile
                 </Link>
               </div>
             </li>
