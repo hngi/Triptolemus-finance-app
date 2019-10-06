@@ -115,10 +115,8 @@ export const getExpenseReport = (innerHTML, userId) => async dispatch => {
       body,
       config
     );
-    console.log(response.data);
 
     if (response.data.success) {
-      console.log('successful');
       let win = window.open(
         base_url +
           `/api/users/${userId}/expense/report/${response.data.fileName}`,
@@ -126,9 +124,7 @@ export const getExpenseReport = (innerHTML, userId) => async dispatch => {
       );
       win.focus();
     } else {
-      console.log('was not successful');
     }
   } catch (error) {
-    console.log('was not successful');
   }
 };

@@ -476,12 +476,9 @@ router.put('/api/users/:userId/item/:itemId', async (req, res) => {
 });
 
 router.delete('/api/users/:userId/items/:itemId', async (req, res) => {
-  console.log(req);
   try {
     const { userId, itemId } = req.params;
     Item.findOneAndDelete({ _id: itemId }, (err, res) => {
-      console.log(res);
-      console.log(err);
     });
 
     return res
@@ -495,25 +492,20 @@ router.delete('/api/users/:userId/items/:itemId', async (req, res) => {
 });
 
 router.post('/api/users/:userId/items/delete', async (req, res) => {
-  console.log(req.body);
   try {
     const { userId } = req.params;
     const { items } = req.body;
-    console.log(items);
     if (items == undefined || items == null || items.length == 0) {
       return res.status(200).json({ success: false, message: 'Empty Request' });
     }
     items.forEach(element => {
       Item.findOneAndDelete({ _id: element }, (err, res) => {
-        console.log(res);
-        console.log(err);
       });
     });
     return res
       .status(200)
       .json({ success: true, message: items.length + ' Item(s) Deleted' });
   } catch (error) {
-    console.log(error);
     return res
       .status(200)
       .json({ success: false, message: 'Could not Delete Items' });
@@ -524,7 +516,6 @@ router.post('/api/users/:userId/expense/report', async (req, res) => {
   try {
     const { innerHTML } = req.body;
     const { userId } = req.params;
-    console.log(innerHTML);
     var client = new pdfcrowd.HtmlToPdfClient(
       'triptolemus',
       'bfb9e262e4fcf3096b5adffbadffd62e'
@@ -538,7 +529,6 @@ router.post('/api/users/:userId/expense/report', async (req, res) => {
       if (err) {
         console.error('Pdfcrowd Error: ' + err);
       }
-      console.log('Success: the file was created ' + fileName);
     });
     res.status(200).json({
       success: true,
@@ -546,7 +536,6 @@ router.post('/api/users/:userId/expense/report', async (req, res) => {
       fileName: userId + '_expense.pdf'
     });
   } catch (error) {
-    console.log(error);
     res.status(200).json({ success: false, message: error.toString() });
   }
 });

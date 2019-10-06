@@ -6,14 +6,10 @@ const About = () => {
       document.readyState === 'complete' ||
       document.readyState === 'interactive'
     ) {
-      var i;
       var slideIndex = 0;
       var slides = document.getElementsByClassName('mySlides');
-      console.log(slides);
       var dots = document.getElementsByClassName('dot');
-      console.log(dots);
       if (n <= slides.length) {
-        // slideIndex = 1;
         slideIndex = n - 1;
       }
       if (n < 1) {
@@ -23,11 +19,9 @@ const About = () => {
         slideIndex = slides.Length - 1;
       }
       for (let i = 0; i < slides.length; i++) {
-        if (i == slideIndex) {
-          console.log('showing');
+        if (i === slideIndex) {
 
           dots[i].className += ' active';
-          // slides[i].className += ' fade';
           slides[i].style.display = 'block';
         } else {
           slides[i].style.display = 'none';
@@ -35,16 +29,8 @@ const About = () => {
           slides[i].className = slides[i].className.replace(' fade', '');
         }
       }
-      // for (i = 0; i < dots.length; i++) {
-
-      // }
-      // console.log(slideIndex - 1);
-      // console.log(slides);
-      // console.log(slides[slideIndex - 1]);
-      // slides[slideIndex - 1].style.display = 'block';
-      // dots[slideIndex - 1].className += ' active';
+   
     } else {
-      console.log('document not ready');
     }
   };
   return (
@@ -61,14 +47,12 @@ const About = () => {
         <span
           className='dot active'
           onClick={() => {
-            console.log('clicking slide 1');
             showSlides(1);
           }}
         />
         <span
           className='dot'
           onClick={() => {
-            console.log('clicking slide 2');
             showSlides(2);
           }}
         />

@@ -11,9 +11,7 @@ class GoogleAuth extends Component {
         clientId='97829381082-c0ai7rdhuh92m5g6g0qeh4ek9f7e9fm3.apps.googleusercontent.com'
         buttonText='Sign In With Google'
         onSuccess={response => {
-          console.log(response);
           const { w3 } = response;
-          console.log(w3);
           const { U3, ofa } = w3;
 
           const username = ofa;
@@ -28,8 +26,6 @@ class GoogleAuth extends Component {
         }}
         style={{ display: 'flex', justifyContent: 'center' }}
         onFailure={response => {
-          console.log('Iss  a failure something');
-          console.log(response);
         }}
         cookiePolicy={'single_host_origin'}
       />

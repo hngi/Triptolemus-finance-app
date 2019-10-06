@@ -101,18 +101,6 @@ const Dashboard = ({
       setFilters({ ...filters, [e.target.name]: e.target.value });
     }
   };
-  const clearFilter = name => {
-    document.getElementsByName(name)[0].value = '';
-    if (name.includes('PriceFilter')) {
-      if (name === 'minimumPriceFilter') {
-        setFilters({ ...filters, [name]: 0 });
-      } else if (name === 'maximumPriceFilter') {
-        setFilters({ ...filters, [name]: Infinity });
-      }
-    } else {
-      setFilters({ ...filters, [name]: '' });
-    }
-  };
 
   const dashboardStyles = {
     navbar: { marginLeft: '0px', opacity: '1.5', backgroundColor: '#022ec1' },
@@ -1219,7 +1207,6 @@ const Dashboard = ({
                   items.items === undefined
                     ? null
                     : items.items.map(item => {
-                        console.log(item);
                         return (
                           <tr key={item._id}>
                             <td
@@ -1280,7 +1267,6 @@ const Dashboard = ({
 
 // Accepts a Date object or date string that is recognized by the Date.parse() method
 const formatDate = date => {
-  console.log(date);
   var item_date = new Date(date);
   const ddd = isNaN(item_date.getDay())
     ? null

@@ -43,7 +43,6 @@ export const getItems = (startDate, endDate, userId) => async dispatch => {
         payload: response.data
       });
     } else {
-      console.log(response)
       dispatch(setAlert(response.data.message, 'danger'));
       dispatch({
         type: GET_ITEMS_FAIL,
@@ -51,7 +50,6 @@ export const getItems = (startDate, endDate, userId) => async dispatch => {
       });
     }
   } catch (error) {
-    console.log(error)
     dispatch({
       type: GET_ITEMS_FAIL,
       payload: error.toString()
@@ -128,7 +126,6 @@ export const editItem = (
       body,
       config
     );
-    console.log(response)
     if (response.data.success) {
       dispatch({
         type: EDIT_ITEM_SUCCESS,
@@ -152,7 +149,6 @@ export const editItem = (
 };
 
 export const deleteItem = (userId,itemId) => async (dispatch,getState) => {
-  console.log('trying to delete ' + itemId)
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -166,7 +162,6 @@ export const deleteItem = (userId,itemId) => async (dispatch,getState) => {
   if (response.data.success){
     dispatch(setAlert(response.data.message,'success'))
     let new_items = getState().item.items.items.filter(function(value){
-      console.log(value)
       return value._id !== itemId
     })
     dispatch({
@@ -187,12 +182,9 @@ export const deleteItem = (userId,itemId) => async (dispatch,getState) => {
 
 export const deleteSelectedItems = (userId,items) => async (dispatch,getState)=> {
  
-  console.log('trying to delete selected items')
-  console.log(items)
   const body = JSON.stringify({
     "items":items
   });
-  console.log(body)
   const config = {
     headers: {
       'Content-Type': 'application/json'
@@ -207,7 +199,6 @@ export const deleteSelectedItems = (userId,items) => async (dispatch,getState)=>
   if (response.data.success){
     dispatch(setAlert(response.data.message,'success'))
     let new_items = getState().item.items.items.filter(function(item){
-      console.log(item)
       return !items.includes(item._id)
     })
     dispatch({
