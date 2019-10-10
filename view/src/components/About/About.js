@@ -38,8 +38,8 @@ const About = () => {
       <div className='mt-5'>
         <header className='center mb-2'>
           <h1 style={{ margin: '0 auto' }}>
-            TriptoTracker helps hundreds of thousands people <br />
-            worldwide to keep track of their spending.
+            TriptoTracker helps people <br />
+            keep track of their spending.
           </h1>
         </header>
       </div>
