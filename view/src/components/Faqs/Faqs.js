@@ -9,7 +9,7 @@ const Faqs = () => {
             Frequently Asked Questions
           </h2>
           <div id='accordion'>
-            <div className='card'>
+            <div className='cardd'>
               <div className='card-header'>
                 <h5 className='panel-title'>
                   <a
@@ -30,7 +30,7 @@ const Faqs = () => {
               </div>
             </div>
 
-            <div className='card'>
+            <div className='cardd'>
               <div className='card-header'>
                 <h5 className='panel-title'>
                   <a
@@ -51,7 +51,7 @@ const Faqs = () => {
               </div>
             </div>
 
-            <div className='card'>
+            <div className='cardd'>
               <div className='card-header'>
                 <h5 className='panel-title'>
                   <a
@@ -70,7 +70,7 @@ const Faqs = () => {
               </div>
             </div>
 
-            <div className='card'>
+            <div className='cardd'>
               <div className='card-header'>
                 <h5 className='panel-title'>
                   <a
@@ -91,7 +91,7 @@ const Faqs = () => {
               </div>
             </div>
 
-            <div className='card'>
+            <div className='cardd'>
               <div className='card-header'>
                 <h5 className='panel-title'>
                   <a
